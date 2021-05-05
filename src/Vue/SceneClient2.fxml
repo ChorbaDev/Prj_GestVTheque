@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="312.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../Images/background.png" />
+         </image>
+      </ImageView>
+      <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox opacity="0.33" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffff;" BorderPane.alignment="CENTER" />
+         </left>
+         <top>
+            <HBox opacity="0.33" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="103.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/logoBlack.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </top>
+         <bottom>
+            <HBox opacity="0.33" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER" />
+         </bottom>
+         <right>
+            <AnchorPane prefHeight="600.0" prefWidth="249.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView layoutY="35.0" prefHeight="363.0" prefWidth="249.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+                    <columns>
+                      <TableColumn prefWidth="126.0" text="Produit" />
+                      <TableColumn prefWidth="60.0" text="Quantité" />
+                        <TableColumn prefWidth="62.0" text="Prix Total" />
+                    </columns>
+                  </TableView>
+                  <Pane layoutY="398.0" opacity="0.33" prefHeight="202.0" prefWidth="249.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="398.0" />
+                  <HBox alignment="CENTER" layoutY="2.0" opacity="0.33" prefHeight="35.0" prefWidth="249.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="565.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="185.0" text="Mon Panier">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

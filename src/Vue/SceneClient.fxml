@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -116,7 +115,7 @@
             </ImageView>
             <Label text="Bonjour, ">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="Segoe UI Bold" size="18.0" />
                </font>
                <HBox.margin>
                   <Insets left="570.0" top="50.0" />
@@ -124,7 +123,7 @@
             </Label>
             <Label text="Nom">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="Segoe UI Bold" size="18.0" />
                </font>
                <HBox.margin>
                   <Insets top="50.0" />
@@ -132,37 +131,64 @@
             </Label>
          </children>
       </HBox>
-      <AnchorPane layoutX="786.0" layoutY="100.0" prefHeight="600.0" prefWidth="426.0" style="-fx-border-color: white;" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+      <AnchorPane layoutX="966.0" layoutY="100.0" prefHeight="600.0" prefWidth="234.0" style="-fx-border-color: white;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="966.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <children>
-            <TableView prefHeight="443.0" prefWidth="426.0" AnchorPane.rightAnchor="0.0">
+            <TableView prefHeight="443.0" prefWidth="234.0" AnchorPane.bottomAnchor="156.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Produit" />
-                <TableColumn prefWidth="229.0" text="Description" />
-                  <TableColumn minWidth="0.0" prefWidth="55.0" text="Quantité" />
-                  <TableColumn prefWidth="66.0" text="Prix" />
+                <TableColumn prefWidth="99.0" text="Produit" />
+                  <TableColumn minWidth="0.0" prefWidth="54.0" text="Quantité" />
+                  <TableColumn prefWidth="78.0" text="Prix Total" />
               </columns>
             </TableView>
-            <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="484.0" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Modifier Quantité" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </JFXButton>
-            <Spinner editable="true" layoutX="171.0" layoutY="487.0" prefHeight="25.0" prefWidth="91.0" />
-            <JFXButton buttonType="RAISED" layoutX="15.0" layoutY="537.0" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Retirer le produit" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </JFXButton>
-            <Label layoutX="241.0" layoutY="567.0" text="Montant total :" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="371.0" layoutY="568.0" text="0.00" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
+            <HBox layoutY="443.0" prefHeight="90.0" prefWidth="234.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="442.0">
+               <children>
+                  <VBox prefHeight="89.0" prefWidth="152.0">
+                     <children>
+                        <JFXButton alignment="CENTER" buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Retirer le produit" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Modifier Quantité" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="61.0" prefWidth="69.0">
+                     <children>
+                        <Spinner editable="true" prefHeight="25.0" prefWidth="62.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="10.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_RIGHT" layoutY="533.0" prefHeight="61.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="538.0">
+               <children>
+                  <Label text="Montant total :" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="0.00€" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
       <HBox layoutX="-6.0" layoutY="700.0" opacity="0.33" prefHeight="107.0" prefWidth="1215.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="0.0" />
