@@ -192,14 +192,5 @@
          </children>
       </AnchorPane>
       <HBox layoutX="-6.0" layoutY="700.0" opacity="0.33" prefHeight="107.0" prefWidth="1215.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="0.0" />
-      <TableView layoutX="170.0" layoutY="100.0" prefHeight="519.0" prefWidth="568.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Type" />
-            <TableColumn prefWidth="101.0" text="Produit" />
-          <TableColumn prefWidth="209.0" text="Description" />
-            <TableColumn prefWidth="91.0" text="Stock" />
-            <TableColumn prefWidth="91.0" text="Prix" />
-        </columns>
-      </TableView>
    </children>
 </AnchorPane>
