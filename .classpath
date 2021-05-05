@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="/Prj_GestVTheque/src"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry exported="true" kind="src" path="/Prj_GestVTheque/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mysql-connector-java-5.1.38-bin"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jfoenix-8.0.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/lib"/>
+	<classpathentry kind="output" path="/bin"/>
 </classpath>
