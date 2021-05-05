@@ -15,12 +15,12 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="500.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../background.png" />
+            <Image url="@../Images/background.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="650.0" fitWidth="500.0" layoutX="397.0" layoutY="69.0" opacity="0.33" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0">
          <image>
-            <Image url="@../../insc.png" />
+            <Image url="@../Images/insc.png" />
          </image>
       </ImageView>
       <Label layoutX="350.0" layoutY="14.0" text="Modifier Vos info" textFill="WHITE">
@@ -63,7 +63,7 @@
       </JFXPasswordField>
       <ImageView fitHeight="229.0" fitWidth="210.0" layoutX="622.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../Photo-non-disponible.jpg" />
+            <Image url="@../Images/Photo-non-disponible.jpg" />
          </image>
       </ImageView>
       <JFXButton layoutX="652.0" layoutY="408.0" prefHeight="27.0" prefWidth="173.0" style="-fx-background-color: #6B0504; -fx-text-fill: white; -fx-background-radius: 100;" text="Modifier votre image">
