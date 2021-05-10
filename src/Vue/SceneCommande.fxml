@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.DatePicker?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="312.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -23,15 +29,55 @@
       </ImageView>
       <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox opacity="0.33" prefHeight="600.0" prefWidth="143.0" style="-fx-background-color: #ffff;" BorderPane.alignment="CENTER" />
+            <VBox opacity="0.33" prefHeight="600.0" prefWidth="143.0" style="-fx-background-color: #ffff;" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="BD">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="Dictionnaire">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="Manuel scolaire">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="Roman">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="CD">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="DVD">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXToggleButton prefHeight="58.0" prefWidth="143.0" text="Disponibilité" toggleColor="WHITE" toggleLineColor="#6b0504" unToggleColor="WHITE">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </JFXToggleButton>
+               </children></VBox>
          </left>
          <top>
             <HBox opacity="0.33" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="103.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="106.0" fitWidth="224.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/logoBlack.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets left="450.0" />
+                     </HBox.margin>
                   </ImageView>
                </children>
             </HBox>
@@ -39,7 +85,204 @@
          <bottom>
             <HBox opacity="0.33" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <DatePicker />
+                  <VBox prefHeight="100.0" prefWidth="189.0">
+                     <children>
+                        <Label prefHeight="31.0" prefWidth="185.0" text="Information client :">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="21.0" prefWidth="48.0" text="Id :">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label text="IdClient">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="21.0" prefWidth="48.0" text="Nom :">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label text="nomClient">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="21.0" prefWidth="67.0" text="Prénom :">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label text="prenClient">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox layoutX="20.0" layoutY="10.0" prefHeight="100.0" prefWidth="217.0">
+                     <children>
+                        <Label prefHeight="31.0" prefWidth="196.0" text="Information Produit :">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="21.0" prefWidth="48.0" text="Id :">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label text="IdProduit">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="21.0" prefWidth="48.0" text="Nom :">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label text="nomPrd">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="21.0" prefWidth="49.0" text="Stock :">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label text="stockProduit">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="150.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="263.0">
+                     <children>
+                        <HBox prefHeight="32.0" prefWidth="216.0">
+                           <children>
+                              <JFXButton buttonType="RAISED" prefHeight="25.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Saisir Quantité">
+                                 <font>
+                                    <Font name="Segoe UI Semibold" size="12.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets top="-3.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <Spinner editable="true" prefHeight="14.0" prefWidth="85.0">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets left="25.0" />
+                                 </HBox.margin>
+                              </Spinner>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label text="Date de fin :">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <JFXDatePicker prefHeight="25.0" prefWidth="112.0">
+                                 <HBox.margin>
+                                    <Insets left="40.0" />
+                                 </HBox.margin>
+                              </JFXDatePicker>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <JFXButton buttonType="RAISED" prefHeight="19.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter au panier">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets left="55.0" top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="380.0">
+                     <children>
+                        <JFXButton buttonType="RAISED" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Liste des produits">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="160.0" top="20.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Liste des clients">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="160.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                  </VBox>
                </children></HBox>
          </bottom>
          <right>
@@ -47,7 +290,7 @@
                <children>
                   <HBox alignment="CENTER" layoutY="2.0" opacity="0.33" prefHeight="35.0" prefWidth="249.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="565.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="185.0" text="Mon Panier">
+                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="334.0" text="Panier">
                            <font>
                               <Font name="Segoe UI Semibold" size="18.0" />
                            </font>
@@ -62,42 +305,59 @@
                         <TableColumn prefWidth="74.0" text="Prix Total" />
                     </columns>
                   </TableView>
-                  <Pane layoutY="398.0" opacity="0.33" prefHeight="202.0" prefWidth="249.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="398.0">
+                  <Pane layoutY="400.0" opacity="0.33" prefHeight="200.0" prefWidth="296.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="398.0">
                      <children>
-                        <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="14.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Retirer le Produit">
+                        <JFXButton buttonType="RAISED" layoutX="73.0" layoutY="14.0" prefHeight="32.0" prefWidth="151.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Retirer le Produit">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="53.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier la Quantité">
+                        <JFXButton buttonType="RAISED" layoutX="201.0" layoutY="164.0" prefWidth="85.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Valider">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" layoutX="206.0" layoutY="164.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Continuer">
-                           <font>
-                              <Font name="Segoe UI Semibold" size="14.0" />
-                           </font>
-                        </JFXButton>
-                        <Label layoutX="111.0" layoutY="130.0" text="Montant Total : ">
+                        <Label layoutX="16.0" layoutY="130.0" text="Montant Total : ">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="213.0" layoutY="130.0" text="0.00€">
+                        <Label layoutX="129.0" layoutY="130.0" text="0.00€">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="164.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Annuler">
+                        <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="164.0" prefWidth="85.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Annuler">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </JFXButton>
+                        <Label layoutX="16.0" layoutY="101.0" text="Réduction : ">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="120.0" layoutY="101.0" text="0 %">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="14.0" />
+                           </font>
+                        </Label>
+                        <JFXToggleButton layoutX="186.0" layoutY="101.0" prefHeight="58.0" prefWidth="112.0" text="Facture" toggleColor="WHITE" toggleLineColor="#6b0504" unToggleColor="WHITE" />
                      </children></Pane>
                </children>
             </AnchorPane>
          </right>
+         <center>
+            <ScrollPane opacity="0.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <content>
+                  <GridPane prefHeight="0.0" prefWidth="17.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>
