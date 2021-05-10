@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -76,9 +77,37 @@
                         <Image url="@../Images/logoBlack.png" />
                      </image>
                      <HBox.margin>
-                        <Insets left="450.0" />
+                        <Insets left="450.0" right="230.0" />
                      </HBox.margin>
                   </ImageView>
+                  <HBox prefHeight="101.0" prefWidth="232.0">
+                     <children>
+                        <Label>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="52.0" />
+                           </HBox.margin>
+                        </Label>
+                        <JFXTextField focusColor="#6b0504" labelFloat="true" prefHeight="31.0" prefWidth="215.0" promptText="Mail du client ">
+                           <HBox.margin>
+                              <Insets top="52.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <JFXButton buttonType="RAISED" prefHeight="32.0" prefWidth="132.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Rechercher">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="55.0" />
+                     </HBox.margin>
+                  </JFXButton>
                </children>
             </HBox>
          </top>
