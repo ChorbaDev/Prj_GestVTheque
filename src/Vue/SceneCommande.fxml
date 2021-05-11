@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -80,7 +80,7 @@
                         <Insets left="450.0" right="230.0" />
                      </HBox.margin>
                   </ImageView>
-                  <HBox prefHeight="101.0" prefWidth="232.0">
+                  <HBox prefHeight="101.0" prefWidth="325.0">
                      <children>
                         <Label>
                            <font>
@@ -90,142 +90,20 @@
                               <Insets top="52.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXTextField focusColor="#6b0504" labelFloat="true" prefHeight="31.0" prefWidth="215.0" promptText="Mail du client ">
+                        <JFXComboBox labelFloat="true" prefHeight="31.0" prefWidth="266.0" promptText="Client" style="-fx-font-size: 15;">
                            <HBox.margin>
-                              <Insets top="52.0" />
+                              <Insets top="65.0" />
                            </HBox.margin>
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </JFXTextField>
+                        </JFXComboBox>
                      </children>
                   </HBox>
-                  <JFXButton buttonType="RAISED" prefHeight="32.0" prefWidth="132.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Rechercher">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="55.0" />
-                     </HBox.margin>
-                  </JFXButton>
                </children>
             </HBox>
          </top>
          <bottom>
             <HBox opacity="0.33" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="100.0" prefWidth="189.0">
-                     <children>
-                        <Label prefHeight="31.0" prefWidth="185.0" text="Information client :">
-                           <font>
-                              <Font size="21.0" />
-                           </font>
-                        </Label>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label prefHeight="21.0" prefWidth="48.0" text="Id :">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label text="IdClient">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label prefHeight="21.0" prefWidth="48.0" text="Nom :">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label text="nomClient">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label prefHeight="21.0" prefWidth="67.0" text="Prénom :">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label text="prenClient">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox layoutX="20.0" layoutY="10.0" prefHeight="100.0" prefWidth="217.0">
-                     <children>
-                        <Label prefHeight="31.0" prefWidth="196.0" text="Information Produit :">
-                           <font>
-                              <Font size="21.0" />
-                           </font>
-                        </Label>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label prefHeight="21.0" prefWidth="48.0" text="Id :">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label text="IdProduit">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label prefHeight="21.0" prefWidth="48.0" text="Nom :">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label text="nomPrd">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label prefHeight="21.0" prefWidth="49.0" text="Stock :">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label text="stockProduit">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <HBox.margin>
-                        <Insets left="150.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox prefHeight="100.0" prefWidth="263.0">
+                  <VBox prefHeight="100.0" prefWidth="423.0">
                      <children>
                         <HBox prefHeight="32.0" prefWidth="216.0">
                            <children>
@@ -240,7 +118,7 @@
                                     <Insets top="-3.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <Spinner editable="true" prefHeight="14.0" prefWidth="85.0">
+                              <Spinner editable="true" prefHeight="25.0" prefWidth="96.0">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -258,7 +136,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label text="Date de fin :">
+                              <Label prefHeight="21.0" prefWidth="104.0" text="Date de fin :">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -266,7 +144,7 @@
                                     <Insets top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <JFXDatePicker prefHeight="25.0" prefWidth="112.0">
+                              <JFXDatePicker defaultColor="#6b0504" prefHeight="25.0" prefWidth="98.0">
                                  <HBox.margin>
                                     <Insets left="40.0" />
                                  </HBox.margin>
@@ -289,10 +167,10 @@
                         </JFXButton>
                      </children>
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="400.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox prefHeight="100.0" prefWidth="380.0">
+                  <VBox prefHeight="100.0" prefWidth="361.0">
                      <children>
                         <JFXButton buttonType="RAISED" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Liste des produits">
                            <font>
@@ -315,7 +193,7 @@
                </children></HBox>
          </bottom>
          <right>
-            <AnchorPane prefHeight="600.0" prefWidth="296.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="599.0" prefWidth="320.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" layoutY="2.0" opacity="0.33" prefHeight="35.0" prefWidth="249.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="565.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -326,12 +204,12 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TableView layoutY="35.0" prefHeight="363.0" prefWidth="249.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+                  <TableView layoutY="34.0" prefHeight="369.0" prefWidth="296.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
                     <columns>
-                      <TableColumn prefWidth="119.0" text="Produit" />
-                      <TableColumn prefWidth="56.0" text="Quantité" />
-                        <TableColumn prefWidth="46.0" text="Durée" />
-                        <TableColumn prefWidth="74.0" text="Prix Total" />
+                      <TableColumn prefWidth="108.0" text="Produit" />
+                      <TableColumn prefWidth="82.0" text="Quantité" />
+                        <TableColumn prefWidth="53.0" text="Durée" />
+                        <TableColumn prefWidth="76.0" text="Prix Total" />
                     </columns>
                   </TableView>
                   <Pane layoutY="400.0" opacity="0.33" prefHeight="200.0" prefWidth="296.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="398.0">

@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="228.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -33,28 +32,28 @@
             </TableView>
             <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="212.0" layoutY="475.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier le produit">
+                  <JFXButton buttonType="RAISED" layoutX="107.0" layoutY="430.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier le produit">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="213.0" layoutY="531.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter le produit">
+                  <JFXButton buttonType="RAISED" layoutX="108.0" layoutY="486.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter le produit">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXComboBox focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="162.0" prefHeight="25.0" prefWidth="303.0" promptText="Type produit" unFocusColor="#6b0504" />
-                  <JFXTextField focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="240.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom du produit" unFocusColor="#6b0504">
+                  <JFXComboBox focusColor="#6b0504" labelFloat="true" layoutX="31.0" layoutY="117.0" prefHeight="25.0" prefWidth="303.0" promptText="Type produit" unFocusColor="#6b0504" />
+                  <JFXTextField focusColor="#6b0504" labelFloat="true" layoutX="31.0" layoutY="195.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom du produit" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="318.0" prefHeight="31.0" prefWidth="303.0" promptText="Stock" unFocusColor="#6b0504">
+                  <JFXTextField focusColor="#6b0504" labelFloat="true" layoutX="31.0" layoutY="273.0" prefHeight="31.0" prefWidth="303.0" promptText="Stock" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="399.0" prefHeight="31.0" prefWidth="303.0" promptText="Prix" unFocusColor="#6b0504">
+                  <JFXTextField focusColor="#6b0504" labelFloat="true" layoutX="31.0" layoutY="354.0" prefHeight="31.0" prefWidth="303.0" promptText="Prix" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -64,6 +63,21 @@
                         <Font name="Segoe UI Semibold" size="32.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="205.0" fitWidth="234.0" layoutX="377.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../Bureau/UnivOE/S2/INFO/PROJET_POO_COO/Images/pasdispo.png" />
+                     </image>
+                  </ImageView>
+                  <JFXButton buttonType="RAISED" layoutX="414.0" layoutY="324.0" prefHeight="32.0" prefWidth="163.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Choisissez une image">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="377.0" layoutY="324.0" prefHeight="32.0" prefWidth="21.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="X">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="14.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </Pane>
             <JFXButton buttonType="RAISED" layoutX="636.0" layoutY="760.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Supprimer produit" textFill="WHITE">
