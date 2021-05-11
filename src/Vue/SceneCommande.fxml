@@ -103,7 +103,7 @@
          <bottom>
             <HBox opacity="0.33" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="100.0" prefWidth="423.0">
+                  <VBox prefHeight="100.0" prefWidth="399.0">
                      <children>
                         <HBox prefHeight="32.0" prefWidth="216.0">
                            <children>
@@ -134,7 +134,7 @@
                               <Insets top="10.0" />
                            </padding>
                         </HBox>
-                        <HBox>
+                        <HBox prefHeight="26.0" prefWidth="394.0">
                            <children>
                               <Label prefHeight="21.0" prefWidth="104.0" text="Date de fin :">
                                  <font>
