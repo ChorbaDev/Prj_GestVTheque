@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleur.EcouteurListeClients">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="228.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -21,13 +21,13 @@
       </ImageView>
       <Pane layoutX="465.0" layoutY="155.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView layoutX="636.0" layoutY="44.0" prefHeight="712.0" prefWidth="550.0">
+            <TableView fx:id="table" layoutX="636.0" layoutY="44.0" prefHeight="712.0" prefWidth="550.0">
               <columns>
-                <TableColumn prefWidth="60.0" text="ID" />
-                  <TableColumn prefWidth="138.0" text="Nom" />
-                  <TableColumn prefWidth="160.0" text="Prénom" />
-                  <TableColumn prefWidth="91.0" text="Fidélité" />
-                  <TableColumn prefWidth="101.0" text="Nb Commandes" />
+                <TableColumn fx:id="colId" prefWidth="60.0" text="ID" />
+                  <TableColumn fx:id="colNom" prefWidth="113.0" text="Nom" />
+                  <TableColumn fx:id="colPrenom" prefWidth="113.0" text="Prénom" />
+                  <TableColumn fx:id="colMail" prefWidth="210.0" text="E-Mail" />
+                  <TableColumn fx:id="colFidele" prefWidth="54.0" text="Fidélité" />
               </columns>
             </TableView>
             <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">
@@ -42,12 +42,12 @@
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextField focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="169.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom du client" unFocusColor="#6b0504">
+                  <JFXTextField fx:id="nom" focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="169.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom du client" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="263.0" prefHeight="31.0" prefWidth="303.0" promptText="Prénom du client" unFocusColor="#6b0504">
+                  <JFXTextField fx:id="prenom" focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="263.0" prefHeight="31.0" prefWidth="303.0" promptText="Prénom du client" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -57,19 +57,19 @@
                         <Font name="Segoe UI Semibold" size="32.0" />
                      </font>
                   </Label>
-                  <JFXCheckBox checkedColor="#6b0504" layoutX="136.0" layoutY="409.0" text="Fidélité">
+                  <JFXCheckBox fx:id="fidele" checkedColor="#6b0504" layoutX="136.0" layoutY="409.0" text="Fidélité">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </JFXCheckBox>
-                  <JFXTextField focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="341.0" prefHeight="31.0" prefWidth="303.0" promptText="Mail du client" unFocusColor="#6b0504">
+                  <JFXTextField fx:id="mail" focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="341.0" prefHeight="31.0" prefWidth="303.0" promptText="Mail du client" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextField>
                </children>
             </Pane>
-            <JFXButton buttonType="RAISED" layoutX="636.0" layoutY="760.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Supprimer client" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="636.0" layoutY="760.0" onAction="#supprimerClient" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Supprimer client" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
