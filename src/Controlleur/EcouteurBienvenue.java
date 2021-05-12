@@ -18,8 +18,9 @@ public class EcouteurBienvenue{
     private Scene scene;
     private String path;
 
-    public void listeProduits(){
+    public void listeProduits(ActionEvent e) throws IOException {
         path="/Vue/SceneListeProduits.fxml";
+        basculeScene(e,path);
     }
     public void listeClients(ActionEvent e) throws IOException {
         path="/Vue/SceneListeClients.fxml";
