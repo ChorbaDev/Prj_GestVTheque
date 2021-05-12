@@ -74,12 +74,12 @@
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="1036.0" layoutY="760.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Retour" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="1036.0" layoutY="760.0" onAction="#retour" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Retour" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="816.0" layoutY="760.0" prefHeight="32.0" prefWidth="190.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Ensemble des commandes" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="816.0" layoutY="760.0" onAction="#ensembleDesCommandes" prefHeight="32.0" prefWidth="190.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Ensemble des commandes" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>

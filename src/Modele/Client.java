@@ -2,6 +2,8 @@ package Modele;
 
 import javafx.beans.property.*;
 
+import java.util.Objects;
+
 public class Client {
     private IntegerProperty idClient;
     private StringProperty nomClient;
@@ -83,4 +85,9 @@ public class Client {
     public void setClientFidele(boolean clientFidele) {
         this.clientFidele.set(clientFidele);
     }
+
+    public boolean equals(Client cl) {
+        return (cl.nomClient.getValue().equals(nomClient.getValue())) && (cl.prenomClient.getValue().equals(prenomClient.getValue())) && (cl.mailClient.getValue().equals(mailClient.getValue())) && (cl.idClient.getValue().equals(idClient.getValue())) && (cl.isClientFidele()==this.isClientFidele());
+    }
+
 }
