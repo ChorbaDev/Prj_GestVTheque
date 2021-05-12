@@ -17,6 +17,13 @@ public class Client {
         this.clientFidele =new SimpleBooleanProperty(clientFidele) ;
     }
 
+    public Client(StringProperty nomClient, StringProperty prenomClient, StringProperty mailClient, BooleanProperty clientFidele) {
+        this.nomClient = nomClient;
+        this.prenomClient = prenomClient;
+        this.mailClient = mailClient;
+        this.clientFidele = clientFidele;
+    }
+
     public int getIdClient() {
         return idClient.get();
     }

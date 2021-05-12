@@ -4,11 +4,19 @@ import Modele.Client;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
+import javax.management.Notification;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -52,6 +60,9 @@ public class EcouteurListeClients implements Initializable {
         }
 
     }
+    private void viderListe() {
+        table.getItems().clear();
+    }
     public void supprimerClient() throws SQLException {
         Client clientSupprmier=table.getSelectionModel().getSelectedItem();
         ConnectionClass connectionClass=new ConnectionClass();
@@ -59,12 +70,52 @@ public class EcouteurListeClients implements Initializable {
         String sql="DELETE FROM client where idClient='"+clientSupprmier.getIdClient()+"'";
         Statement statement = connection.createStatement();
         statement.execute(sql);
-        vider();
+        viderListe();
         remplirLaListe();
     }
+    public void ajoutClient(){
 
-    private void vider() {
-        table.getItems().clear();
+    }
+    public void notifBuilder(String titre,String texte,String pathImg){
+        Image img=new Image(pathImg);
+        Notifications notifBuilder=Notifications.create()
+                .title(titre)
+                .text(texte)
+                .graphic(new ImageView(img))
+                .hideAfter(Duration.seconds(5))
+                .position(Pos.TOP_RIGHT);
+        notifBuilder.darkStyle();
+        notifBuilder.show();
+    }
+    public void modifierClient(){
+        if(!table.getSelectionModel().isEmpty()){
+            Client clientSelectionner=table.getSelectionModel().getSelectedItem();
+        }
+        else{
+            notifBuilder("Attention",
+                        "Il faut sélectionner un client pour pouvoir le modifier.",
+                        "/Images/warning.png");
+        }
+
+    }
+    public void selectionClient(){
+        viderChamps();
+        if(!table.getSelectionModel().isEmpty()){
+            Client clientSelectionner=table.getSelectionModel().getSelectedItem();
+            nom.setText(clientSelectionner.getNomClient());
+            prenom.setText(clientSelectionner.getPrenomClient());
+            mail.setText(clientSelectionner.getMailClient());
+            if(clientSelectionner.isClientFidele()){
+                fidele.setSelected(true);
+            }
+        }
+    }
+
+    private void viderChamps() {
+        mail.setText("");
+        nom.setText("");
+        prenom.setText("");
+        fidele.setSelected(false);
     }
 
     @Override
@@ -80,5 +131,6 @@ public class EcouteurListeClients implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
     }
 }
