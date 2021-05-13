@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -63,7 +64,6 @@ public class EcouteurListeClients implements Initializable {
                                   res.getBoolean("clientFidele")
                                  ));
         }
-
     }
     private void nettoyageScene() throws SQLException {
         viderChamps();
@@ -229,7 +229,7 @@ public class EcouteurListeClients implements Initializable {
         }
         os.close();
         is.close();
-        Image img=new Image("file:photo.jpg",400,300,true, true);
+        Image img=new Image("file:photo.jpg",400,300,false, true);
         return img;
     }
     private void selectionImage( Client cl) throws SQLException, IOException {
@@ -260,14 +260,33 @@ public class EcouteurListeClients implements Initializable {
     private String path;
     public void retour(ActionEvent e) throws IOException {
         path="/Vue/SceneBienvenue.fxml";
-        basculeScene(e,path);
+        root = FXMLLoader.load(getClass().getResource(path));
+        basculeScene(e);
     }
-    public void ensembleDesCommandes(ActionEvent e) throws IOException {
-        path="/Vue/SceneCommandesClient.fxml";
-        basculeScene(e,path);
+    public void ensembleDesCommandes(ActionEvent e) throws IOException, SQLException {
+        if(!table.getSelectionModel().isEmpty()){
+            path="/Vue/SceneCommandesClient.fxml";
+            Client cl=new Client(
+                    table.getSelectionModel().getSelectedItem().getIdClient(),
+                    table.getSelectionModel().getSelectedItem().getNom(),
+                    table.getSelectionModel().getSelectedItem().getPrenom(),
+                    table.getSelectionModel().getSelectedItem().getMailClient(),
+                    table.getSelectionModel().getSelectedItem().isClientFidele()
+            );
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(path));
+            loader.load();
+            EcouteurCommandesClient scene2=loader.getController();
+            Image imgClient=imageClient(cl);
+            scene2.getInfos(cl,imgClient);
+
+            root=loader.getRoot();
+            basculeScene(e);
+        }
+
+
     }
-    public void basculeScene(ActionEvent e,String pathURL) throws IOException {
-        root = FXMLLoader.load(getClass().getResource(pathURL));
+    public void basculeScene(ActionEvent e) throws IOException {
         stage=(Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

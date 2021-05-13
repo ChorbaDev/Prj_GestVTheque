@@ -1,29 +1,52 @@
 package Modele;
 
-public class Commande {
-    private String idCommande;
-    private float reduction;
+import javafx.beans.property.*;
 
-    public Commande(String idCommande, float reduction) {
-        this.idCommande = idCommande;
-        this.reduction = reduction;
+public class Commande {
+    private IntegerProperty idCommande;
+    private DoubleProperty reduction;
+    private StringProperty dateCreation;
+
+    public Commande(int idCommande, Double reduction, String dateCreation) {
+        this.idCommande = new SimpleIntegerProperty(idCommande);
+        this.reduction = new SimpleDoubleProperty(reduction);
+        this.dateCreation = new SimpleStringProperty(dateCreation);
     }
 
-    public String getIdCommande() {
+    public int getIdCommande() {
+        return idCommande.get();
+    }
+
+    public IntegerProperty idCommandeProperty() {
         return idCommande;
     }
 
-    public void setIdCommande(String idCommande) {
-        this.idCommande = idCommande;
+    public void setIdCommande(int idCommande) {
+        this.idCommande.set(idCommande);
     }
 
-    public float getReduction() {
+    public double getReduction() {
+        return reduction.get();
+    }
+
+    public DoubleProperty reductionProperty() {
         return reduction;
     }
 
-    public void setReduction(float reduction) {
-        this.reduction = reduction;
+    public void setReduction(double reduction) {
+        this.reduction.set(reduction);
     }
 
+    public String getDateCreation() {
+        return dateCreation.get();
+    }
+
+    public StringProperty dateCreationProperty() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation.set(dateCreation);
+    }
 
 }
