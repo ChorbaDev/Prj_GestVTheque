@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleur.EcouteurRealisateur">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="228.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -21,7 +21,7 @@
       </ImageView>
       <Pane layoutX="465.0" layoutY="155.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView fx:id="tblRealisateur" layoutX="636.0" layoutY="44.0" prefHeight="712.0" prefWidth="550.0">
+            <TableView fx:id="tblRealisateur" layoutX="636.0" layoutY="44.0" onMouseClicked="#selectionRealisateur" prefHeight="712.0" prefWidth="550.0">
               <columns>
                 <TableColumn fx:id="colIdRealisateur" prefWidth="89.0" text="ID" />
                   <TableColumn fx:id="colNomRealisateur" prefWidth="173.0" text="Nom" />
@@ -31,12 +31,12 @@
             </TableView>
             <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="155.0" layoutY="578.0" prefHeight="32.0" prefWidth="170.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier le réalisateurs">
+                  <JFXButton buttonType="RAISED" layoutX="155.0" layoutY="578.0" onAction="#modifierRealisateur" prefHeight="32.0" prefWidth="170.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier le réalisateurs">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="156.0" layoutY="634.0" prefHeight="32.0" prefWidth="170.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter le Réalisateurs">
+                  <JFXButton buttonType="RAISED" layoutX="156.0" layoutY="634.0" onAction="#ajoutRealisateur" prefHeight="32.0" prefWidth="170.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter le Réalisateurs">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
@@ -63,7 +63,7 @@
                   </JFXTextArea>
                </children>
             </Pane>
-            <JFXButton buttonType="RAISED" layoutX="1036.0" layoutY="760.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Retour" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="1036.0" layoutY="760.0" onAction="#retour" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Retour" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>

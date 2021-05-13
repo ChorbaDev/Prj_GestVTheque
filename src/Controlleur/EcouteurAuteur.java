@@ -92,14 +92,14 @@ public class EcouteurAuteur implements Initializable {
     private void remplirLaListe() throws SQLException {
         ConnectionClass connectionClass = new ConnectionClass();
         Connection connection = connectionClass.getConnection();
-        String sql = "SELECT idAuteur,nomAuteur,prenomAuteur,resumeAuteur FROM auteur";
+        String sql = "SELECT idAuteur,nomAuteur,prenomAuteur,resume FROM auteur";
         ResultSet res = connection.createStatement().executeQuery(sql);
         while (res.next()) {
             obList.add(new Auteur(
                     res.getInt("idAuteur"),
                     res.getString("nomAuteur"),
                     res.getString("prenomAuteur"),
-                    res.getString("resumeAuteur")
+                    res.getString("resume")
             ));
         }
     }
@@ -117,7 +117,7 @@ public class EcouteurAuteur implements Initializable {
     public void ajoutAuteur() throws SQLException {
         ConnectionClass connectionClass = new ConnectionClass();
         Connection connection = connectionClass.getConnection();
-        String sql = "SELECT nomAuteur FROM auteur WHERE resumeAuteur='" + mmoResumeAuteur.getText() + "'";
+        String sql = "SELECT nomAuteur FROM auteur WHERE resume='" + mmoResumeAuteur.getText().replace("\'","\\\'") + "'";
         Statement statement = connection.createStatement();
         if (statement.executeQuery(sql).next()) {
             notifBuilder("Attention",
@@ -125,7 +125,7 @@ public class EcouteurAuteur implements Initializable {
                     "/Images/warning.png");
             statement.close();
         } else {
-            String insertReq = "INSERT INTO auteur (nomAuteur,prenomAuteur,resumeAuteur) values (?,?,?)";
+            String insertReq = "INSERT INTO auteur (nomAuteur,prenomAuteur,resume) values (?,?,?)";
             PreparedStatement statInsert = connection.prepareStatement(insertReq);
             statInsert.setString(1, edtNomAuteur.getText());
             statInsert.setString(2, edtPrenomAuteur.getText());
@@ -171,7 +171,7 @@ public class EcouteurAuteur implements Initializable {
     private void modifierAuteurSelectionner(Auteur atr) throws SQLException, IOException {
         ConnectionClass connectionClass = new ConnectionClass();
         Connection connection = connectionClass.getConnection();
-        String sql = "update auteur set nomAuteur=? , prenomAuteur=? , resumeAuteur=? where idAuteur=?";
+        String sql = "update auteur set nomAuteur=? , prenomAuteur=? , resume=? where idAuteur=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, atr.getNom());
         statement.setString(2, atr.getPrenom());
