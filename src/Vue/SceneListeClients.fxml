@@ -32,22 +32,22 @@
             </TableView>
             <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="212.0" layoutY="475.0" onAction="#modifierClient" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier le client">
+                  <JFXButton buttonType="RAISED" layoutX="107.0" layoutY="471.0" onAction="#modifierClient" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier le client">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="213.0" layoutY="531.0" onAction="#ajoutClient" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter le client">
+                  <JFXButton buttonType="RAISED" layoutX="108.0" layoutY="527.0" onAction="#ajoutClient" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter le client">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextField fx:id="nom" focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="169.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom du client" unFocusColor="#6b0504">
+                  <JFXTextField fx:id="nom" focusColor="#6b0504" labelFloat="true" layoutX="31.0" layoutY="165.0" prefHeight="31.0" prefWidth="250.0" promptText="Nom du client" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="prenom" focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="263.0" prefHeight="31.0" prefWidth="303.0" promptText="Prénom du client" unFocusColor="#6b0504">
+                  <JFXTextField fx:id="prenom" focusColor="#6b0504" labelFloat="true" layoutX="31.0" layoutY="259.0" prefHeight="31.0" prefWidth="250.0" promptText="Prénom du client" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -57,16 +57,31 @@
                         <Font name="Segoe UI Semibold" size="32.0" />
                      </font>
                   </Label>
-                  <JFXCheckBox fx:id="fidele" checkedColor="#6b0504" layoutX="136.0" layoutY="409.0" text="Fidélité">
+                  <JFXCheckBox fx:id="fidele" checkedColor="#6b0504" layoutX="31.0" layoutY="405.0" text="Fidélité">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </JFXCheckBox>
-                  <JFXTextField fx:id="mail" focusColor="#6b0504" labelFloat="true" layoutX="136.0" layoutY="341.0" prefHeight="31.0" prefWidth="303.0" promptText="Mail du client" unFocusColor="#6b0504">
+                  <JFXTextField fx:id="mail" focusColor="#6b0504" labelFloat="true" layoutX="31.0" layoutY="337.0" prefHeight="31.0" prefWidth="250.0" promptText="Mail du client" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextField>
+                  <ImageView fx:id="image" fitHeight="225.0" fitWidth="242.0" layoutX="322.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/Photo-non-disponible.jpg" />
+                     </image>
+                  </ImageView>
+                  <JFXButton buttonType="RAISED" layoutX="363.0" layoutY="368.0" onAction="#ChoisirUneImage" prefHeight="32.0" prefWidth="160.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Choisissez une image">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="322.0" layoutY="368.0" onAction="#viderImage" prefHeight="32.0" prefWidth="27.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="X">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="14.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </Pane>
             <JFXButton buttonType="RAISED" layoutX="636.0" layoutY="760.0" onAction="#supprimerClient" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Supprimer client" textFill="WHITE">

@@ -1,29 +1,27 @@
 package Modele;
 
 import javafx.beans.property.*;
+import javafx.scene.image.Image;
 
+import java.io.FileInputStream;
 import java.util.Objects;
 
-public class Client {
+public class Client extends Personne{
     private IntegerProperty idClient;
-    private StringProperty nomClient;
-    private StringProperty prenomClient;
     private StringProperty mailClient;
     private BooleanProperty clientFidele;
 
     public Client(int idClient, String nomClient, String prenomClient, String mailClient, Boolean clientFidele) {
+        super(nomClient,prenomClient);
         this.idClient =new SimpleIntegerProperty(idClient);
-        this.nomClient =new SimpleStringProperty(nomClient) ;
-        this.prenomClient = new SimpleStringProperty(prenomClient);
         this.mailClient =new SimpleStringProperty(mailClient) ;
         this.clientFidele =new SimpleBooleanProperty(clientFidele) ;
     }
 
-    public Client(StringProperty nomClient, StringProperty prenomClient, StringProperty mailClient, BooleanProperty clientFidele) {
-        this.nomClient = nomClient;
-        this.prenomClient = prenomClient;
-        this.mailClient = mailClient;
-        this.clientFidele = clientFidele;
+    public Client(String nomClient, String prenomClient, String mailClient, Boolean clientFidele) {
+       super(nomClient,prenomClient);
+        this.mailClient =new SimpleStringProperty(mailClient) ;
+        this.clientFidele =new SimpleBooleanProperty(clientFidele) ;
     }
 
     public int getIdClient() {
@@ -36,30 +34,6 @@ public class Client {
 
     public void setIdClient(int idClient) {
         this.idClient.set(idClient);
-    }
-
-    public String getNomClient() {
-        return nomClient.get();
-    }
-
-    public StringProperty nomClientProperty() {
-        return nomClient;
-    }
-
-    public void setNomClient(String nomClient) {
-        this.nomClient.set(nomClient);
-    }
-
-    public String getPrenomClient() {
-        return prenomClient.get();
-    }
-
-    public StringProperty prenomClientProperty() {
-        return prenomClient;
-    }
-
-    public void setPrenomClient(String prenomClient) {
-        this.prenomClient.set(prenomClient);
     }
 
     public String getMailClient() {
@@ -87,7 +61,7 @@ public class Client {
     }
 
     public boolean equals(Client cl) {
-        return (cl.nomClient.getValue().equals(nomClient.getValue())) && (cl.prenomClient.getValue().equals(prenomClient.getValue())) && (cl.mailClient.getValue().equals(mailClient.getValue())) && (cl.idClient.getValue().equals(idClient.getValue())) && (cl.isClientFidele()==this.isClientFidele());
+        return (cl.nom.getValue().equals(nom.getValue())) && (cl.prenom.getValue().equals(prenom.getValue())) && (cl.mailClient.getValue().equals(mailClient.getValue())) && (cl.idClient.getValue().equals(idClient.getValue())) && (cl.isClientFidele()==this.isClientFidele()) ;
     }
 
 }

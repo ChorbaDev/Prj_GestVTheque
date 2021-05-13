@@ -34,8 +34,8 @@ public class EcouteurBienvenue{
         path="/Vue/SceneRealisateur.fxml";
         basculeScene(e,path);
     }
-    public void commender(ActionEvent e) throws IOException {
-        path="/Vue/SceneRealisateur.fxml";
+    public void commander(ActionEvent e) throws IOException {
+        path="/Vue/SceneCommande.fxml";
         basculeScene(e,path);
     }
     public void basculeScene(ActionEvent e,String pathURL) throws IOException {
