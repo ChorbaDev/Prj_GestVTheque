@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleur.EcouteurAuteur">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="228.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -21,32 +21,31 @@
       </ImageView>
       <Pane layoutX="465.0" layoutY="155.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView layoutX="636.0" layoutY="44.0" prefHeight="712.0" prefWidth="550.0">
+            <TableView fx:id="tblAuteur" layoutX="636.0" layoutY="44.0" onMouseClicked="#selectionAuteur" prefHeight="712.0" prefWidth="550.0">
               <columns>
-                <TableColumn prefWidth="89.0" text="ID" />
-                  <TableColumn prefWidth="173.0" text="Nom" />
-                  <TableColumn prefWidth="176.0" text="Prénom" />
-                  <TableColumn prefWidth="111.0" text="Nombre de Livre" />
+                <TableColumn fx:id="colIdAuteur" prefWidth="89.0" text="ID" />
+                  <TableColumn fx:id="colNomAuteur" prefWidth="173.0" text="Nom" />
+                  <TableColumn fx:id="colPrenomAuteur" prefWidth="176.0" text="Prénom" />
               </columns>
             </TableView>
             <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="155.0" layoutY="578.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier l'auteur">
+                  <JFXButton buttonType="RAISED" layoutX="155.0" layoutY="578.0" onAction="#modifierAuteur" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier l'auteur">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="156.0" layoutY="634.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter l'auteur">
+                  <JFXButton buttonType="RAISED" layoutX="156.0" layoutY="634.0" onAction="#ajoutAuteur" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter l'auteur">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextField focusColor="#6b0504" labelFloat="true" layoutX="79.0" layoutY="157.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom du auteur" unFocusColor="#6b0504">
+                  <JFXTextField fx:id="edtNomAuteur" focusColor="#6b0504" labelFloat="true" layoutX="79.0" layoutY="157.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom du auteur" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField focusColor="#6b0504" labelFloat="true" layoutX="77.0" layoutY="241.0" prefHeight="31.0" prefWidth="303.0" promptText="Prénom du auteur" unFocusColor="#6b0504">
+                  <JFXTextField fx:id="edtPrenomAuteur" focusColor="#6b0504" labelFloat="true" layoutX="77.0" layoutY="241.0" prefHeight="31.0" prefWidth="303.0" promptText="Prénom du auteur" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -56,14 +55,14 @@
                         <Font name="Segoe UI Semibold" size="32.0" />
                      </font>
                   </Label>
-                  <JFXTextArea focusColor="#6b0504" labelFloat="true" layoutX="74.0" layoutY="331.0" prefHeight="185.0" prefWidth="358.0" promptText="Résumé" unFocusColor="#6b0504">
+                  <JFXTextArea fx:id="mmoResumeAuteur" focusColor="#6b0504" labelFloat="true" layoutX="74.0" layoutY="331.0" prefHeight="185.0" prefWidth="358.0" promptText="Résumé" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextArea>
                </children>
             </Pane>
-            <JFXButton buttonType="RAISED" layoutX="1036.0" layoutY="760.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Retour" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="1036.0" layoutY="760.0" onAction="#retour" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Retour" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
