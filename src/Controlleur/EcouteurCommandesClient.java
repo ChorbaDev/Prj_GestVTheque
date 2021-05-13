@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,11 +18,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class EcouteurCommandesClient implements Initializable {
@@ -43,11 +48,38 @@ public class EcouteurCommandesClient implements Initializable {
     void ensembleProduits(ActionEvent event) {
 
     }
-
-    @FXML
-    void supprimerCommande(ActionEvent event) {
-
+    public void notifBuilder(String titre,String texte,String pathImg){
+        Image img=new Image(pathImg);
+        Notifications notifBuilder=Notifications.create()
+                .title(titre)
+                .text(texte)
+                .graphic(new ImageView(img))
+                .hideAfter(Duration.seconds(5))
+                .position(Pos.TOP_RIGHT);
+        notifBuilder.darkStyle();
+        notifBuilder.show();
     }
+    @FXML
+    void supprimerCommande(ActionEvent event) throws SQLException {
+        if(!table.getSelectionModel().isEmpty()) {
+            Commande cmdSupprimer = table.getSelectionModel().getSelectedItem();
+            ConnectionClass connectionClass = new ConnectionClass();
+            Connection connection = connectionClass.getConnection();
+            String sql = "DELETE FROM commande where idCmd="+ cmdSupprimer.getIdCommande();
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+            notifBuilder("Opération réussie",
+                    "Votre opération de suppression de la commande numero " + idCmd.getText() + " est éffectué avec succès.",
+                    "/Images/checked.png");
+        }
+        viderListe();
+        remplirLaListe();
+    }
+
+    private void viderListe() {
+        table.getItems().clear();
+    }
+
     public void getInfos(Client cl, Image img){
         idClient.setText(Integer.toString(cl.getIdClient()));
         nomClient.setText(cl.getNom());
@@ -76,14 +108,13 @@ public class EcouteurCommandesClient implements Initializable {
     private void remplirLaListe() throws SQLException {
         ConnectionClass connectionClass=new ConnectionClass();
         Connection connection=connectionClass.getConnection();
-        String sql="" +
-                "select idCmd,reduction,dateCreation from commande where idClient="+idClient.getText();
+        String sql= "select idCmd,reduction,dateCreation from commande where idClient="+idClient.getText();
         ResultSet res=connection.createStatement().executeQuery(sql);
         while( res.next() )
         {
             obList.add(new Commande(
                     res.getInt("idCmd"),
-                    res.getDouble("reduction")*10,
+                    res.getDouble("reduction"),
                     res.getString("dateCreation")
             ));
         }

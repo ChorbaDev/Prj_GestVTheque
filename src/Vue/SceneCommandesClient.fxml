@@ -22,7 +22,7 @@
             <TableView fx:id="table" layoutX="636.0" layoutY="44.0" prefHeight="712.0" prefWidth="550.0">
               <columns>
                 <TableColumn fx:id="idCmd" prefWidth="73.0" text="ID" />
-                  <TableColumn fx:id="redCmd" prefWidth="221.0" text="Réduction" />
+                  <TableColumn fx:id="redCmd" prefWidth="221.0" text="Réduction (%)" />
                   <TableColumn fx:id="dateCmd" prefWidth="255.0" text="Date création" />
               </columns>
             </TableView>
@@ -83,7 +83,7 @@
                         <Font size="28.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imgClient" fitHeight="231.0" fitWidth="235.0" layoutX="365.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgClient" fitHeight="240.0" fitWidth="235.0" layoutX="365.0" layoutY="93.0" pickOnBounds="true">
                      <image>
                         <Image url="@../Images/Photo-non-disponible.jpg" />
                      </image>
