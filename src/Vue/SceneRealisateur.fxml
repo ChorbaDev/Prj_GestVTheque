@@ -31,22 +31,22 @@
             </TableView>
             <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="155.0" layoutY="578.0" onAction="#modifierRealisateur" prefHeight="32.0" prefWidth="170.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier le réalisateurs">
+                  <JFXButton buttonType="RAISED" layoutX="155.0" layoutY="578.0" onAction="#modifierRealisateur" prefHeight="32.0" prefWidth="170.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier le réalisateur">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="156.0" layoutY="634.0" onAction="#ajoutRealisateur" prefHeight="32.0" prefWidth="170.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter le Réalisateurs">
+                  <JFXButton buttonType="RAISED" layoutX="156.0" layoutY="634.0" onAction="#ajoutRealisateur" prefHeight="32.0" prefWidth="170.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter le réalisateur">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextField fx:id="edtNomRealisateur" focusColor="#6b0504" labelFloat="true" layoutX="79.0" layoutY="157.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom du Réalisateurs" unFocusColor="#6b0504">
+                  <JFXTextField fx:id="edtNomRealisateur" focusColor="#6b0504" labelFloat="true" layoutX="79.0" layoutY="157.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom du Réalisateur" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="edtPrenomRealisateur" focusColor="#6b0504" labelFloat="true" layoutX="77.0" layoutY="241.0" prefHeight="31.0" prefWidth="303.0" promptText="Prénom du Réalisateurs" unFocusColor="#6b0504">
+                  <JFXTextField fx:id="edtPrenomRealisateur" focusColor="#6b0504" labelFloat="true" layoutX="77.0" layoutY="241.0" prefHeight="31.0" prefWidth="303.0" promptText="Prénom du Réalisateur" unFocusColor="#6b0504">
                      <font>
                         <Font size="15.0" />
                      </font>

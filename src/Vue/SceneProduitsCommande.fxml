@@ -36,42 +36,42 @@
                   </Label>
                   <Label layoutX="227.0" layoutY="164.0" text="ID :">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label layoutX="298.0" layoutY="164.0" text="idCmd">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label layoutX="132.0" layoutY="241.0" text="Réduction :">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label layoutX="298.0" layoutY="241.0" text="redCmd">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label layoutX="92.0" layoutY="316.0" prefHeight="40.0" prefWidth="190.0" text="Date création :">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label layoutX="298.0" layoutY="316.0" text="dateCreationCmd">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label layoutX="135.0" layoutY="382.0" prefHeight="40.0" prefWidth="150.0" text="Prix totale :">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label layoutX="298.0" layoutY="382.0" text="prixTotale">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                </children>

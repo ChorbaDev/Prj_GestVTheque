@@ -34,38 +34,41 @@
                <children>
                   <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="BD">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
                   <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="Dictionnaire">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
                   <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="Manuel scolaire">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
                   <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="Roman">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
                   <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="CD">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
                   <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="DVD">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
                   <JFXToggleButton prefHeight="58.0" prefWidth="143.0" text="Disponibilité" toggleColor="WHITE" toggleLineColor="#6b0504" unToggleColor="WHITE">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <font>
+                        <Font name="Segoe UI" size="12.0" />
+                     </font>
                   </JFXToggleButton>
                </children></VBox>
          </left>
@@ -138,7 +141,7 @@
                            <children>
                               <Label prefHeight="21.0" prefWidth="104.0" text="Date de fin :">
                                  <font>
-                                    <Font size="15.0" />
+                                    <Font name="Segoe UI" size="15.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets top="5.0" />
@@ -249,7 +252,10 @@
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXToggleButton layoutX="186.0" layoutY="101.0" prefHeight="58.0" prefWidth="112.0" text="Facture" toggleColor="WHITE" toggleLineColor="#6b0504" unToggleColor="WHITE" />
+                        <JFXToggleButton layoutX="186.0" layoutY="101.0" prefHeight="58.0" prefWidth="112.0" text="Facture" toggleColor="WHITE" toggleLineColor="#6b0504" unToggleColor="WHITE">
+                           <font>
+                              <Font name="Segoe UI" size="12.0" />
+                           </font></JFXToggleButton>
                      </children></Pane>
                </children>
             </AnchorPane>

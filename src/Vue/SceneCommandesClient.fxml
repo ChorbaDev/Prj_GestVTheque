@@ -35,52 +35,52 @@
                   </Label>
                   <Label layoutX="115.0" layoutY="187.0" text="ID :">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label fx:id="idClient" layoutX="186.0" layoutY="187.0" text="idClient">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label layoutX="81.0" layoutY="271.0" text="Nom :">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label fx:id="nomClient" layoutX="186.0" layoutY="271.0" text="nomClient">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label layoutX="46.0" layoutY="346.0" text="Prénom :">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label fx:id="prenomClient" layoutX="186.0" layoutY="346.0" text="prenomClient">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label layoutX="69.0" layoutY="414.0" text="E-mail :">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label fx:id="mailClient" layoutX="186.0" layoutY="414.0" text="mailClient">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label layoutX="72.0" layoutY="486.0" text="Fidéle :">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <Label fx:id="fidele" layoutX="187.0" layoutY="486.0" text="ouiNon">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                   <ImageView fx:id="imgClient" fitHeight="240.0" fitWidth="235.0" layoutX="365.0" layoutY="93.0" pickOnBounds="true">

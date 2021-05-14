@@ -44,12 +44,12 @@
                   </JFXButton>
                   <JFXTextField fx:id="nom" focusColor="#6b0504" labelFloat="true" layoutX="31.0" layoutY="165.0" prefHeight="31.0" prefWidth="250.0" promptText="Nom du client" unFocusColor="#6b0504">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="Segoe UI" size="15.0" />
                      </font>
                   </JFXTextField>
                   <JFXTextField fx:id="prenom" focusColor="#6b0504" labelFloat="true" layoutX="31.0" layoutY="259.0" prefHeight="31.0" prefWidth="250.0" promptText="Prénom du client" unFocusColor="#6b0504">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="Segoe UI" size="15.0" />
                      </font>
                   </JFXTextField>
                   <Label layoutX="14.0" layoutY="14.0" text="Clients :">
@@ -64,7 +64,7 @@
                   </JFXCheckBox>
                   <JFXTextField fx:id="mail" focusColor="#6b0504" labelFloat="true" layoutX="31.0" layoutY="337.0" prefHeight="31.0" prefWidth="250.0" promptText="Mail du client" unFocusColor="#6b0504">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="Segoe UI" size="15.0" />
                      </font>
                   </JFXTextField>
                   <ImageView fx:id="image" fitHeight="240.0" fitWidth="235.0" layoutX="365.0" layoutY="93.0" pickOnBounds="true">
