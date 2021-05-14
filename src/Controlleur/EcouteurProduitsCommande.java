@@ -1,6 +1,7 @@
 package Controlleur;
 
 import Modele.Commande;
+import Modele.ModelProduitsCommande;
 import Modele.Produit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,11 +26,13 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class EcouteurProduitsCommande implements Initializable {
-    @FXML private TableView<Produit> table;
-    @FXML private TableColumn<Produit,String> colType;
-    @FXML private TableColumn<Produit, String> colTitre;
-    @FXML private TableColumn<Produit, Float> colTarif;
-    ObservableList<Produit> obList= FXCollections.observableArrayList();
+    @FXML private TableView<ModelProduitsCommande> table;
+    @FXML private TableColumn<ModelProduitsCommande,String> colType;
+    @FXML private TableColumn<ModelProduitsCommande, String> colTitre;
+    @FXML private TableColumn<ModelProduitsCommande, Float> colTarif;
+    @FXML private TableColumn<ModelProduitsCommande, String> colDateFin;
+
+    ObservableList<ModelProduitsCommande> obList= FXCollections.observableArrayList();
     @FXML private Label idCmd;
 
     @FXML private Label prixTotale;
@@ -60,9 +63,10 @@ public class EcouteurProduitsCommande implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colType.setCellValueFactory(new PropertyValueFactory<Produit,String>("typeProduit"));
-        colTitre.setCellValueFactory(new PropertyValueFactory<Produit,String>("titreProduit"));
-        colTarif.setCellValueFactory(new PropertyValueFactory<Produit,Float>("tarifProduit"));
+        colType.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,String>("typeProduit"));
+        colTitre.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,String>("titreProduit"));
+        colTarif.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,Float>("tarifProduit"));
+        colDateFin.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,String>("dateFinLocation"));
         table.setItems(obList);
         try {
             remplirLaListe();
@@ -84,19 +88,23 @@ public class EcouteurProduitsCommande implements Initializable {
         System.out.println(prixTot);
         prixTotale.setText(Double.toString(prixTot));
     }
+    public void selectProduit(){
 
+        //dateFinLocation.setText(res.getString("dateFin"));
+    }
     private void remplirLaListe() throws SQLException {
         ConnectionClass connectionClass=new ConnectionClass();
         Connection connection=connectionClass.getConnection();
-        String sql= "select produit.type ,titreProduit,tarifJounalier from produit,concerne where produit.idProduit=concerne.idProduit and idCommande=3";
+        String sql= "select produit.type ,titreProduit,tarifJounalier,dateFin from produit,concerne where produit.idProduit=concerne.idProduit and idCommande=3";
         ResultSet res=connection.createStatement().executeQuery(sql);
         while( res.next() )
         {
-            obList.add(new Produit(
+            obList.add(new ModelProduitsCommande(
                     res.getString("titreProduit"),
                     res.getFloat("tarifJounalier"),
-                    res.getString("type")
-            ));
+                    res.getString("type"),
+                    res.getString("dateFin")
+                      ));
         }
     }
 }

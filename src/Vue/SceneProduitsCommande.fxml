@@ -19,11 +19,12 @@
       </ImageView>
       <Pane layoutX="465.0" layoutY="155.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView fx:id="table" layoutX="636.0" layoutY="44.0" prefHeight="712.0" prefWidth="550.0">
+            <TableView fx:id="table" layoutX="636.0" layoutY="44.0" onMouseClicked="#selectProduit" prefHeight="712.0" prefWidth="550.0">
               <columns>
                   <TableColumn fx:id="colType" prefWidth="104.0" text="Type" />
-                  <TableColumn fx:id="colTitre" prefWidth="344.0" text="Titre" />
-                  <TableColumn fx:id="colTarif" prefWidth="101.0" text="Tarif" />
+                  <TableColumn fx:id="colTitre" prefWidth="182.0" text="Titre" />
+                  <TableColumn fx:id="colTarif" prefWidth="134.0" text="Tarif" />
+                  <TableColumn fx:id="colDateFin" prefWidth="129.0" text="Date fin location" />
               </columns>
             </TableView>
             <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">
@@ -63,12 +64,12 @@
                         <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
-                  <Label layoutX="126.0" layoutY="384.0" prefHeight="40.0" prefWidth="150.0" text="Prix Totale :">
+                  <Label layoutX="123.0" layoutY="389.0" prefHeight="40.0" prefWidth="150.0" text="Prix Totale :">
                      <font>
                         <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
-                  <Label fx:id="prixTotale" layoutX="298.0" layoutY="387.0" text="prixTotale">
+                  <Label fx:id="prixTotale" layoutX="295.0" layoutY="392.0" text="prixTotale">
                      <font>
                         <Font name="Segoe UI" size="28.0" />
                      </font>
