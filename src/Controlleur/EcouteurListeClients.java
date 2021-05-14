@@ -86,6 +86,11 @@ public class EcouteurListeClients implements Initializable {
                     "/Images/checked.png");
             nettoyageScene();
         }
+        else{
+            notifBuilder("Attention",
+                    "Il faut sélectionner un client pour pouvoir le supprimer.",
+                    "/Images/warning.png");
+        }
     }
     public void ajoutClient() throws SQLException {
         ConnectionClass connectionClass=new ConnectionClass();
@@ -98,7 +103,7 @@ public class EcouteurListeClients implements Initializable {
                     "/Images/warning.png");
             statement.close();
         }
-        else{
+        else if(validationDesChamps()){
             int fid=fidele.isSelected()?1:0;
             String insertReq="INSERT INTO client (nomClient,prenomClient,clientFidele,pdp,mailClient) values (?,?,?,?,?)";
             PreparedStatement statInsert = connection.prepareStatement(insertReq);
@@ -123,8 +128,17 @@ public class EcouteurListeClients implements Initializable {
                     "/Images/checked.png");
             nettoyageScene();
         }
-
+    else{
+            notifBuilder("Attention",
+                    "il faut remplir tout les champs.",
+                    "/Images/warning.png");
+        }
     }
+
+    private boolean validationDesChamps() {
+        return !nom.getText().isEmpty() && !prenom.getText().isEmpty() && !mail.getText().isEmpty();
+    }
+
     public void ChoisirUneImage() throws FileNotFoundException {
         FileChooser fc = new FileChooser();
         FileChooser.ExtensionFilter ext1 = new FileChooser.ExtensionFilter("JPG files(*.jpg)","*.JPG");
@@ -283,7 +297,11 @@ public class EcouteurListeClients implements Initializable {
             root=loader.getRoot();
             basculeScene(e);
         }
-
+        else{
+            notifBuilder("Attention",
+                    "Il faut sélectionner un client pour pouvoir afficher ses commandes.",
+                    "/Images/warning.png");
+        }
 
     }
     public void basculeScene(ActionEvent e) throws IOException {

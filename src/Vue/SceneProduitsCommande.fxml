@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleur.EcouteurProduitsCommande">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="228.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -19,12 +19,11 @@
       </ImageView>
       <Pane layoutX="465.0" layoutY="155.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView layoutX="636.0" layoutY="44.0" prefHeight="712.0" prefWidth="550.0">
+            <TableView fx:id="table" layoutX="636.0" layoutY="44.0" prefHeight="712.0" prefWidth="550.0">
               <columns>
-                  <TableColumn prefWidth="150.0" text="Type" />
-                  <TableColumn prefWidth="202.0" text="Titre" />
-                  <TableColumn prefWidth="66.0" text="Tarif" />
-                  <TableColumn prefWidth="131.0" text="Nombre exemplaires" />
+                  <TableColumn fx:id="colType" prefWidth="104.0" text="Type" />
+                  <TableColumn fx:id="colTitre" prefWidth="344.0" text="Titre" />
+                  <TableColumn fx:id="colTarif" prefWidth="101.0" text="Tarif" />
               </columns>
             </TableView>
             <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">
@@ -39,7 +38,7 @@
                         <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
-                  <Label layoutX="298.0" layoutY="164.0" text="idCmd">
+                  <Label fx:id="idCmd" layoutX="298.0" layoutY="164.0" text="idCmd">
                      <font>
                         <Font name="Segoe UI" size="28.0" />
                      </font>
@@ -49,7 +48,7 @@
                         <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
-                  <Label layoutX="298.0" layoutY="241.0" text="redCmd">
+                  <Label fx:id="redCmd" layoutX="298.0" layoutY="241.0" text="redCmd">
                      <font>
                         <Font name="Segoe UI" size="28.0" />
                      </font>
@@ -59,24 +58,24 @@
                         <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
-                  <Label layoutX="298.0" layoutY="316.0" text="dateCreationCmd">
+                  <Label fx:id="dateCreationCmd" layoutX="298.0" layoutY="316.0" text="dateCreationCmd">
                      <font>
                         <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
-                  <Label layoutX="135.0" layoutY="382.0" prefHeight="40.0" prefWidth="150.0" text="Prix totale :">
+                  <Label layoutX="126.0" layoutY="384.0" prefHeight="40.0" prefWidth="150.0" text="Prix Totale :">
                      <font>
                         <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
-                  <Label layoutX="298.0" layoutY="382.0" text="prixTotale">
+                  <Label fx:id="prixTotale" layoutX="298.0" layoutY="387.0" text="prixTotale">
                      <font>
                         <Font name="Segoe UI" size="28.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <JFXButton buttonType="RAISED" layoutX="1036.0" layoutY="760.0" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Retour" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="1036.0" layoutY="760.0" onAction="#retour" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Retour" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>

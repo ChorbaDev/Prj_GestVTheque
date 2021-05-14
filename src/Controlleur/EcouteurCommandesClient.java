@@ -45,8 +45,28 @@ public class EcouteurCommandesClient implements Initializable {
     @FXML private ImageView imgClient;
 
     @FXML
-    void ensembleProduits(ActionEvent event) {
+    void ensembleProduits(ActionEvent e) throws IOException {
+        if(!table.getSelectionModel().isEmpty()) {
+            path="/Vue/SceneProduitsCommande.fxml";
+            Commande cm=new Commande(
+                    table.getSelectionModel().getSelectedItem().getIdCommande(),
+                    table.getSelectionModel().getSelectedItem().getReduction(),
+                    table.getSelectionModel().getSelectedItem().getDateCreation()
+            );
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(path));
+            loader.load();
+            EcouteurProduitsCommande scene2=loader.getController();
+            scene2.getInfos(cm);
 
+            root=loader.getRoot();
+            basculeScene(e);
+        }
+        else{
+            notifBuilder("Attention",
+                    "Il faut sélectionner une commande pour pouvoir afficher ses produits.",
+                    "/Images/warning.png");
+        }
     }
     public void notifBuilder(String titre,String texte,String pathImg){
         Image img=new Image(pathImg);
@@ -71,6 +91,11 @@ public class EcouteurCommandesClient implements Initializable {
             notifBuilder("Opération réussie",
                     "Votre opération de suppression de la commande numero " + idCmd.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
+        }
+        else{
+            notifBuilder("Attention",
+                    "Il faut sélectionner une commande pour pouvoir le supprimer.",
+                    "/Images/warning.png");
         }
         viderListe();
         remplirLaListe();
