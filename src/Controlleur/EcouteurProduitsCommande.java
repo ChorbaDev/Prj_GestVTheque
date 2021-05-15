@@ -40,13 +40,12 @@ public class EcouteurProduitsCommande implements Initializable {
     @FXML private Label redCmd;
 
     @FXML private Label dateCreationCmd;
-
     private Parent root;
     private Stage stage;
     private Scene scene;
     @FXML
     public void retour(ActionEvent e) throws IOException {
-        String pathURL="/Vue/SceneCommandesClient.fxml";
+        String pathURL="/Vue/SceneListeClients.fxml";
         root = FXMLLoader.load(getClass().getResource(pathURL));
         stage=(Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -54,11 +53,12 @@ public class EcouteurProduitsCommande implements Initializable {
         stage.show();
     }
     private double reduction=0;
-    public void getInfos(Commande cm) {
+    public void getInfos(Commande cm) throws SQLException {
         idCmd.setText(Integer.toString(cm.getIdCommande()));
         redCmd.setText(Double.toString(cm.getReduction()));
         dateCreationCmd.setText(cm.getDateCreation());
         reduction=cm.getReduction();
+        remplirLaListe();
     }
 
     @Override
@@ -68,11 +68,6 @@ public class EcouteurProduitsCommande implements Initializable {
         colTarif.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,Float>("tarifProduit"));
         colDateFin.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,String>("dateFinLocation"));
         table.setItems(obList);
-        try {
-            remplirLaListe();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
         remplirPrixTotale();
     }
 
@@ -84,18 +79,12 @@ public class EcouteurProduitsCommande implements Initializable {
         prixTot=som;
         if(!redCmd.getText().isEmpty())
         prixTot*=0.9;
-        System.out.println(som);
-        System.out.println(prixTot);
         prixTotale.setText(Double.toString(prixTot));
-    }
-    public void selectProduit(){
-
-        //dateFinLocation.setText(res.getString("dateFin"));
     }
     private void remplirLaListe() throws SQLException {
         ConnectionClass connectionClass=new ConnectionClass();
         Connection connection=connectionClass.getConnection();
-        String sql= "select produit.type ,titreProduit,tarifJounalier,dateFin from produit,concerne where produit.idProduit=concerne.idProduit and idCommande=3";
+        String sql= "select produit.type ,titreProduit,tarifJounalier,dateFin from produit,concerne where produit.idProduit=concerne.idProduit and idCommande="+idCmd.getText();
         ResultSet res=connection.createStatement().executeQuery(sql);
         while( res.next() )
         {

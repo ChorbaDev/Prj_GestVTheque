@@ -45,7 +45,7 @@ public class EcouteurCommandesClient implements Initializable {
     @FXML private ImageView imgClient;
 
     @FXML
-    void ensembleProduits(ActionEvent e) throws IOException {
+    void ensembleProduits(ActionEvent e) throws IOException, SQLException {
         if(!table.getSelectionModel().isEmpty()) {
             path="/Vue/SceneProduitsCommande.fxml";
             Commande cm=new Commande(
@@ -105,7 +105,7 @@ public class EcouteurCommandesClient implements Initializable {
         table.getItems().clear();
     }
 
-    public void getInfos(Client cl, Image img){
+    public void getInfos(Client cl, Image img) throws SQLException {
         idClient.setText(Integer.toString(cl.getIdClient()));
         nomClient.setText(cl.getNom());
         prenomClient.setText(cl.getPrenom());
@@ -113,6 +113,7 @@ public class EcouteurCommandesClient implements Initializable {
         String txt=cl.isClientFidele()?"Oui":"Non";
         fidele.setText(txt);
         imgClient.setImage(img);
+        remplirLaListe();
     }
     private Parent root;
     private Stage stage;
@@ -150,10 +151,5 @@ public class EcouteurCommandesClient implements Initializable {
         redCmd.setCellValueFactory(new PropertyValueFactory<Commande,Double>("reduction"));
         dateCmd.setCellValueFactory(new PropertyValueFactory<Commande,String>("dateCreation"));
         table.setItems(obList);
-        try {
-            remplirLaListe();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
     }
 }

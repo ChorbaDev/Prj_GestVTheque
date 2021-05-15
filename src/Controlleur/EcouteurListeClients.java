@@ -110,16 +110,8 @@ public class EcouteurListeClients implements Initializable {
             statInsert.setString(1,nom.getText());
             statInsert.setString(2,prenom.getText());
             statInsert.setInt(3,fid);
-
-            if(uneImageEstSelectionner){
                 statInsert.setBinaryStream(4,fis);
                 uneImageEstSelectionner=false;
-            }
-            else{
-                InputStream is=inputClient(new Client(nom.getText(),prenom.getText(),mail.getText(),fidele.isSelected()));
-                statInsert.setBinaryStream(4,is);
-            }
-
             statInsert.setString(5,mail.getText());
             statInsert.executeUpdate();
             statInsert.close();
@@ -150,7 +142,6 @@ public class EcouteurListeClients implements Initializable {
             image.setImage(new Image(fichierSelect.toURI().toString()));
             uneImageEstSelectionner=true;
         }
-
 
     }
     public void viderImage() throws IOException {

@@ -6,21 +6,22 @@ import javafx.scene.image.Image;
 public   class Produit {
     protected IntegerProperty idProduit;
     protected StringProperty titreProduit;
-    protected StringProperty stockProduit;
+    protected IntegerProperty stockProduit;
     protected DoubleProperty tarifProduit;
     protected StringProperty typeProduit;
 
-    public Produit(int idProduit, String titreProduit, String stockProduit, double tarifProduit,String type) {
+    public Produit(int idProduit, String titreProduit, int stockProduit, double tarifProduit,String type) {
         this.idProduit =new SimpleIntegerProperty(idProduit) ;
         this.titreProduit =new SimpleStringProperty(titreProduit);
-        this.stockProduit =new SimpleStringProperty (stockProduit);
+        this.stockProduit =new SimpleIntegerProperty (stockProduit);
         this.tarifProduit =new SimpleDoubleProperty(tarifProduit) ;
         this.typeProduit=new SimpleStringProperty(type);
     }
 
-    public Produit(String titreProduit,double tarifProduit, String typeProduit) {
+    public Produit(String titreProduit, int stockProduit,double tarifProduit,String typeProduit) {
         this.titreProduit =new SimpleStringProperty(titreProduit);
         this.tarifProduit =new SimpleDoubleProperty(tarifProduit) ;
+        this.stockProduit =new SimpleIntegerProperty(stockProduit);
         this.typeProduit=new SimpleStringProperty(typeProduit);
     }
 
@@ -60,15 +61,15 @@ public   class Produit {
         this.titreProduit.set(titreProduit);
     }
 
-    public String getStockProduit() {
+    public int getStockProduit() {
         return stockProduit.get();
     }
 
-    public StringProperty stockProduitProperty() {
+    public IntegerProperty stockProduitProperty() {
         return stockProduit;
     }
 
-    public void setStockProduit(String stockProduit) {
+    public void setStockProduit(int stockProduit) {
         this.stockProduit.set(stockProduit);
     }
 
@@ -83,4 +84,6 @@ public   class Produit {
     public void setTarifProduit(double tarifProduit) {
         this.tarifProduit.set(tarifProduit);
     }
+
+
 }
