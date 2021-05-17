@@ -92,7 +92,7 @@ public class EcouteurListeClients implements Initializable {
                     "/Images/warning.png");
         }
     }
-    public void ajoutClient() throws SQLException {
+    public void ajoutClient() throws SQLException, IOException {
         ConnectionClass connectionClass=new ConnectionClass();
         Connection connection=connectionClass.getConnection();
         String sql="SELECT nomClient FROM client WHERE mailClient='"+mail.getText()+"'";
@@ -110,8 +110,10 @@ public class EcouteurListeClients implements Initializable {
             statInsert.setString(1,nom.getText());
             statInsert.setString(2,prenom.getText());
             statInsert.setInt(3,fid);
-                statInsert.setBinaryStream(4,fis);
-                uneImageEstSelectionner=false;
+            if(fis.available()<=32)
+                fis=new FileInputStream(new File("src/Images/pasdispo.png"));
+            statInsert.setBinaryStream(4,fis);
+            uneImageEstSelectionner=false;
             statInsert.setString(5,mail.getText());
             statInsert.executeUpdate();
             statInsert.close();

@@ -86,7 +86,6 @@ public class EcouteurListeProduits implements Initializable {
             try{
                 int i=Integer.parseInt(nbPagesDocument.getText());
                 int j=Integer.parseInt(dureeSupportN.getText());
-                System.out.println(i+' '+j);
             }catch (Exception e){
                 notifBuilder("Attention",
                         "Vérifier vos champs.",
@@ -97,7 +96,7 @@ public class EcouteurListeProduits implements Initializable {
        return b1;
     }
     @FXML
-    void ajouterProduit(ActionEvent event) throws SQLException, FileNotFoundException {
+    void ajouterProduit(ActionEvent event) throws SQLException, IOException {
         if(champsNonVide()){
             ConnectionClass connectionClass=new ConnectionClass();
             Connection connection=connectionClass.getConnection();
@@ -160,6 +159,9 @@ public class EcouteurListeProduits implements Initializable {
                 ch=auteurLivre.getSelectionModel().getSelectedItem();
                 statement.setInt(10,Integer.valueOf(ch.substring(0,ch.indexOf(" "))));
             }
+
+            if(fis.available()<=32)
+                fis=new FileInputStream(new File("src/Images/pasdispo.png"));
             statement.setBinaryStream(11,fis);
             uneImageEstSelectionner=false;
             statement.setString(12,"Document");
@@ -169,19 +171,22 @@ public class EcouteurListeProduits implements Initializable {
                     "Votre opération d'ajouter le produit "+nomProduit.getText()+" a réussie.",
                     "/Images/checked.png");
             nettoyageScene();
+            partieInvisible();
         }
         else{
             notifBuilder("Attention",
                     "Pour pouvoir ajouter un produit, il faut remplir tout les champs.",
                     "/Images/warning.png");
+            nettoyageScene();
         }
-        nettoyageScene();
+
     }
 
 
-    @FXML
-    void afficheChampsType(ActionEvent e){
 
+
+    @FXML
+    public void afficheChampsType(ActionEvent e){
     if(e.getSource()==typeProduit){
         partieInvisible();
         int i=typeProduit.getSelectionModel().getSelectedIndex();
@@ -200,7 +205,6 @@ public class EcouteurListeProduits implements Initializable {
                 else
                     realDVD.setVisible(true);
                 break;
-
         }
     }
 
@@ -215,8 +219,6 @@ public class EcouteurListeProduits implements Initializable {
             statement.setDouble(2,pd.getTarifProduit());
             statement.setString(3,pd.getTypeProduit());
             statement.setInt(   4,pd.getStockProduit());
-
-
             if(dureeSupportN.getText().isEmpty())
                 statement.setNull(7,Types.NULL);
             else{
@@ -265,9 +267,6 @@ public class EcouteurListeProduits implements Initializable {
             statement.executeUpdate();
             statement.close();
             nettoyageScene();
-
-
-
     }
 
     private InputStream inputProduit(Produit pd) throws SQLException {
@@ -294,7 +293,6 @@ public class EcouteurListeProduits implements Initializable {
                     "Votre opération de suppression du " + nomProduit.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
             nettoyageScene();
-
         }
         else{
             notifBuilder("Attention",
@@ -495,6 +493,7 @@ public class EcouteurListeProduits implements Initializable {
                 notifBuilder("Opération réussie",
                         "Votre opération de modifier le produit "+prod.getTitreProduit()+" a réussie.",
                         "/Images/checked.png");
+                partieInvisible();
             }
            else{
                 notifBuilder("Attention",
@@ -508,7 +507,6 @@ public class EcouteurListeProduits implements Initializable {
                     "Il faut sélectionner un produit pour pouvoir le modifier.",
                     "/Images/warning.png");
         }
-        partieInvisible();
     }
 
     public void notifBuilder(String titre,String texte,String pathImg){

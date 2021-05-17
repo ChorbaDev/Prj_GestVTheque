@@ -94,7 +94,7 @@
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="816.0" layoutY="760.0" onAction="#ensembleDesCommandes" prefHeight="32.0" prefWidth="190.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Ensemble des commandes" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="829.0" layoutY="760.0" onAction="#ensembleDesCommandes" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Historique d'achats" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
