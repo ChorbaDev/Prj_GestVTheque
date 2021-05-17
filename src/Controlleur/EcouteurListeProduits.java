@@ -72,7 +72,7 @@ public class EcouteurListeProduits implements Initializable {
         }
         catch (Exception e){
             notifBuilder("Attention",
-                    "Vérifier vos champs.",
+                    "Vérifier les champs de tarif et stock.",
                     "/Images/warning.png");
             return false;
         }
@@ -80,15 +80,24 @@ public class EcouteurListeProduits implements Initializable {
        if(auteurLivre.isVisible()) b1=b1 && (auteurLivre.getSelectionModel().getSelectedIndex()!=-1);
         if(anneeSortie.isVisible()) b1=b1 && (anneeSortie.getSelectionModel().getSelectedIndex()!=-1);
         if(realDVD.isVisible()) b1=b1 && (realDVD.getSelectionModel().getSelectedIndex()!=-1);
-        if(nbPagesDocument.isVisible()) b1=b1 && !nbPagesDocument.getText().isEmpty();
-        if(dureeSupportN.isVisible()) b1=b1 && !dureeSupportN.getText().isEmpty();
-        if(b1){
+        if(nbPagesDocument.isVisible()){
+            b1=b1 && !nbPagesDocument.getText().isEmpty();
             try{
-                int i=Integer.parseInt(nbPagesDocument.getText());
-                int j=Integer.parseInt(dureeSupportN.getText());
+                int i=Integer.valueOf(nbPagesDocument.getText());
             }catch (Exception e){
                 notifBuilder("Attention",
-                        "Vérifier vos champs.",
+                        "Vérifier le champ de nombre de pages.",
+                        "/Images/warning.png");
+                return false;
+            }
+        }
+        if(dureeSupportN.isVisible()) {
+            b1=b1 && !dureeSupportN.getText().isEmpty();
+            try{
+                int j=Integer.valueOf(dureeSupportN.getText());
+            }catch (Exception e){
+                notifBuilder("Attention",
+                        "Vérifier le champs de la duree.",
                         "/Images/warning.png");
                 return false;
             }
@@ -198,12 +207,14 @@ public class EcouteurListeProduits implements Initializable {
                 else
                     auteurLivre.setVisible(true);
                 break;
-            default:
+            case 1: case 3:
                 dureeSupportN.setVisible(true);
                 if(i==1)
                     anneeSortie.setVisible(true);
                 else
                     realDVD.setVisible(true);
+                break;
+            default:
                 break;
         }
     }
