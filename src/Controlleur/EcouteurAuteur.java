@@ -124,7 +124,7 @@ public class EcouteurAuteur implements Initializable {
                     "l'auteur " + edtNomAuteur.getText() + " existe déjà dans la base de données.",
                     "/Images/warning.png");
             statement.close();
-        } else {
+        } else if(validationDesChamps()){
             String insertReq = "INSERT INTO auteur (nomAuteur,prenomAuteur,resume) values (?,?,?)";
             PreparedStatement statInsert = connection.prepareStatement(insertReq);
             statInsert.setString(1, edtNomAuteur.getText());
@@ -137,7 +137,15 @@ public class EcouteurAuteur implements Initializable {
                     "/Images/checked.png");
             nettoyageScene();
         }
+        else{
+            notifBuilder("Attention",
+                    "il faut remplir tout les champs.",
+                    "/Images/warning.png");
+        }
 
+    }
+    private boolean validationDesChamps() {
+        return !edtNomAuteur.getText().isEmpty() && !edtPrenomAuteur.getText().isEmpty() && !mmoResumeAuteur.getText().isEmpty();
     }
 
     public void selectionAuteur() throws SQLException, IOException {
