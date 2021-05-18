@@ -20,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;

@@ -92,6 +92,11 @@
                   </JFXTextField>
                   <JFXComboBox fx:id="realDVD" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="32.0" layoutY="570.0" prefHeight="25.0" prefWidth="303.0" promptText="Réalisateur" style="-fx-font-size: 15;" unFocusColor="#6b0504" />
                   <JFXComboBox fx:id="auteurLivre" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="31.0" layoutY="434.0" prefHeight="25.0" prefWidth="303.0" promptText="Auteur" style="-fx-font-size: 15;" unFocusColor="#6b0504" />
+                  <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="239.0" layoutY="645.0" onAction="#vider" prefHeight="32.0" prefWidth="65.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Vider">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="14.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </Pane>
             <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="636.0" layoutY="760.0" onAction="#supprimerProduit" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Supprimer produit" textFill="WHITE">

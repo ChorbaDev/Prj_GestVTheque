@@ -202,6 +202,8 @@ public class EcouteurAuteur implements Initializable {
         notifBuilder.darkStyle();
         notifBuilder.show();
     }
-
+    public void vider(){
+        viderChamps();
+    }
 
 }

@@ -34,11 +34,8 @@ public class EcouteurProduitsCommande implements Initializable {
 
     ObservableList<ModelProduitsCommande> obList= FXCollections.observableArrayList();
     @FXML private Label idCmd;
-
     @FXML private Label prixTotale;
-
     @FXML private Label redCmd;
-
     @FXML private Label dateCreationCmd;
     private Parent root;
     private Stage stage;
@@ -53,6 +50,7 @@ public class EcouteurProduitsCommande implements Initializable {
         stage.show();
     }
     private double reduction=0;
+    private double sommeDesPrix=0;
     public void getInfos(Commande cm) throws SQLException {
         idCmd.setText(Integer.toString(cm.getIdCommande()));
         redCmd.setText(Double.toString(cm.getReduction()));
@@ -68,25 +66,19 @@ public class EcouteurProduitsCommande implements Initializable {
         colTarif.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,Float>("tarifProduit"));
         colDateFin.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,String>("dateFinLocation"));
         table.setItems(obList);
-        remplirPrixTotale();
     }
 
     private void remplirPrixTotale() {
-        double som=0,prixTot;
-        for(int i=0;i<obList.size();i++){
-            som+=obList.get(i).getTarifProduit();
-        }
-        prixTot=som;
         if(!redCmd.getText().isEmpty())
-        prixTot*=0.9;
-        prixTotale.setText(Double.toString(prixTot));
+         sommeDesPrix*=(100-Double.valueOf(redCmd.getText()))/100.;
+        prixTotale.setText(Double.toString(sommeDesPrix));
     }
     private void remplirLaListe() throws SQLException {
         ConnectionClass connectionClass=new ConnectionClass();
         Connection connection=connectionClass.getConnection();
         String sql= "select produit.type ,titreProduit,tarifJounalier,dateFin from produit,concerne where produit.idProduit=concerne.idProduit and idCommande="+idCmd.getText();
         ResultSet res=connection.createStatement().executeQuery(sql);
-        while( res.next() )
+        while(res.next())
         {
             obList.add(new ModelProduitsCommande(
                     res.getString("titreProduit"),
@@ -94,6 +86,8 @@ public class EcouteurProduitsCommande implements Initializable {
                     res.getString("type"),
                     res.getString("dateFin")
                       ));
+            sommeDesPrix+=res.getFloat("tarifJounalier");
         }
+        remplirPrixTotale();
     }
 }

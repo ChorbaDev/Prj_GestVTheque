@@ -32,12 +32,12 @@
             </TableView>
             <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="107.0" layoutY="471.0" onAction="#modifierClient" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier le client">
+                  <JFXButton buttonType="RAISED" layoutX="81.0" layoutY="470.0" onAction="#modifierClient" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier le client">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="108.0" layoutY="527.0" onAction="#ajoutClient" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter le client">
+                  <JFXButton buttonType="RAISED" layoutX="81.0" layoutY="518.0" onAction="#ajoutClient" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter le client">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>
@@ -78,6 +78,11 @@
                      </font>
                   </JFXButton>
                   <JFXButton buttonType="RAISED" layoutX="350.0" layoutY="352.0" onAction="#viderImage" prefHeight="32.0" prefWidth="27.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="X">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="231.0" layoutY="494.0" onAction="#vider" prefHeight="32.0" prefWidth="65.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Vider">
                      <font>
                         <Font name="Segoe UI Semibold" size="14.0" />
                      </font>

@@ -316,6 +316,8 @@ public class EcouteurListeClients implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
+    }
+    public void vider(){
+        viderChamps();
     }
 }

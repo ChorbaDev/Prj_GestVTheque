@@ -617,7 +617,6 @@ public class EcouteurListeProduits implements Initializable {
             comboListAuteur.add(res.getInt("idAuteur")+" "+res.getString("nomAuteur"));
         }
     }
-
     private void partieInvisible() {
         langueDictionnaire.setVisible(false);
         auteurLivre.setVisible(false);
@@ -626,5 +625,8 @@ public class EcouteurListeProduits implements Initializable {
         dureeSupportN.setVisible(false);
         realDVD.setVisible(false);
     }
-
+    public void vider(){
+        partieInvisible();
+        viderChamps();
+    }
 }
