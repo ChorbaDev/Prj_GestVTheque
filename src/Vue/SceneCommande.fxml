@@ -6,7 +6,6 @@
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -14,14 +13,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleur.EcouteurCommande">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="312.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -30,39 +27,39 @@
       </ImageView>
       <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox opacity="0.33" prefHeight="600.0" prefWidth="143.0" style="-fx-background-color: #ffff;" BorderPane.alignment="CENTER">
+            <VBox opacity="0.66" prefHeight="600.0" prefWidth="143.0" style="-fx-background-color: #ffff;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="BD">
+                  <JFXButton fx:id="triBD" buttonType="RAISED" focusTraversable="false" prefHeight="62.0" prefWidth="143.0" text="BD">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="Dictionnaire">
+                  <JFXButton buttonType="RAISED" focusTraversable="false" onAction="#triDictionnaire" prefHeight="62.0" prefWidth="143.0" text="Dictionnaire">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="Manuel scolaire">
+                  <JFXButton buttonType="RAISED" focusTraversable="false" onAction="#triManuel" prefHeight="62.0" prefWidth="143.0" text="Manuel scolaire">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" focusTraversable="false" onAction="#triRoman" prefHeight="62.0" prefWidth="143.0" text="Roman">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="Roman">
+                  <JFXButton buttonType="RAISED" focusTraversable="false" onAction="#triCD" prefHeight="62.0" prefWidth="143.0" text="CD">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="CD">
+                  <JFXButton buttonType="RAISED" focusTraversable="false" onAction="#triDVD" prefHeight="62.0" prefWidth="143.0" text="DVD">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" prefHeight="62.0" prefWidth="143.0" text="DVD">
-                     <font>
-                        <Font name="Segoe UI" size="18.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXToggleButton prefHeight="58.0" prefWidth="143.0" text="Disponibilité" toggleColor="WHITE" toggleLineColor="#6b0504" unToggleColor="WHITE">
+                  <JFXToggleButton focusTraversable="false" onAction="#disponible" prefHeight="58.0" prefWidth="143.0" text="Disponibilité" toggleColor="WHITE" toggleLineColor="#6b0504" unToggleColor="WHITE">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -73,7 +70,7 @@
                </children></VBox>
          </left>
          <top>
-            <HBox opacity="0.33" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+            <HBox opacity="0.66" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="106.0" fitWidth="224.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -93,7 +90,7 @@
                               <Insets top="52.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXComboBox labelFloat="true" prefHeight="31.0" prefWidth="266.0" promptText="Client" style="-fx-font-size: 15;">
+                        <JFXComboBox fx:id="comboClient" focusTraversable="false" labelFloat="true" prefHeight="31.0" prefWidth="266.0" promptText="Client" style="-fx-font-size: 15;">
                            <HBox.margin>
                               <Insets top="65.0" />
                            </HBox.margin>
@@ -104,13 +101,13 @@
             </HBox>
          </top>
          <bottom>
-            <HBox opacity="0.33" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+            <HBox opacity="0.66" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
                   <VBox prefHeight="100.0" prefWidth="399.0">
                      <children>
                         <HBox prefHeight="32.0" prefWidth="216.0">
                            <children>
-                              <JFXButton buttonType="RAISED" prefHeight="25.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Saisir Quantité">
+                              <JFXButton buttonType="RAISED" focusTraversable="false" prefHeight="25.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Saisir Quantité">
                                  <font>
                                     <Font name="Segoe UI Semibold" size="12.0" />
                                  </font>
@@ -121,7 +118,7 @@
                                     <Insets top="-3.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <Spinner editable="true" prefHeight="25.0" prefWidth="96.0">
+                              <Spinner fx:id="spinnerQuantite" editable="true" focusTraversable="false" prefHeight="25.0" prefWidth="96.0">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -147,7 +144,7 @@
                                     <Insets top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <JFXDatePicker defaultColor="#6b0504" prefHeight="25.0" prefWidth="98.0">
+                              <JFXDatePicker defaultColor="#6b0504" focusTraversable="false" prefHeight="25.0" prefWidth="98.0">
                                  <HBox.margin>
                                     <Insets left="40.0" />
                                  </HBox.margin>
@@ -157,7 +154,7 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <JFXButton buttonType="RAISED" prefHeight="19.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter au panier">
+                        <JFXButton buttonType="RAISED" focusTraversable="false" prefHeight="19.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter au panier">
                            <font>
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font>
@@ -175,20 +172,12 @@
                   </VBox>
                   <VBox prefHeight="100.0" prefWidth="361.0">
                      <children>
-                        <JFXButton buttonType="RAISED" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Liste des produits">
+                        <JFXButton buttonType="RAISED" focusTraversable="false" onAction="#retour" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Retour">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="5.0" left="160.0" top="20.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton buttonType="RAISED" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Liste des clients">
-                           <font>
-                              <Font name="Segoe UI Semibold" size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="160.0" top="50.0" />
                            </VBox.margin>
                         </JFXButton>
                      </children>
@@ -198,7 +187,7 @@
          <right>
             <AnchorPane prefHeight="599.0" prefWidth="320.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" layoutY="2.0" opacity="0.33" prefHeight="35.0" prefWidth="249.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="565.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox alignment="CENTER" layoutY="2.0" opacity="0.66" prefHeight="35.0" prefWidth="249.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="565.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="33.0" prefWidth="334.0" text="Panier">
                            <font>
@@ -207,7 +196,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TableView layoutY="34.0" prefHeight="369.0" prefWidth="296.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
+                  <TableView fx:id="tablePanier" layoutY="34.0" onMouseClicked="#selectionDePanier" prefHeight="369.0" prefWidth="296.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
                     <columns>
                       <TableColumn prefWidth="108.0" text="Produit" />
                       <TableColumn prefWidth="82.0" text="Quantité" />
@@ -215,14 +204,14 @@
                         <TableColumn prefWidth="76.0" text="Prix Total" />
                     </columns>
                   </TableView>
-                  <Pane layoutY="400.0" opacity="0.33" prefHeight="200.0" prefWidth="296.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="398.0">
+                  <Pane layoutY="400.0" opacity="0.66" prefHeight="200.0" prefWidth="296.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="398.0">
                      <children>
-                        <JFXButton buttonType="RAISED" layoutX="73.0" layoutY="14.0" prefHeight="32.0" prefWidth="151.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Retirer le Produit">
+                        <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="73.0" layoutY="14.0" onAction="#retirerProduit" prefHeight="32.0" prefWidth="151.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Retirer le Produit">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" layoutX="201.0" layoutY="164.0" prefWidth="85.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Valider">
+                        <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="224.0" layoutY="164.0" onAction="#validerPanier" prefWidth="85.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Valider">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
@@ -232,12 +221,12 @@
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="129.0" layoutY="130.0" text="0.00€">
+                        <Label fx:id="montantTotale" layoutX="129.0" layoutY="130.0" text="0.00€">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="164.0" prefWidth="85.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Annuler">
+                        <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="11.0" layoutY="164.0" onAction="#annulerPanier" prefWidth="85.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Annuler">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
@@ -247,12 +236,12 @@
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="120.0" layoutY="101.0" text="0 %">
+                        <Label fx:id="reduction" layoutX="120.0" layoutY="101.0" text="0 %">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXToggleButton layoutX="186.0" layoutY="101.0" prefHeight="58.0" prefWidth="112.0" text="Facture" toggleColor="WHITE" toggleLineColor="#6b0504" unToggleColor="WHITE">
+                        <JFXToggleButton fx:id="toggleFacture" focusTraversable="false" layoutX="186.0" layoutY="101.0" prefHeight="58.0" prefWidth="112.0" text="Facture" toggleColor="WHITE" toggleLineColor="#6b0504" unToggleColor="WHITE">
                            <font>
                               <Font name="Segoe UI" size="12.0" />
                            </font></JFXToggleButton>
@@ -261,15 +250,16 @@
             </AnchorPane>
          </right>
          <center>
-            <ScrollPane opacity="0.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <content>
-                  <GridPane prefHeight="0.0" prefWidth="17.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                  </GridPane>
-               </content>
-            </ScrollPane>
+            <TableView fx:id="tableProduits" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="37.999969482421875" text="ID" />
+                <TableColumn prefWidth="129.0" text="Type" />
+                  <TableColumn prefWidth="187.0" text="Titre " />
+                  <TableColumn prefWidth="102.0" text="Tarif" />
+                  <TableColumn prefWidth="141.0" text="Stock" />
+                  <TableColumn prefWidth="139.0" text="Photo" />
+              </columns>
+            </TableView>
          </center>
       </BorderPane>
    </children>
