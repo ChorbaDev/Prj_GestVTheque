@@ -7,8 +7,6 @@ import javafx.beans.property.StringProperty;
 
 import java.util.Objects;
 
-// je suis très fort
-
 public class Auteur extends Personne{
     private IntegerProperty idAuteur;
     private StringProperty resume;
