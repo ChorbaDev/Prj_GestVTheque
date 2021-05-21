@@ -1,6 +1,7 @@
 package Controlleur;
 
 import Modele.Auteur;
+import Modele.AuteurDAOImpl;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
@@ -10,51 +11,36 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.*;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import javafx.util.*;
+import java.util.ResourceBundle;
 import org.controlsfx.control.Notifications;
-
 import java.io.IOException;
-
 import java.net.URL;
 import java.sql.*;
-import java.util.ResourceBundle;
+
 
 public class EcouteurAuteur implements Initializable {
     private Parent root;
     private Stage stage;
     private Scene scene;
     private String path;
-
+    private AuteurDAOImpl auteurDao;
     /*en rapport avec la liste d'auteur*/
-    @FXML
-    private TableView<Auteur> tblAuteur;
-    @FXML
-    private TableColumn<Auteur, Integer> colIdAuteur;
-
-    @FXML
-    private TableColumn<Auteur, String> colNomAuteur;
-
-    @FXML
-    private TableColumn<Auteur, String> colPrenomAuteur;
+    @FXML private TableView<Auteur> tblAuteur;
+    @FXML private TableColumn<Auteur, Integer> colIdAuteur;
+    @FXML private TableColumn<Auteur, String> colNomAuteur;
+    @FXML private TableColumn<Auteur, String> colPrenomAuteur;
 
     /*champs en relation avec l'auteur*/
-    @FXML
-    private JFXTextField edtNomAuteur;
+    @FXML private JFXTextField edtNomAuteur;
+    @FXML private JFXTextField edtPrenomAuteur;
+    @FXML private JFXTextArea mmoResumeAuteur;
 
-    @FXML
-    private JFXTextField edtPrenomAuteur;
-
-    @FXML
-    private JFXTextArea mmoResumeAuteur;
     private final ObservableList<Auteur> obList = FXCollections.observableArrayList();
 
     @Override
@@ -64,6 +50,7 @@ public class EcouteurAuteur implements Initializable {
         colPrenomAuteur.setCellValueFactory(new PropertyValueFactory<Auteur, String>("prenom"));
         tblAuteur.setItems(obList);
         try {
+            auteurDao=new AuteurDAOImpl();
             remplirLaListe();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -90,18 +77,7 @@ public class EcouteurAuteur implements Initializable {
     }
 
     private void remplirLaListe() throws SQLException {
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
-        String sql = "SELECT idAuteur,nomAuteur,prenomAuteur,resume FROM auteur";
-        ResultSet res = connection.createStatement().executeQuery(sql);
-        while (res.next()) {
-            obList.add(new Auteur(
-                    res.getInt("idAuteur"),
-                    res.getString("nomAuteur"),
-                    res.getString("prenomAuteur"),
-                    res.getString("resume")
-            ));
-        }
+        auteurDao.remplirListeAuteur(obList);
     }
 
     private void viderChamps() {
@@ -115,23 +91,13 @@ public class EcouteurAuteur implements Initializable {
     }
 
     public void ajoutAuteur() throws SQLException {
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
-        String sql = "SELECT nomAuteur FROM auteur WHERE resume='" + mmoResumeAuteur.getText().replace("\'","\\\'") + "'";
-        Statement statement = connection.createStatement();
-        if (statement.executeQuery(sql).next()) {
+        Auteur auteur=new Auteur(edtNomAuteur.getText().trim(),edtPrenomAuteur.getText().trim(),mmoResumeAuteur.getText().trim());
+        if (auteurDao.existenceAuteur(auteur)) {
             notifBuilder("Attention",
                     "l'auteur " + edtNomAuteur.getText() + " existe déjà dans la base de données.",
                     "/Images/warning.png");
-            statement.close();
         } else if(validationDesChamps()){
-            String insertReq = "INSERT INTO auteur (nomAuteur,prenomAuteur,resume) values (?,?,?)";
-            PreparedStatement statInsert = connection.prepareStatement(insertReq);
-            statInsert.setString(1, edtNomAuteur.getText());
-            statInsert.setString(2, edtPrenomAuteur.getText());
-            statInsert.setString(3, mmoResumeAuteur.getText());
-            statInsert.executeUpdate();
-            statInsert.close();
+            auteurDao.insertAuteur(auteur);
             notifBuilder("Opération réussie",
                     "Votre opération d'ajouter l'auteur " + edtNomAuteur.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
@@ -142,7 +108,6 @@ public class EcouteurAuteur implements Initializable {
                     "il faut remplir tout les champs.",
                     "/Images/warning.png");
         }
-
     }
     private boolean validationDesChamps() {
         return !edtNomAuteur.getText().isEmpty() && !edtPrenomAuteur.getText().isEmpty() && !mmoResumeAuteur.getText().isEmpty();
@@ -158,15 +123,16 @@ public class EcouteurAuteur implements Initializable {
         }
     }
 
-    public void modifierAuteur() throws SQLException, IOException {
+    public void modifierAuteur() throws SQLException {
         if (!tblAuteur.getSelectionModel().isEmpty()) {
             Auteur auteur = tblAuteur.getSelectionModel().getSelectedItem();
             Auteur auteurSelectionner = new Auteur(auteur.getIdAuteur(), edtNomAuteur.getText(), edtPrenomAuteur.getText(), mmoResumeAuteur.getText());
             if (!auteur.equals(auteurSelectionner)) {
-                modifierAuteurSelectionner(auteurSelectionner);
+                auteurDao.updateAuteur(auteurSelectionner);
                 notifBuilder("Opération réussie",
                         "Votre opération de modifier l'auteur' " + auteur.getNom() + " a réussie.",
                         "/Images/checked.png");
+                nettoyageScene();
             }
         } else {
             notifBuilder("Attention",
@@ -175,21 +141,6 @@ public class EcouteurAuteur implements Initializable {
         }
 
     }
-
-    private void modifierAuteurSelectionner(Auteur atr) throws SQLException, IOException {
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
-        String sql = "update auteur set nomAuteur=? , prenomAuteur=? , resume=? where idAuteur=?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, atr.getNom());
-        statement.setString(2, atr.getPrenom());
-        statement.setString(3, atr.getResume());
-        statement.setInt(4, atr.getIdAuteur());
-        statement.executeUpdate();
-        statement.close();
-        nettoyageScene();
-    }
-
 
     public void notifBuilder(String titre, String texte, String pathImg) {
         Image img = new Image(pathImg);
