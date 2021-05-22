@@ -25,7 +25,7 @@ public class ClientDAOImpl implements ClientDAO{
         ps=connection.prepareStatement(INSERT_CLIENT_SQL);
         ps.setString(1,client.getNom());
         ps.setString(2,client.getPrenom());
-        ps.setInt(3,client.);
+        ps.setBoolean(3,client.clientFideleProperty().get());
         ps.setString(4,client.);
         ps.setString(5,client.getMailClient());
         ps.executeUpdate();
