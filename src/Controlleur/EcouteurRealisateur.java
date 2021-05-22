@@ -1,6 +1,7 @@
 package Controlleur;
 
 import Modele.Realisateur;
+import Modele.RealisateurDAOImpl;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
@@ -32,6 +33,7 @@ public class EcouteurRealisateur implements Initializable {
     private Stage stage;
     private Scene scene;
     private String path;
+    private RealisateurDAOImpl realisateurDAO;
 
     /*concerne la liste réalisateur*/
     @FXML
@@ -65,6 +67,7 @@ public class EcouteurRealisateur implements Initializable {
         colPrenomRealisateur.setCellValueFactory(new PropertyValueFactory<Realisateur, String>("prenom"));
         tblRealisateur.setItems(obList);
         try {
+            realisateurDAO=new RealisateurDAOImpl();
             remplirLaListe();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -91,18 +94,7 @@ public class EcouteurRealisateur implements Initializable {
     }
 
     private void remplirLaListe() throws SQLException {
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
-        String sql = "SELECT idReal,nomReal,prenomReal,resume FROM realisateur";
-        ResultSet res = connection.createStatement().executeQuery(sql);
-        while (res.next()) {
-            obList.add(new Realisateur(
-                    res.getInt("idReal"),
-                    res.getString("nomReal"),
-                    res.getString("prenomReal"),
-                    res.getString("resume")
-            ));
-        }
+        realisateurDAO.remplirListeRealisateur(obList);
     }
 
     private void viderChamps() {
@@ -116,23 +108,13 @@ public class EcouteurRealisateur implements Initializable {
     }
 
     public void ajoutRealisateur() throws SQLException {
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
-        String sql = "SELECT nomReal FROM realisateur WHERE resume='" + mmoResumeRealisateur.getText().replace("\'","\\\'")+"'";
-        Statement statement = connection.createStatement();
-        if (statement.executeQuery(sql).next()) {
+        Realisateur realisateur= new Realisateur(edtNomRealisateur.getText().trim(),edtPrenomRealisateur.getText().trim(),mmoResumeRealisateur.getText().trim());
+        if (realisateurDAO.existenceRealisateur(realisateur)) {
             notifBuilder("Attention",
                     "le réalisateur " + edtNomRealisateur.getText() + " existe déjà dans la base de données.",
                     "/Images/warning.png");
-            statement.close();
         } else if(validationDesChamps()){
-            String insertReq = "INSERT INTO realisateur (nomReal,prenomReal,resume) values (?,?,?)";
-            PreparedStatement statInsert = connection.prepareStatement(insertReq);
-            statInsert.setString(1, edtNomRealisateur.getText());
-            statInsert.setString(2, edtPrenomRealisateur.getText());
-            statInsert.setString(3, mmoResumeRealisateur.getText());
-            statInsert.executeUpdate();
-            statInsert.close();
+           realisateurDAO.insertRealisateur(realisateur);
             notifBuilder("Opération réussie",
                     "Votre opération d'ajouter le réalisateur " + edtNomRealisateur.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
@@ -165,10 +147,11 @@ public class EcouteurRealisateur implements Initializable {
             Realisateur realisateur = tblRealisateur.getSelectionModel().getSelectedItem();
             Realisateur realisateurSelectionner = new Realisateur(realisateur.getIdRealisateur(), edtNomRealisateur.getText(), edtPrenomRealisateur.getText(), mmoResumeRealisateur.getText());
             if (!realisateur.equals(realisateurSelectionner)) {
-                modifierRealisateurSelectionner(realisateurSelectionner);
+                realisateurDAO.updateRealisateur(realisateurSelectionner);
                 notifBuilder("Opération réussie",
                         "Votre opération de modifier le réalisateur' " + realisateur.getNom() + " a réussie.",
                         "/Images/checked.png");
+                nettoyageScene();
             }
         } else {
             notifBuilder("Attention",
@@ -176,20 +159,6 @@ public class EcouteurRealisateur implements Initializable {
                     "/Images/warning.png");
         }
 
-    }
-
-    private void modifierRealisateurSelectionner(Realisateur rel) throws SQLException, IOException {
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
-        String sql = "update realisateur set nomReal=? , prenomReal=? , resume=? where idReal=?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, rel.getNom());
-        statement.setString(2, rel.getPrenom());
-        statement.setString(3, rel.getResume());
-        statement.setInt(4, rel.getIdRealisateur());
-        statement.executeUpdate();
-        statement.close();
-        nettoyageScene();
     }
 
 

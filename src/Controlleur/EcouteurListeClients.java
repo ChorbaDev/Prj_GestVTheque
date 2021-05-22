@@ -1,6 +1,8 @@
 package Controlleur;
 
+import Modele.AuteurDAOImpl;
 import Modele.Client;
+import Modele.ClientDAOImpl;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +29,12 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 public class EcouteurListeClients implements Initializable {
+    private Parent root;
+    private Stage stage;
+    private Scene scene;
+    private String path;
+    private ClientDAOImpl clientDAO;
+
 
     /*Concerne la liste*/
     @FXML private TableView<Client> table;
@@ -50,20 +58,7 @@ public class EcouteurListeClients implements Initializable {
 
     public void remplirLaListe() throws SQLException
     {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="SELECT idClient,nomClient,prenomClient,clientFidele,mailClient FROM client";
-        ResultSet res=connection.createStatement().executeQuery(sql);
-        while( res.next() )
-        {
-            obList.add(new Client(
-                                  res.getInt("idClient"),
-                                  res.getString("nomClient"),
-                                  res.getString("prenomClient"),
-                                  res.getString("mailClient"),
-                                  res.getBoolean("clientFidele")
-                                 ));
-        }
+        clientDAO.remplirListeClient(obList);
     }
     private void nettoyageScene() throws SQLException {
         viderChamps();
@@ -261,10 +256,7 @@ public class EcouteurListeClients implements Initializable {
         image.setImage(new Image("/Images/Photo-non-disponible.jpg"));
         fidele.setSelected(false);
     }
-    private Parent root;
-    private Stage stage;
-    private Scene scene;
-    private String path;
+
     public void retour(ActionEvent e) throws IOException {
         path="/Vue/SceneBienvenue.fxml";
         root = FXMLLoader.load(getClass().getResource(path));
@@ -312,6 +304,7 @@ public class EcouteurListeClients implements Initializable {
         colFidele.setCellValueFactory(new PropertyValueFactory<Client,Boolean>("clientFidele"));
         table.setItems(obList);
         try {
+            clientDAO= new ClientDAOImpl();
             remplirLaListe();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

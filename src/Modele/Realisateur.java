@@ -42,4 +42,10 @@ public class Realisateur extends Personne {
     public void setResume(String resume) {
         this.resume.set(resume);
     }
+    public boolean equals(Realisateur rls) {
+        return (rls.nom.getValue().equals(nom.getValue())) &&
+                (rls.prenom.getValue().equals(prenom.getValue())) &&
+                (rls.resume.getValue().equals(resume.getValue()));
+    }
+
 }
