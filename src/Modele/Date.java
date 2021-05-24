@@ -11,6 +11,10 @@ public class Date {
         this.annee = annee;
     }
 
+    static int nbJours(int jour, int mois, int annee) {
+        return (int) ((1461 * (annee + 4800 + (mois - 14) / 12)) / 4 + (367 * (mois - 2 - 12 * ((mois - 14) / 12))) / 12 - (3 * ((annee + 4900 + (mois - 14) / 12) / 100)) / 4 + jour - 32075);
+    }
+
     public int getJour() {
         return jour;
     }
@@ -36,12 +40,8 @@ public class Date {
     }
 
     public int difference(Date d) {
-        int nbj=nbJours(this.jour,this.mois,this.annee)-nbJours(d.jour,d.mois,d.annee);
+        int nbj = nbJours(this.jour, this.mois, this.annee) - nbJours(d.jour, d.mois, d.annee);
         return nbj;
 
-    }
-    static int nbJours(int jour, int mois, int annee)
-    {
-        return (int)((1461*(annee+4800+(mois-14)/12))/4+(367*(mois- 2 -12*((mois-14)/12)))/12-(3*((annee+4900+(mois-14)/12)/100))/4+jour-32075);
     }
 }
