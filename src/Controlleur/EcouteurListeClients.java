@@ -109,6 +109,7 @@ public class EcouteurListeClients implements Initializable {
 //            statInsert.setString(2,prenom.getText());
 //            statInsert.setInt(3,fid);
 
+
             if (fis.available() <= 32)
                 fis = new FileInputStream(new File("src/Images/pasdispo.png"));
             statInsert.setBinaryStream(4, fis);

@@ -11,6 +11,7 @@ public class AuteurDAOImpl implements AuteurDAO{
     private static final String INSERT_AUTEUR_SQL="INSERT INTO auteur (nomAuteur,prenomAuteur,resume) VALUES (?,?,?)";
     private static final String UPDATE_AUTEUR_SQL="update auteur set nomAuteur=?, prenomAuteur=?, resume=? where idAuteur=? ";
     private static final String EXISTE_AUTEUR_SQL="select * from auteur where resume=?";
+    private static final String REMPLIR_LISTE="SELECT idAuteur,nomAuteur,prenomAuteur,resume FROM auteur";
     private static PreparedStatement ps;
     private static ConnectionClass connectionClass;
     private static Connection connection;
@@ -40,8 +41,8 @@ public class AuteurDAOImpl implements AuteurDAO{
 
     @Override
     public void remplirListeAuteur(ObservableList<Auteur> liste) throws SQLException {
-        String sql = "SELECT idAuteur,nomAuteur,prenomAuteur,resume FROM auteur";
-        ResultSet res = connection.createStatement().executeQuery(sql);
+        ps=connection.prepareStatement(REMPLIR_LISTE);
+        ResultSet res = ps.executeQuery();
         while (res.next()) {
             liste.add(new Auteur(
                     res.getInt("idAuteur"),
