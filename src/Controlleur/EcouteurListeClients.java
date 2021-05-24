@@ -71,11 +71,7 @@ public class EcouteurListeClients implements Initializable {
     public void supprimerClient() throws SQLException {
         if(!table.getSelectionModel().isEmpty()) {
             Client clientSupprmier = table.getSelectionModel().getSelectedItem();
-            ConnectionClass connectionClass = new ConnectionClass();
-            Connection connection = connectionClass.getConnection();
-            String sql = "DELETE FROM client where idClient='" + clientSupprmier.getIdClient() + "'";
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
+            clientDAO.supprimerClient(clientSupprmier);
             notifBuilder("Opération réussie",
                     "Votre opération de suppression du " + nom.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
@@ -88,30 +84,28 @@ public class EcouteurListeClients implements Initializable {
         }
     }
     public void ajoutClient() throws SQLException, IOException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="SELECT nomClient FROM client WHERE mailClient='"+mail.getText()+"'";
-        Statement statement = connection.createStatement();
-        if(statement.executeQuery(sql).next()){
+        Client client= new Client(nom.getText().trim(),prenom.getText().trim(),mail.getText().trim(),fidele.isSelected());
+        if(clientDAO.existenceClient(client)){
             notifBuilder("Attention",
                     "le mail "+mail.getText()+" déja existe dans la base de données.",
                     "/Images/warning.png");
-            statement.close();
         }
         else if(validationDesChamps()){
-            int fid=fidele.isSelected()?1:0;
-            String insertReq="INSERT INTO client (nomClient,prenomClient,clientFidele,pdp,mailClient) values (?,?,?,?,?)";
-            PreparedStatement statInsert = connection.prepareStatement(insertReq);
-            statInsert.setString(1,nom.getText());
-            statInsert.setString(2,prenom.getText());
-            statInsert.setInt(3,fid);
+            clientDAO.insertClient(client);
+//            String insertReq="INSERT INTO client (nomClient,prenomClient,clientFidele,pdp,mailClient) values (?,?,?,?,?)";
+//            PreparedStatement statInsert = connection.prepareStatement(insertReq);
+//            statInsert.setString(1,nom.getText());
+//            statInsert.setString(2,prenom.getText());
+//            statInsert.setInt(3,fid);
+
             if(fis.available()<=32)
                 fis=new FileInputStream(new File("src/Images/pasdispo.png"));
             statInsert.setBinaryStream(4,fis);
             uneImageEstSelectionner=false;
-            statInsert.setString(5,mail.getText());
-            statInsert.executeUpdate();
-            statInsert.close();
+
+//            statInsert.setString(5,mail.getText());
+//            statInsert.executeUpdate();
+//            statInsert.close();
             notifBuilder("Opération réussie",
                     "Votre opération d'ajouter le client "+nom.getText()+" est éffectué avec succès.",
                     "/Images/checked.png");
@@ -153,7 +147,7 @@ public class EcouteurListeClients implements Initializable {
             Client client=table.getSelectionModel().getSelectedItem();
             Client clientSelectionner=new Client(client.getIdClient(),nom.getText(),prenom.getText(),mail.getText(),fidele.isSelected());
             if(!client.equals(clientSelectionner) || uneImageEstSelectionner) {
-               modifierclientSelectionner(clientSelectionner);
+               clientDAO.updateClient(clientSelectionner);
                notifBuilder("Opération réussie",
                        "Votre opération de modifier le client "+client.getNom()+" a réussie.",
                        "/Images/checked.png");
@@ -168,6 +162,7 @@ public class EcouteurListeClients implements Initializable {
     }
 
     private void modifierclientSelectionner(Client cl) throws SQLException, IOException {
+
         ConnectionClass connectionClass=new ConnectionClass();
         Connection connection=connectionClass.getConnection();
         int fid=cl.isClientFidele()?1:0;

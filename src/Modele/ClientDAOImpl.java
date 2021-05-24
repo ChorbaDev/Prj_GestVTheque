@@ -11,6 +11,7 @@ import java.sql.SQLException;
 public class ClientDAOImpl implements ClientDAO{
     private static final String INSERT_CLIENT_SQL="INSERT INTO client (nomClient,prenomClient,clientFidele,pdp,mailClient) VALUES (?,?,?,?,?)";
     private static final String UPDATE_CLIENT_SQL="update client set nomClient=? , prenomClient=? , mailClient=? ,clientFidele=?,pdp=? where idClient=?";
+    private static final String DELETE_CLIENT_SQL="delete from client where idClient=?";
     private static final String EXISTE_CLIENT_SQL="select * from client where mailClient=?";
     private static PreparedStatement ps;
     private static ConnectionClass connectionClass;
@@ -25,7 +26,7 @@ public class ClientDAOImpl implements ClientDAO{
         ps=connection.prepareStatement(INSERT_CLIENT_SQL);
         ps.setString(1,client.getNom());
         ps.setString(2,client.getPrenom());
-        ps.setBoolean(3,client.clientFideleProperty().get());
+        ps.setBoolean(3,client.isClientFidele());
         ps.setString(4,client.);
         ps.setString(5,client.getMailClient());
         ps.executeUpdate();
@@ -38,9 +39,18 @@ public class ClientDAOImpl implements ClientDAO{
         ps.setString(1,client.getNom());
         ps.setString(2,client.getPrenom());
         ps.setString(3,client.getMailClient());
-        ps.setInt(4,client.getIdClient());
+        ps.setBoolean(4,client.isClientFidele());
+        ps.setBlob(5,client.);
+        ps.setInt(6,client.getIdClient());
         ps.executeUpdate();
 
+    }
+
+    @Override
+    public void supprimerClient(Client client) throws SQLException {
+        ps=connection.prepareStatement(DELETE_CLIENT_SQL);
+        ps.setInt(1,client.getIdClient());
+        ps.executeUpdate();
     }
 
     @Override
