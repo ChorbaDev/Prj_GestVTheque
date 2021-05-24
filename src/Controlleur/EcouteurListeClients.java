@@ -1,9 +1,9 @@
 package Controlleur;
 
-import Modele.AuteurDAOImpl;
 import Modele.Client;
 import Modele.ClientDAOImpl;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,83 +14,94 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+
 import java.io.*;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
 public class EcouteurListeClients implements Initializable {
+    ObservableList<Client> obList = FXCollections.observableArrayList();
     private Parent root;
     private Stage stage;
     private Scene scene;
     private String path;
     private ClientDAOImpl clientDAO;
-
-
     /*Concerne la liste*/
-    @FXML private TableView<Client> table;
-    @FXML private TableColumn<Client, Integer> colId;
-    @FXML private TableColumn<Client, String> colNom;
-    @FXML private TableColumn<Client, String> colPrenom;
-    @FXML private TableColumn<Client, String> colMail;
-    @FXML private TableColumn<Client, Boolean> colFidele;
-    ObservableList<Client> obList= FXCollections.observableArrayList();
-
+    @FXML
+    private TableView<Client> table;
+    @FXML
+    private TableColumn<Client, Integer> colId;
+    @FXML
+    private TableColumn<Client, String> colNom;
+    @FXML
+    private TableColumn<Client, String> colPrenom;
+    @FXML
+    private TableColumn<Client, String> colMail;
+    @FXML
+    private TableColumn<Client, Boolean> colFidele;
     /*Concerne la scene*/
-    @FXML private JFXTextField nom;
-    @FXML private JFXTextField prenom;
-    @FXML private JFXCheckBox fidele;
-    @FXML private JFXTextField mail;
-    @FXML private ImageView image;
-    private FileInputStream fis=new FileInputStream(new File("src/Images/Photo-non-disponible.jpg"));
-    private Boolean uneImageEstSelectionner=false;
+    @FXML
+    private JFXTextField nom;
+    @FXML
+    private JFXTextField prenom;
+    @FXML
+    private JFXCheckBox fidele;
+    @FXML
+    private JFXTextField mail;
+    @FXML
+    private ImageView image;
+    private FileInputStream fis = new FileInputStream(new File("src/Images/Photo-non-disponible.jpg"));
+    private Boolean uneImageEstSelectionner = false;
+
     public EcouteurListeClients() throws FileNotFoundException {
     }
 
-    public void remplirLaListe() throws SQLException
-    {
+    public void remplirLaListe() throws SQLException {
         clientDAO.remplirListeClient(obList);
     }
+
     private void nettoyageScene() throws SQLException {
         viderChamps();
         viderListe();
         remplirLaListe();
     }
+
     private void viderListe() {
         table.getItems().clear();
     }
+
     public void supprimerClient() throws SQLException {
-        if(!table.getSelectionModel().isEmpty()) {
+        if (!table.getSelectionModel().isEmpty()) {
             Client clientSupprmier = table.getSelectionModel().getSelectedItem();
             clientDAO.supprimerClient(clientSupprmier);
             notifBuilder("Opération réussie",
                     "Votre opération de suppression du " + nom.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
             nettoyageScene();
-        }
-        else{
+        } else {
             notifBuilder("Attention",
                     "Il faut sélectionner un client pour pouvoir le supprimer.",
                     "/Images/warning.png");
         }
     }
+
     public void ajoutClient() throws SQLException, IOException {
-        Client client= new Client(nom.getText().trim(),prenom.getText().trim(),mail.getText().trim(),fidele.isSelected());
-        if(clientDAO.existenceClient(client)){
+        Client client = new Client(nom.getText().trim(), prenom.getText().trim(), mail.getText().trim(), fidele.isSelected());
+        if (clientDAO.existenceClient(client)) {
             notifBuilder("Attention",
-                    "le mail "+mail.getText()+" déja existe dans la base de données.",
+                    "le mail " + mail.getText() + " déja existe dans la base de données.",
                     "/Images/warning.png");
-        }
-        else if(validationDesChamps()){
+        } else if (validationDesChamps()) {
             clientDAO.insertClient(client);
 //            String insertReq="INSERT INTO client (nomClient,prenomClient,clientFidele,pdp,mailClient) values (?,?,?,?,?)";
 //            PreparedStatement statInsert = connection.prepareStatement(insertReq);
@@ -98,20 +109,19 @@ public class EcouteurListeClients implements Initializable {
 //            statInsert.setString(2,prenom.getText());
 //            statInsert.setInt(3,fid);
 
-            if(fis.available()<=32)
-                fis=new FileInputStream(new File("src/Images/pasdispo.png"));
-            statInsert.setBinaryStream(4,fis);
-            uneImageEstSelectionner=false;
+            if (fis.available() <= 32)
+                fis = new FileInputStream(new File("src/Images/pasdispo.png"));
+            statInsert.setBinaryStream(4, fis);
+            uneImageEstSelectionner = false;
 
 //            statInsert.setString(5,mail.getText());
 //            statInsert.executeUpdate();
 //            statInsert.close();
             notifBuilder("Opération réussie",
-                    "Votre opération d'ajouter le client "+nom.getText()+" est éffectué avec succès.",
+                    "Votre opération d'ajouter le client " + nom.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
             nettoyageScene();
-        }
-    else{
+        } else {
             notifBuilder("Attention",
                     "il faut remplir tout les champs.",
                     "/Images/warning.png");
@@ -124,118 +134,119 @@ public class EcouteurListeClients implements Initializable {
 
     public void ChoisirUneImage() throws FileNotFoundException {
         FileChooser fc = new FileChooser();
-        FileChooser.ExtensionFilter ext1 = new FileChooser.ExtensionFilter("JPG files(*.jpg)","*.JPG");
-        FileChooser.ExtensionFilter ext2 = new FileChooser.ExtensionFilter("PNG files(*.png)","*.PNG");
-        fc.getExtensionFilters().addAll(ext1,ext2);
-        File fichierSelect=fc.showOpenDialog(null);
-        if(fichierSelect!=null){
-            fis=new FileInputStream(fichierSelect);
+        FileChooser.ExtensionFilter ext1 = new FileChooser.ExtensionFilter("JPG files(*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter ext2 = new FileChooser.ExtensionFilter("PNG files(*.png)", "*.PNG");
+        fc.getExtensionFilters().addAll(ext1, ext2);
+        File fichierSelect = fc.showOpenDialog(null);
+        if (fichierSelect != null) {
+            fis = new FileInputStream(fichierSelect);
             image.setImage(new Image(fichierSelect.toURI().toString()));
-            uneImageEstSelectionner=true;
+            uneImageEstSelectionner = true;
         }
 
     }
+
     public void viderImage() throws IOException {
-        File file=new File("src/Images/Photo-non-disponible.jpg");
-        fis=new FileInputStream(file);
+        File file = new File("src/Images/Photo-non-disponible.jpg");
+        fis = new FileInputStream(file);
         image.setImage(new Image("/Images/Photo-non-disponible.jpg"));
-        uneImageEstSelectionner=true;
+        uneImageEstSelectionner = true;
     }
 
     public void modifierClient() throws SQLException, IOException {
-        if(!table.getSelectionModel().isEmpty()){
-            Client client=table.getSelectionModel().getSelectedItem();
-            Client clientSelectionner=new Client(client.getIdClient(),nom.getText(),prenom.getText(),mail.getText(),fidele.isSelected());
-            if(!client.equals(clientSelectionner) || uneImageEstSelectionner) {
-               clientDAO.updateClient(clientSelectionner);
-               notifBuilder("Opération réussie",
-                       "Votre opération de modifier le client "+client.getNom()+" a réussie.",
-                       "/Images/checked.png");
-           }
-        }
-        else{
+        if (!table.getSelectionModel().isEmpty()) {
+            Client client = table.getSelectionModel().getSelectedItem();
+            Client clientSelectionner = new Client(client.getIdClient(), nom.getText(), prenom.getText(), mail.getText(), fidele.isSelected());
+            if (!client.equals(clientSelectionner) || uneImageEstSelectionner) {
+                clientDAO.updateClient(clientSelectionner);
+                notifBuilder("Opération réussie",
+                        "Votre opération de modifier le client " + client.getNom() + " a réussie.",
+                        "/Images/checked.png");
+            }
+        } else {
             notifBuilder("Attention",
-                        "Il faut sélectionner un client pour pouvoir le modifier.",
-                        "/Images/warning.png");
+                    "Il faut sélectionner un client pour pouvoir le modifier.",
+                    "/Images/warning.png");
         }
 
     }
 
     private void modifierclientSelectionner(Client cl) throws SQLException, IOException {
 
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        int fid=cl.isClientFidele()?1:0;
-        String sql="update client set nomClient=? , prenomClient=? , mailClient=? ,clientFidele=?,pdp=? where idClient=?";
-        PreparedStatement statement=connection.prepareStatement(sql);
-        statement.setString(1,cl.getNom());
-        statement.setString(2,cl.getPrenom());
-        statement.setString(3,cl.getMailClient());
-        statement.setInt(4,fid);
-        if(uneImageEstSelectionner){
-            statement.setBinaryStream(5,fis);
-            uneImageEstSelectionner=false;
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection connection = connectionClass.getConnection();
+        int fid = cl.isClientFidele() ? 1 : 0;
+        String sql = "update client set nomClient=? , prenomClient=? , mailClient=? ,clientFidele=?,pdp=? where idClient=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, cl.getNom());
+        statement.setString(2, cl.getPrenom());
+        statement.setString(3, cl.getMailClient());
+        statement.setInt(4, fid);
+        if (uneImageEstSelectionner) {
+            statement.setBinaryStream(5, fis);
+            uneImageEstSelectionner = false;
+        } else {
+            InputStream is = inputClient(cl);
+            statement.setBinaryStream(5, is);
         }
-        else{
-            InputStream is=inputClient(cl);
-            statement.setBinaryStream(5,is);
-        }
-        statement.setInt(6,cl.getIdClient());
+        statement.setInt(6, cl.getIdClient());
         statement.executeUpdate();
         statement.close();
         nettoyageScene();
     }
 
     private InputStream inputClient(Client cl) throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sqlTEST="SELECT pdp from client where idClient="+cl.getIdClient();
-        Statement stat= connection.createStatement();
-        ResultSet res=stat.executeQuery(sqlTEST);
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection connection = connectionClass.getConnection();
+        String sqlTEST = "SELECT pdp from client where idClient=" + cl.getIdClient();
+        Statement stat = connection.createStatement();
+        ResultSet res = stat.executeQuery(sqlTEST);
         res.next();
-        InputStream is=res.getBinaryStream("pdp");
+        InputStream is = res.getBinaryStream("pdp");
         return is;
     }
 
     public void selectionClient() throws SQLException, IOException {
         viderChamps();
-        if(!table.getSelectionModel().isEmpty()){
-            Client clientSelectionner=table.getSelectionModel().getSelectedItem();
+        if (!table.getSelectionModel().isEmpty()) {
+            Client clientSelectionner = table.getSelectionModel().getSelectedItem();
             selectionImage(clientSelectionner);
             nom.setText(clientSelectionner.getNom());
             prenom.setText(clientSelectionner.getPrenom());
             mail.setText(clientSelectionner.getMailClient());
-            if(clientSelectionner.isClientFidele()){
+            if (clientSelectionner.isClientFidele()) {
                 fidele.setSelected(true);
             }
         }
     }
-    private Image imageClient(Client cl) throws SQLException, IOException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="SELECT pdp from client where idClient="+cl.getIdClient();
-        ResultSet res=connection.createStatement().executeQuery(sql);
-        res.next();
-        InputStream is=res.getBinaryStream("pdp");
-        OutputStream os=new FileOutputStream(new File("photo.jpg"));
-        byte[] content=new byte[1024];
 
-        int size=0;
-        while( (size = is.read(content))!=-1 ){
-            os.write(content,0,size);
+    private Image imageClient(Client cl) throws SQLException, IOException {
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection connection = connectionClass.getConnection();
+        String sql = "SELECT pdp from client where idClient=" + cl.getIdClient();
+        ResultSet res = connection.createStatement().executeQuery(sql);
+        res.next();
+        InputStream is = res.getBinaryStream("pdp");
+        OutputStream os = new FileOutputStream(new File("photo.jpg"));
+        byte[] content = new byte[1024];
+
+        int size = 0;
+        while ((size = is.read(content)) != -1) {
+            os.write(content, 0, size);
         }
         os.close();
         is.close();
-        Image img=new Image("file:photo.jpg",400,300,false, true);
+        Image img = new Image("file:photo.jpg", 400, 300, false, true);
         return img;
     }
-    private void selectionImage( Client cl) throws SQLException, IOException {
+
+    private void selectionImage(Client cl) throws SQLException, IOException {
         image.setImage(imageClient(cl));
     }
 
-    public void notifBuilder(String titre,String texte,String pathImg){
-        Image img=new Image(pathImg);
-        Notifications notifBuilder=Notifications.create()
+    public void notifBuilder(String titre, String texte, String pathImg) {
+        Image img = new Image(pathImg);
+        Notifications notifBuilder = Notifications.create()
                 .title(titre)
                 .text(texte)
                 .graphic(new ImageView(img))
@@ -244,6 +255,7 @@ public class EcouteurListeClients implements Initializable {
         notifBuilder.darkStyle();
         notifBuilder.show();
     }
+
     private void viderChamps() {
         mail.setText("");
         nom.setText("");
@@ -253,14 +265,15 @@ public class EcouteurListeClients implements Initializable {
     }
 
     public void retour(ActionEvent e) throws IOException {
-        path="/Vue/SceneBienvenue.fxml";
+        path = "/Vue/SceneBienvenue.fxml";
         root = FXMLLoader.load(getClass().getResource(path));
         basculeScene(e);
     }
+
     public void ensembleDesCommandes(ActionEvent e) throws IOException, SQLException {
-        if(!table.getSelectionModel().isEmpty()){
-            path="/Vue/SceneCommandesClient.fxml";
-            Client cl=new Client(
+        if (!table.getSelectionModel().isEmpty()) {
+            path = "/Vue/SceneCommandesClient.fxml";
+            Client cl = new Client(
                     table.getSelectionModel().getSelectedItem().getIdClient(),
                     table.getSelectionModel().getSelectedItem().getNom(),
                     table.getSelectionModel().getSelectedItem().getPrenom(),
@@ -270,42 +283,44 @@ public class EcouteurListeClients implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(path));
             loader.load();
-            EcouteurCommandesClient scene2=loader.getController();
-            Image imgClient=imageClient(cl);
-            scene2.getInfos(cl,imgClient);
+            EcouteurCommandesClient scene2 = loader.getController();
+            Image imgClient = imageClient(cl);
+            scene2.getInfos(cl, imgClient);
 
-            root=loader.getRoot();
+            root = loader.getRoot();
             basculeScene(e);
-        }
-        else{
+        } else {
             notifBuilder("Attention",
                     "Il faut sélectionner un client pour pouvoir afficher ses commandes.",
                     "/Images/warning.png");
         }
 
     }
+
     public void basculeScene(ActionEvent e) throws IOException {
-        stage=(Stage)((Node)e.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colId.setCellValueFactory(new PropertyValueFactory<Client,Integer>("idClient"));
-        colNom.setCellValueFactory(new PropertyValueFactory<Client,String>("nom"));
-        colPrenom.setCellValueFactory(new PropertyValueFactory<Client,String>("prenom"));
-        colMail.setCellValueFactory(new PropertyValueFactory<Client,String>("mailClient"));
-        colFidele.setCellValueFactory(new PropertyValueFactory<Client,Boolean>("clientFidele"));
+        colId.setCellValueFactory(new PropertyValueFactory<Client, Integer>("idClient"));
+        colNom.setCellValueFactory(new PropertyValueFactory<Client, String>("nom"));
+        colPrenom.setCellValueFactory(new PropertyValueFactory<Client, String>("prenom"));
+        colMail.setCellValueFactory(new PropertyValueFactory<Client, String>("mailClient"));
+        colFidele.setCellValueFactory(new PropertyValueFactory<Client, Boolean>("clientFidele"));
         table.setItems(obList);
         try {
-            clientDAO= new ClientDAOImpl();
+            clientDAO = new ClientDAOImpl();
             remplirLaListe();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
-    public void vider(){
+
+    public void vider() {
         viderChamps();
     }
 }

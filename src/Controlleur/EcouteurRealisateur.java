@@ -25,7 +25,7 @@ import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class EcouteurRealisateur implements Initializable {
@@ -58,7 +58,7 @@ public class EcouteurRealisateur implements Initializable {
 
     @FXML
     private JFXTextArea mmoResumeRealisateur;
-    private ObservableList<Realisateur> obList= FXCollections.observableArrayList();
+    private ObservableList<Realisateur> obList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -67,7 +67,7 @@ public class EcouteurRealisateur implements Initializable {
         colPrenomRealisateur.setCellValueFactory(new PropertyValueFactory<Realisateur, String>("prenom"));
         tblRealisateur.setItems(obList);
         try {
-            realisateurDAO=new RealisateurDAOImpl();
+            realisateurDAO = new RealisateurDAOImpl();
             remplirLaListe();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -108,19 +108,18 @@ public class EcouteurRealisateur implements Initializable {
     }
 
     public void ajoutRealisateur() throws SQLException {
-        Realisateur realisateur= new Realisateur(edtNomRealisateur.getText().trim(),edtPrenomRealisateur.getText().trim(),mmoResumeRealisateur.getText().trim());
+        Realisateur realisateur = new Realisateur(edtNomRealisateur.getText().trim(), edtPrenomRealisateur.getText().trim(), mmoResumeRealisateur.getText().trim());
         if (realisateurDAO.existenceRealisateur(realisateur)) {
             notifBuilder("Attention",
                     "le réalisateur " + edtNomRealisateur.getText() + " existe déjà dans la base de données.",
                     "/Images/warning.png");
-        } else if(validationDesChamps()){
-           realisateurDAO.insertRealisateur(realisateur);
+        } else if (validationDesChamps()) {
+            realisateurDAO.insertRealisateur(realisateur);
             notifBuilder("Opération réussie",
                     "Votre opération d'ajouter le réalisateur " + edtNomRealisateur.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
             nettoyageScene();
-        }
-        else{
+        } else {
             notifBuilder("Attention",
                     "il faut remplir tout les champs.",
                     "/Images/warning.png");
@@ -173,7 +172,8 @@ public class EcouteurRealisateur implements Initializable {
         notifBuilder.darkStyle();
         notifBuilder.show();
     }
-    public void vider(){
+
+    public void vider() {
         viderChamps();
     }
 }
