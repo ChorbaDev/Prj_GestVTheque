@@ -100,7 +100,7 @@ public class EcouteurListeClients implements Initializable {
 
             if(fis.available()<=32)
                 fis=new FileInputStream(new File("src/Images/pasdispo.png"));
-            statInsert.setBinaryStream(4,fis);
+            //statInsert.setBinaryStream(4,fis);
             uneImageEstSelectionner=false;
 
 //            statInsert.setString(5,mail.getText());

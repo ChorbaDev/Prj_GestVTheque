@@ -27,7 +27,7 @@ public class ClientDAOImpl implements ClientDAO{
         ps.setString(1,client.getNom());
         ps.setString(2,client.getPrenom());
         ps.setBoolean(3,client.isClientFidele());
-        ps.setString(4,client.);
+       // ps.setString(4,client.);
         ps.setString(5,client.getMailClient());
         ps.executeUpdate();
         
@@ -40,7 +40,7 @@ public class ClientDAOImpl implements ClientDAO{
         ps.setString(2,client.getPrenom());
         ps.setString(3,client.getMailClient());
         ps.setBoolean(4,client.isClientFidele());
-        ps.setBlob(5,client.);
+        //ps.setBlob(5,client.);
         ps.setInt(6,client.getIdClient());
         ps.executeUpdate();
 

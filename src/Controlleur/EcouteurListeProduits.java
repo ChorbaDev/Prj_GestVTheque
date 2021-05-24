@@ -1,8 +1,6 @@
 package Controlleur;
 
-import Modele.Client;
-import Modele.Commande;
-import Modele.Produit;
+import Modele.*;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,6 +55,7 @@ public class EcouteurListeProduits implements Initializable {
     @FXML private JFXComboBox<String> realDVD;
     @FXML private JFXComboBox<String> auteurLivre;
     //
+    private ProduitDAOImpl produitDao;
     private Boolean uneImageEstSelectionner=false;
     private FileInputStream fis=new FileInputStream(new File("src/Images/pasdispo.png"));
 
@@ -107,36 +106,8 @@ public class EcouteurListeProduits implements Initializable {
     @FXML
     void ajouterProduit(ActionEvent event) throws SQLException, IOException {
         if(champsNonVide()){
-            ConnectionClass connectionClass=new ConnectionClass();
-            Connection connection=connectionClass.getConnection();
-            String sql="insert into produit (titreProduit,tarifJounalier,produit.type,stock,anneeSortie,langue,duree,nbPages,realisateur,auteur,photo,idEns) values (?,?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement statement=connection.prepareStatement(sql);
-
-            if(nomProduit.getText().isEmpty())
-                statement.setNull(1,Types.NULL);
-            else{
-                statement.setString(   1,String.valueOf(nomProduit.getText()));
-            }
-            if(nbPagesDocument.getText().isEmpty())
-                statement.setNull(8,Types.NULL);
-            else{
-                statement.setInt(   8,Integer.valueOf(nbPagesDocument.getText()));
-            }
-            if(dureeSupportN.getText().isEmpty())
-                statement.setNull(7,Types.NULL);
-            else{
-                statement.setInt(   7,Integer.valueOf(dureeSupportN.getText()));
-            }
-            if(tarifProduit.getText().isEmpty())
-                statement.setNull(2,Types.NULL);
-            else{
-                statement.setDouble(2,Double.valueOf(tarifProduit.getText()));
-            }
-            if(stockProduit.getText().isEmpty())
-                statement.setNull(4,Types.NULL);
-            else{
-                statement.setInt(   4,Integer.valueOf(stockProduit.getText()));
-            }
+            Produit pd=new Produit(nomProduit.getText(),Integer.valueOf(stockProduit.getText()),Double.valueOf(tarifProduit.getText()),typeProduit.getSelectionModel().getSelectedItem());
+            PreparedStatement statement= produitDao.ajouterProduit(pd);
             String ch;
             if(anneeSortie.getSelectionModel().getSelectedIndex()==-1)
                 statement.setNull(5,Types.NULL);
@@ -150,11 +121,15 @@ public class EcouteurListeProduits implements Initializable {
                 ch=langueDictionnaire.getSelectionModel().getSelectedItem();
                 statement.setString(6,ch);
             }
-            if(typeProduit.getSelectionModel().getSelectedIndex()==-1)
-                statement.setNull(3,Types.NULL);
+            if(dureeSupportN.getText().isEmpty())
+                statement.setNull(7,Types.NULL);
             else{
-                ch=typeProduit.getSelectionModel().getSelectedItem();
-                statement.setString(3,ch);
+                statement.setInt(   7,Integer.valueOf(dureeSupportN.getText()));
+            }
+            if(nbPagesDocument.getText().isEmpty())
+                statement.setNull(8,Types.NULL);
+            else{
+                statement.setInt(   8,Integer.valueOf(nbPagesDocument.getText()));
             }
             if(realDVD.getSelectionModel().getSelectedIndex()==-1)
                 statement.setNull(9,Types.NULL);
@@ -173,7 +148,6 @@ public class EcouteurListeProduits implements Initializable {
                 fis=new FileInputStream(new File("src/Images/pasdispo.png"));
             statement.setBinaryStream(11,fis);
             uneImageEstSelectionner=false;
-            statement.setString(12,"Document");
             statement.executeUpdate();
             statement.close();
             notifBuilder("Opération réussie",
@@ -186,7 +160,6 @@ public class EcouteurListeProduits implements Initializable {
             notifBuilder("Attention",
                     "Pour pouvoir ajouter un produit, il faut remplir tout les champs.",
                     "/Images/warning.png");
-            nettoyageScene();
         }
 
     }
@@ -222,14 +195,21 @@ public class EcouteurListeProduits implements Initializable {
 
     }
     private void modifierProduitSelectionner(Produit pd) throws SQLException {
-            ConnectionClass connectionClass=new ConnectionClass();
-            Connection connection=connectionClass.getConnection();
-            String sql="update produit set  titreProduit=? ,tarifJounalier=? ,produit.type=? ,stock=? ,anneeSortie=?,langue=?,duree=?,nbPages=?,realisateur=?,auteur=?,photo=?,idEns=? where idProduit="+pd.getIdProduit();
-            PreparedStatement statement=connection.prepareStatement(sql);
-            statement.setString(1,pd.getTitreProduit());
-            statement.setDouble(2,pd.getTarifProduit());
-            statement.setString(3,pd.getTypeProduit());
-            statement.setInt(   4,pd.getStockProduit());
+        PreparedStatement statement=produitDao.modifierProduitSelectionner(pd);
+        String ch;
+        if(anneeSortie.getSelectionModel().getSelectedIndex()==-1)
+            statement.setNull(5,Types.NULL);
+        else{
+            ch=anneeSortie.getSelectionModel().getSelectedItem();
+            statement.setInt(   5,Integer.valueOf(ch));
+        }
+
+        if(langueDictionnaire.getSelectionModel().getSelectedIndex()==-1)
+            statement.setNull(6,Types.NULL);
+        else{
+            ch=langueDictionnaire.getSelectionModel().getSelectedItem();
+            statement.setString(6,ch);
+        }
             if(dureeSupportN.getText().isEmpty())
                 statement.setNull(7,Types.NULL);
             else{
@@ -241,19 +221,7 @@ public class EcouteurListeProduits implements Initializable {
             else{
                 statement.setInt(   8,Integer.valueOf(nbPagesDocument.getText()));
             }
-            String ch;
-            if(anneeSortie.getSelectionModel().getSelectedIndex()==-1)
-                statement.setNull(5,Types.NULL);
-            else{
-                ch=anneeSortie.getSelectionModel().getSelectedItem();
-                statement.setInt(   5,Integer.valueOf(ch));
-            }
-            if(langueDictionnaire.getSelectionModel().getSelectedIndex()==-1)
-                statement.setNull(6,Types.NULL);
-            else{
-                ch=langueDictionnaire.getSelectionModel().getSelectedItem();
-                statement.setString(6,ch);
-            }
+
             if(realDVD.getSelectionModel().getSelectedIndex()==-1)
                 statement.setNull(9,Types.NULL);
             else{
@@ -281,11 +249,8 @@ public class EcouteurListeProduits implements Initializable {
     }
 
     private InputStream inputProduit(Produit pd) throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sqlTEST="SELECT photo from produit where idProduit="+pd.getIdProduit();
-        Statement stat= connection.createStatement();
-        ResultSet res=stat.executeQuery(sqlTEST);
+        ResultSet res=produitDao.inputProduit(pd.getIdProduit());
+        System.out.println("s");
         res.next();
         InputStream is=res.getBinaryStream("photo");
         return is;
@@ -295,11 +260,7 @@ public class EcouteurListeProduits implements Initializable {
     void supprimerProduit(ActionEvent event) throws SQLException {
         if(!table.getSelectionModel().isEmpty()) {
             Produit produitSupprimer=table.getSelectionModel().getSelectedItem();
-            ConnectionClass connectionClass = new ConnectionClass();
-            Connection connection = connectionClass.getConnection();
-            String sql="delete from produit where idProduit="+produitSupprimer.getIdProduit();
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
+            produitDao.supprimerProduit(produitSupprimer);
             notifBuilder("Opération réussie",
                     "Votre opération de suppression du " + nomProduit.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
@@ -375,60 +336,38 @@ public class EcouteurListeProduits implements Initializable {
     }
 
     private void modifDuree(int idProduit) throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="SELECT duree from produit where idProduit="+idProduit;
-        ResultSet res=connection.createStatement().executeQuery(sql);
+        ResultSet res=produitDao.modifDuree(idProduit);
         if(res.next())
             dureeSupportN.setText((Integer.toString(res.getInt("duree"))));
     }
 
     private void modifNbpages(int idProduit) throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="SELECT nbPages from produit where idProduit="+idProduit;
-        ResultSet res=connection.createStatement().executeQuery(sql);
+        ResultSet res=produitDao.modifNbpages(idProduit);
         if(res.next())
         nbPagesDocument.setText((Integer.toString(res.getInt("nbPages"))));
     }
-
     private void modifType(int idProduit) throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="SELECT produit.type from produit where idProduit="+idProduit;
-        ResultSet res=connection.createStatement().executeQuery(sql);
+        ResultSet res=produitDao.modifType(idProduit);
         if(res.next())
         typeProduit.setValue(res.getString("type"));
     }
     private void modifLangue(int idProduit) throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="SELECT langue from produit where idProduit="+idProduit;
-        ResultSet res=connection.createStatement().executeQuery(sql);
+        ResultSet res=produitDao.modifLangue(idProduit);
         if(res.next())
         langueDictionnaire.setValue(res.getString("langue"));
     }
     private void modifAuteur(int idProduit) throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="SELECT auteur,nomAuteur from produit,auteur where produit.auteur=auteur.idAuteur and idProduit="+idProduit;
-        ResultSet res=connection.createStatement().executeQuery(sql);
+        ResultSet res=produitDao.modifAuteur(idProduit);
         if(res.next())
         auteurLivre.setValue(res.getString("auteur")+" "+res.getString("nomAuteur"));
     }
     private void modifReal(int idProduit) throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="SELECT realisateur,nomReal from produit,realisateur where produit.realisateur=realisateur.idReal and idProduit="+idProduit;
-        ResultSet res=connection.createStatement().executeQuery(sql);
+        ResultSet res=produitDao.modifReal(idProduit);
         if(res.next())
         realDVD.setValue(res.getString("realisateur")+" "+res.getString("nomReal"));
     }
     private void modifAnnee(int idProduit) throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="SELECT anneeSortie from produit where idProduit="+idProduit;
-        ResultSet res=connection.createStatement().executeQuery(sql);
+        ResultSet res=produitDao.modifAnnee(idProduit);
         if(res.next())
         anneeSortie.setValue(res.getString("anneeSortie"));
     }
@@ -437,47 +376,13 @@ public class EcouteurListeProduits implements Initializable {
         image.setImage(imageProduit(pd));
     }
     public Image imageProduit(Produit pd) throws SQLException, IOException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="SELECT photo from produit where idProduit="+pd.getIdProduit();
-        ResultSet res=connection.createStatement().executeQuery(sql);
-        res.next();
-        InputStream is=res.getBinaryStream("photo");
-        OutputStream os=new FileOutputStream(new File("photo.jpg"));
-        byte[] content=new byte[1024];
-
-        int size=0;
-        while( (size = is.read(content))!=-1 ){
-            os.write(content,0,size);
-        }
-        os.close();
-        is.close();
-        Image img=new Image("file:photo.jpg",400,300,true, true);
-        return img;
+        return produitDao.imageProduit(pd.getIdProduit());
     }
     private void remplirLaListe() throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="select idProduit,tarifJounalier,produit.type,stock,titreProduit from produit";
-        ResultSet res=connection.createStatement().executeQuery(sql);
-        while(res.next()){
-            obList.add(new Produit(
-                    res.getInt("idProduit"),
-                    res.getString("titreProduit"),
-                    res.getInt("stock"),
-                    res.getFloat("tarifJounalier"),
-                    res.getString("type")
-            ));
-        }
+            produitDao.remplirLaListe(obList);
     }
     private void remplirComboTypes() throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="select idType from typeproduit";
-        ResultSet res=connection.createStatement().executeQuery(sql);
-        while(res.next()){
-            comboList.add(res.getString("idType"));
-        }
+        produitDao.remplirComboTypes(comboList);
     }
     @FXML
     void choisirUneImage(ActionEvent event) throws FileNotFoundException {
@@ -566,6 +471,7 @@ public class EcouteurListeProduits implements Initializable {
         colTarif.setCellValueFactory(new PropertyValueFactory<Produit,Float>("tarifProduit"));
         table.setItems(obList);
         try {
+            produitDao=new ProduitDAOImpl();
             remplirLaListe();
             remplirComboTypes();
             remplirComboAuteur();
@@ -599,23 +505,11 @@ public class EcouteurListeProduits implements Initializable {
     }
 
     private void remplirComboRealisateur() throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="select idReal,nomReal from realisateur";
-        ResultSet res=connection.createStatement().executeQuery(sql);
-        while(res.next()){
-            comboListRealisateur.add(res.getInt("idReal")+" "+res.getString("nomReal"));
-        }
+        produitDao.remplirComboRealisateur(comboListRealisateur);
     }
 
     private void remplirComboAuteur() throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql="select idAuteur,nomAuteur from auteur";
-        ResultSet res=connection.createStatement().executeQuery(sql);
-        while(res.next()){
-            comboListAuteur.add(res.getInt("idAuteur")+" "+res.getString("nomAuteur"));
-        }
+        produitDao.remplirComboAuteur(comboListAuteur);
     }
     private void partieInvisible() {
         langueDictionnaire.setVisible(false);
