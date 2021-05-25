@@ -60,4 +60,13 @@ public class Client extends Personne {
         return (cl.nom.getValue().equals(nom.getValue())) && (cl.prenom.getValue().equals(prenom.getValue())) && (cl.mailClient.getValue().equals(mailClient.getValue())) && (cl.idClient.getValue().equals(idClient.getValue())) && (cl.isClientFidele() == this.isClientFidele());
     }
 
+    @Override
+    public String toString()
+    {
+        return "Client{" +
+                "idClient=" + idClient +
+                ", mailClient=" + mailClient +
+                ", clientFidele=" + clientFidele +
+                '}';
+    }
 }

@@ -151,9 +151,8 @@ public class EcouteurListeClients implements Initializable {
             Client client = table.getSelectionModel().getSelectedItem();
             Client clientSelectionner = new Client(client.getIdClient(), nom.getText(), prenom.getText(), mail.getText(), fidele.isSelected());
             if (!client.equals(clientSelectionner) || uneImageEstSelectionner) {
-                clientDAO.modifierClientSelectionner(clientSelectionner);
-                viderListe();
-                remplirLaListe();
+//                System.out.println(clientSelectionner.toString());
+                modifierClientSelectionner(clientSelectionner);
                 notifBuilder("Opération réussie",
                         "Votre opération de modifier le client " + client.getNom() + " a réussie.",
                         "/Images/checked.png");
@@ -166,7 +165,7 @@ public class EcouteurListeClients implements Initializable {
 
     }
 
-    private void modifierclientSelectionner(Client cl) throws SQLException, IOException {
+    private void modifierClientSelectionner(Client cl) throws SQLException, IOException {
         PreparedStatement statement=clientDAO.modifierClientSelectionner(cl);
         if (uneImageEstSelectionner) {
             statement.setBinaryStream(5, fis);
