@@ -75,18 +75,18 @@ public class ClientDAOImpl implements ClientDAO {
         return ps;
     }
 
-    @Override
-    public PreparedStatement updateClient(Client client) throws SQLException {
-        ps = connection.prepareStatement(UPDATE_CLIENT_SQL);
-        ps.setString(1, client.getNom());
-        ps.setString(2, client.getPrenom());
-        ps.setString(3, client.getMailClient());
-        ps.setBoolean(4, client.isClientFidele());
-        ps.setInt(6, client.getIdClient());
-
-        return ps;
-
-    }
+//    @Override
+//    public PreparedStatement updateClient(Client client) throws SQLException {
+//        ps = connection.prepareStatement(UPDATE_CLIENT_SQL);
+//        ps.setString(1, client.getNom());
+//        ps.setString(2, client.getPrenom());
+//        ps.setString(3, client.getMailClient());
+//        ps.setBoolean(4, client.isClientFidele());
+//        ps.setInt(6, client.getIdClient());
+//
+//        return ps;
+//
+//    }
 
     @Override
     public void supprimerClient(Client client) throws SQLException {
