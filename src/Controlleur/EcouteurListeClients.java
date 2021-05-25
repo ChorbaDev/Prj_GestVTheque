@@ -96,28 +96,20 @@ public class EcouteurListeClients implements Initializable {
     }
 
     public void ajoutClient() throws SQLException, IOException {
+
         Client client = new Client(nom.getText().trim(), prenom.getText().trim(), mail.getText().trim(), fidele.isSelected());
+        PreparedStatement statement=clientDAO.insertClient(client);
         if (clientDAO.existenceClient(client)) {
             notifBuilder("Attention",
                     "le mail " + mail.getText() + " déja existe dans la base de données.",
                     "/Images/warning.png");
         } else if (validationDesChamps()) {
-            clientDAO.insertClient(client);
-//            String insertReq="INSERT INTO client (nomClient,prenomClient,clientFidele,pdp,mailClient) values (?,?,?,?,?)";
-//            PreparedStatement statInsert = connection.prepareStatement(insertReq);
-//            statInsert.setString(1,nom.getText());
-//            statInsert.setString(2,prenom.getText());
-//            statInsert.setInt(3,fid);
-
-
             if (fis.available() <= 32)
                 fis = new FileInputStream(new File("src/Images/pasdispo.png"));
-            statInsert.setBinaryStream(4, fis);
+            statement.setBinaryStream(4, fis);
             uneImageEstSelectionner = false;
-
-//            statInsert.setString(5,mail.getText());
-//            statInsert.executeUpdate();
-//            statInsert.close();
+            statement.executeUpdate();
+            statement.close();
             notifBuilder("Opération réussie",
                     "Votre opération d'ajouter le client " + nom.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
@@ -159,7 +151,9 @@ public class EcouteurListeClients implements Initializable {
             Client client = table.getSelectionModel().getSelectedItem();
             Client clientSelectionner = new Client(client.getIdClient(), nom.getText(), prenom.getText(), mail.getText(), fidele.isSelected());
             if (!client.equals(clientSelectionner) || uneImageEstSelectionner) {
-                clientDAO.updateClient(clientSelectionner);
+                clientDAO.modifierClientSelectionner(clientSelectionner);
+                viderListe();
+                remplirLaListe();
                 notifBuilder("Opération réussie",
                         "Votre opération de modifier le client " + client.getNom() + " a réussie.",
                         "/Images/checked.png");
@@ -173,16 +167,7 @@ public class EcouteurListeClients implements Initializable {
     }
 
     private void modifierclientSelectionner(Client cl) throws SQLException, IOException {
-
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
-        int fid = cl.isClientFidele() ? 1 : 0;
-        String sql = "update client set nomClient=? , prenomClient=? , mailClient=? ,clientFidele=?,pdp=? where idClient=?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, cl.getNom());
-        statement.setString(2, cl.getPrenom());
-        statement.setString(3, cl.getMailClient());
-        statement.setInt(4, fid);
+        PreparedStatement statement=clientDAO.modifierClientSelectionner(cl);
         if (uneImageEstSelectionner) {
             statement.setBinaryStream(5, fis);
             uneImageEstSelectionner = false;
@@ -190,18 +175,13 @@ public class EcouteurListeClients implements Initializable {
             InputStream is = inputClient(cl);
             statement.setBinaryStream(5, is);
         }
-        statement.setInt(6, cl.getIdClient());
         statement.executeUpdate();
         statement.close();
         nettoyageScene();
     }
 
     private InputStream inputClient(Client cl) throws SQLException {
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
-        String sqlTEST = "SELECT pdp from client where idClient=" + cl.getIdClient();
-        Statement stat = connection.createStatement();
-        ResultSet res = stat.executeQuery(sqlTEST);
+        ResultSet res=clientDAO.inputClient(cl.getIdClient());
         res.next();
         InputStream is = res.getBinaryStream("pdp");
         return is;
@@ -222,23 +202,7 @@ public class EcouteurListeClients implements Initializable {
     }
 
     private Image imageClient(Client cl) throws SQLException, IOException {
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
-        String sql = "SELECT pdp from client where idClient=" + cl.getIdClient();
-        ResultSet res = connection.createStatement().executeQuery(sql);
-        res.next();
-        InputStream is = res.getBinaryStream("pdp");
-        OutputStream os = new FileOutputStream(new File("photo.jpg"));
-        byte[] content = new byte[1024];
-
-        int size = 0;
-        while ((size = is.read(content)) != -1) {
-            os.write(content, 0, size);
-        }
-        os.close();
-        is.close();
-        Image img = new Image("file:photo.jpg", 400, 300, false, true);
-        return img;
+        return clientDAO.imageClient(cl.getIdClient());
     }
 
     private void selectionImage(Client cl) throws SQLException, IOException {

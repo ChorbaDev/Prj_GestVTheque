@@ -1,13 +1,24 @@
 package Modele;
 
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface ClientDAO {
-    void insertClient(Client client) throws SQLException;
 
-    void updateClient(Client client) throws SQLException;
+    ResultSet inputClient(int idClient) throws SQLException;
+
+    PreparedStatement modifierClientSelectionner(Client client) throws SQLException;
+
+    Image imageClient(int idClient) throws SQLException, IOException;
+
+    PreparedStatement insertClient(Client client) throws SQLException;
+
+    PreparedStatement updateClient(Client client) throws SQLException;
 
     void supprimerClient(Client client) throws SQLException;
 

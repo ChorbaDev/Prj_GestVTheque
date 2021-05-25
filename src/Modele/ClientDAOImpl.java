@@ -2,7 +2,9 @@ package Modele;
 
 import Controlleur.ConnectionClass;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +15,7 @@ public class ClientDAOImpl implements ClientDAO {
     private static final String UPDATE_CLIENT_SQL = "update client set nomClient=? , prenomClient=? , mailClient=? ,clientFidele=?,pdp=? where idClient=?";
     private static final String DELETE_CLIENT_SQL = "delete from client where idClient=?";
     private static final String EXISTE_CLIENT_SQL = "select * from client where mailClient=?";
+    private static final String PHOTO_PAR_ID="select pdp from client where idClient=?";
     private static PreparedStatement ps;
     private static ConnectionClass connectionClass;
     private static Connection connection;
@@ -23,29 +26,65 @@ public class ClientDAOImpl implements ClientDAO {
     }
 
     @Override
-    public void insertClient(Client client) throws SQLException {
+    public ResultSet inputClient(int idClient) throws SQLException {
+        ps=connection.prepareStatement(PHOTO_PAR_ID);
+        ps.setInt(1,idClient);
+        return ps.executeQuery();
+    }
+
+    @Override
+    public PreparedStatement modifierClientSelectionner(Client client) throws SQLException {
+        ps=connection.prepareStatement(UPDATE_CLIENT_SQL);
+        ps.setString(1,client.getNom());
+        ps.setString(2,client.getPrenom());
+        ps.setString(3,client.getMailClient());
+        ps.setBoolean(4,client.isClientFidele());
+        ps.setInt(6,client.getIdClient());
+        return ps;
+    }
+
+    @Override
+    public Image imageClient(int idClient) throws SQLException, IOException {
+        ps=connection.prepareStatement(PHOTO_PAR_ID);
+        ps.setInt(1,idClient);
+        ResultSet res=ps.executeQuery();
+        res.next();
+        InputStream is=res.getBinaryStream("pdp");
+        OutputStream os=new FileOutputStream(new File("photo.jpg"));
+        byte[] content=new byte[1024];
+
+        int size=0;
+        while( (size = is.read(content))!=-1 ){
+            os.write(content,0,size);
+        }
+
+        os.close();
+        is.close();
+        Image img=new Image("file:photo.jpg",400,300,true, true);
+        return img;
+    }
+
+    @Override
+    public PreparedStatement insertClient(Client client) throws SQLException {
+        int fid = client.isClientFidele() ? 1 : 0;
         ps = connection.prepareStatement(INSERT_CLIENT_SQL);
         ps.setString(1, client.getNom());
         ps.setString(2, client.getPrenom());
         ps.setBoolean(3, client.isClientFidele());
-        ps.setString(4, client.);
         ps.setString(5, client.getMailClient());
-
-        ps.executeUpdate();
-
+        return ps;
     }
 
     @Override
-    public void updateClient(Client client) throws SQLException {
+    public PreparedStatement updateClient(Client client) throws SQLException {
         ps = connection.prepareStatement(UPDATE_CLIENT_SQL);
         ps.setString(1, client.getNom());
         ps.setString(2, client.getPrenom());
         ps.setString(3, client.getMailClient());
         ps.setBoolean(4, client.isClientFidele());
-        ps.setBlob(5, client.);
         ps.setInt(6, client.getIdClient());
 
-        ps.executeUpdate();
+        return ps;
 
     }
 
