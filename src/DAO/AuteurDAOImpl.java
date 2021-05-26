@@ -1,13 +1,15 @@
-package Modele;
+package DAO;
 
 import Controlleur.ConnectionClass;
+import DAO.AuteurDAO;
+import Modele.Auteur;
 import javafx.collections.ObservableList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AuteurDAOImpl implements AuteurDAO{
+public class AuteurDAOImpl implements AuteurDAO {
     private static final String INSERT_AUTEUR_SQL="INSERT INTO auteur (nomAuteur,prenomAuteur,resume) VALUES (?,?,?)";
     private static final String UPDATE_AUTEUR_SQL="update auteur set nomAuteur=?, prenomAuteur=?, resume=? where idAuteur=? ";
     private static final String EXISTE_AUTEUR_SQL="select * from auteur where resume=?";

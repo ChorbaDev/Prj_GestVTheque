@@ -1,7 +1,7 @@
 package Controlleur;
 
 import Modele.Auteur;
-import Modele.AuteurDAOImpl;
+import DAO.AuteurDAOImpl;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;

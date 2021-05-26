@@ -1,6 +1,7 @@
-package Modele;
+package DAO;
 
 import Controlleur.ConnectionClass;
+import Modele.Client;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 

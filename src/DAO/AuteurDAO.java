@@ -1,4 +1,5 @@
-package Modele;
+package DAO;
+import Modele.Auteur;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;

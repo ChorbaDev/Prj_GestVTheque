@@ -1,6 +1,8 @@
-package Modele;
+package DAO;
 
 import Controlleur.ConnectionClass;
+import DAO.RealisateurDAO;
+import Modele.Realisateur;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;

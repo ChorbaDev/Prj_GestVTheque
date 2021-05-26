@@ -1,7 +1,7 @@
 package Controlleur;
 
 import Modele.Client;
-import Modele.ClientDAOImpl;
+import DAO.ClientDAOImpl;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;

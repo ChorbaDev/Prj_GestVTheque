@@ -1,7 +1,8 @@
-package Modele;
+package DAO;
 
 import Controlleur.ConnectionClass;
-import com.jfoenix.controls.JFXComboBox;
+import DAO.ProduitDAO;
+import Modele.Produit;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
@@ -11,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ProduitDAOImpl implements ProduitDAO{
+public class ProduitDAOImpl implements ProduitDAO {
     private static final String INSERT_PRODUIT_SQL="insert into produit (titreProduit,tarifJounalier,produit.type,stock,anneeSortie,langue,duree,nbPages,realisateur,auteur,photo) values (?,?,?,?,?,?,?,?,?,?,?)";
     private static final String UPDATE_PRODUIT_SQL="update produit set  titreProduit=? ,tarifJounalier=? ,produit.type=? ,stock=? ,anneeSortie=?,langue=?,duree=?,nbPages=?,realisateur=?,auteur=?,photo=? where idProduit=?";
     private static final String REMPLIR_LISTE_SQL ="select idProduit,tarifJounalier,produit.type,stock,titreProduit from produit";

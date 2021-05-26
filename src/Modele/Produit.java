@@ -1,7 +1,8 @@
 package Modele;
 
 import javafx.beans.property.*;
-import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 public   class Produit {
     protected IntegerProperty idProduit;
@@ -9,6 +10,7 @@ public   class Produit {
     protected IntegerProperty stockProduit;
     protected DoubleProperty tarifProduit;
     protected StringProperty typeProduit;
+    protected ImageView imageProduit;
 
     public Produit(int idProduit, String titreProduit, int stockProduit, double tarifProduit,String type) {
         this.idProduit =new SimpleIntegerProperty(idProduit) ;
@@ -23,6 +25,23 @@ public   class Produit {
         this.tarifProduit =new SimpleDoubleProperty(tarifProduit) ;
         this.stockProduit =new SimpleIntegerProperty(stockProduit);
         this.typeProduit=new SimpleStringProperty(typeProduit);
+    }
+
+    public Produit(int idProduit, String titreProduit, int stockProduit, double tarifProduit,String type, ImageView imageProduit) {
+        this.idProduit =new SimpleIntegerProperty(idProduit) ;
+        this.titreProduit =new SimpleStringProperty(titreProduit);
+        this.stockProduit =new SimpleIntegerProperty (stockProduit);
+        this.tarifProduit =new SimpleDoubleProperty(tarifProduit) ;
+        this.typeProduit=new SimpleStringProperty(type);
+        this.imageProduit = imageProduit;
+    }
+
+    public ImageView getImageProduit() {
+        return imageProduit;
+    }
+
+    public void setImageProduit(ImageView imageProduit) {
+        this.imageProduit = imageProduit;
     }
 
     public String getTypeProduit() {

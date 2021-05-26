@@ -29,7 +29,7 @@
          <left>
             <VBox opacity="0.66" prefHeight="600.0" prefWidth="143.0" style="-fx-background-color: #ffff;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="triBD" buttonType="RAISED" focusTraversable="false" prefHeight="62.0" prefWidth="143.0" text="BD">
+                  <JFXButton buttonType="RAISED" focusTraversable="false" onAction="#triBD" prefHeight="62.0" prefWidth="143.0" text="BD">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
@@ -59,7 +59,7 @@
                         <Font name="Segoe UI" size="18.0" />
                      </font>
                   </JFXButton>
-                  <JFXToggleButton focusTraversable="false" onAction="#disponible" prefHeight="58.0" prefWidth="143.0" text="Disponibilité" toggleColor="WHITE" toggleLineColor="#6b0504" unToggleColor="WHITE">
+                  <JFXToggleButton fx:id="toggleDispo" focusTraversable="false" onAction="#disponible" prefHeight="58.0" prefWidth="143.0" text="Disponibilité" toggleColor="WHITE" toggleLineColor="#6b0504" unToggleColor="WHITE">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -90,7 +90,7 @@
                               <Insets top="52.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXComboBox fx:id="comboClient" focusTraversable="false" labelFloat="true" prefHeight="31.0" prefWidth="266.0" promptText="Client" style="-fx-font-size: 15;">
+                        <JFXComboBox fx:id="comboClient" focusTraversable="false" labelFloat="true" onAction="#clientChoisi" prefHeight="31.0" prefWidth="266.0" promptText="Client" style="-fx-font-size: 15;">
                            <HBox.margin>
                               <Insets top="65.0" />
                            </HBox.margin>
@@ -103,27 +103,21 @@
          <bottom>
             <HBox opacity="0.66" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="100.0" prefWidth="399.0">
+                  <VBox fx:id="ajoutInfoPanier" prefHeight="100.0" prefWidth="399.0">
                      <children>
                         <HBox prefHeight="32.0" prefWidth="216.0">
                            <children>
-                              <JFXButton buttonType="RAISED" focusTraversable="false" prefHeight="25.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Saisir Quantité">
+                              <Label text="Saisir Quantité :">
                                  <font>
-                                    <Font name="Segoe UI Semibold" size="12.0" />
+                                    <Font name="Segoe UI" size="15.0" />
                                  </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <HBox.margin>
-                                    <Insets top="-3.0" />
-                                 </HBox.margin>
-                              </JFXButton>
+                              </Label>
                               <Spinner fx:id="spinnerQuantite" editable="true" focusTraversable="false" prefHeight="25.0" prefWidth="96.0">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
                                  <HBox.margin>
-                                    <Insets left="25.0" />
+                                    <Insets left="35.0" />
                                  </HBox.margin>
                               </Spinner>
                            </children>
@@ -144,7 +138,7 @@
                                     <Insets top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <JFXDatePicker defaultColor="#6b0504" focusTraversable="false" prefHeight="25.0" prefWidth="98.0">
+                              <JFXDatePicker fx:id="date" defaultColor="#6b0504" focusTraversable="false" onAction="#changeDate" prefHeight="25.0" prefWidth="98.0">
                                  <HBox.margin>
                                     <Insets left="40.0" />
                                  </HBox.margin>
@@ -154,17 +148,29 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <JFXButton buttonType="RAISED" focusTraversable="false" prefHeight="19.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter au panier">
-                           <font>
-                              <Font name="Segoe UI Semibold" size="12.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
+                        <HBox>
                            <VBox.margin>
-                              <Insets left="55.0" top="10.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
-                        </JFXButton>
+                           <children>
+                              <JFXButton buttonType="RAISED" focusTraversable="false" prefHeight="19.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter au panier">
+                                 <font>
+                                    <Font name="Segoe UI Semibold" size="12.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </JFXButton>
+                              <JFXButton buttonType="RAISED" focusTraversable="false" prefHeight="19.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier">
+                                 <font>
+                                    <Font name="Segoe UI Semibold" size="12.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </JFXButton>
+                           </children>
+                        </HBox>
                      </children>
                      <HBox.margin>
                         <Insets left="400.0" />
@@ -185,7 +191,7 @@
                </children></HBox>
          </bottom>
          <right>
-            <AnchorPane prefHeight="599.0" prefWidth="320.0" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="partiePanier" prefHeight="599.0" prefWidth="320.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" layoutY="2.0" opacity="0.66" prefHeight="35.0" prefWidth="249.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="565.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -196,7 +202,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TableView fx:id="tablePanier" layoutY="34.0" onMouseClicked="#selectionDePanier" prefHeight="369.0" prefWidth="296.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
+                  <TableView fx:id="tablePanier" layoutY="34.0" onMouseClicked="#selectionDePanier" prefHeight="371.0" prefWidth="320.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
                     <columns>
                       <TableColumn prefWidth="108.0" text="Produit" />
                       <TableColumn prefWidth="82.0" text="Quantité" />
@@ -204,7 +210,7 @@
                         <TableColumn prefWidth="76.0" text="Prix Total" />
                     </columns>
                   </TableView>
-                  <Pane layoutY="400.0" opacity="0.66" prefHeight="200.0" prefWidth="296.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="398.0">
+                  <Pane layoutY="405.0" opacity="0.66" prefHeight="194.0" prefWidth="320.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="405.0">
                      <children>
                         <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="73.0" layoutY="14.0" onAction="#retirerProduit" prefHeight="32.0" prefWidth="151.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Retirer le Produit">
                            <font>
@@ -250,14 +256,14 @@
             </AnchorPane>
          </right>
          <center>
-            <TableView fx:id="tableProduits" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tableProduits" focusTraversable="false" onMouseClicked="#selectProduit" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn prefWidth="37.999969482421875" text="ID" />
-                <TableColumn prefWidth="129.0" text="Type" />
-                  <TableColumn prefWidth="187.0" text="Titre " />
-                  <TableColumn prefWidth="102.0" text="Tarif" />
-                  <TableColumn prefWidth="141.0" text="Stock" />
-                  <TableColumn prefWidth="139.0" text="Photo" />
+                <TableColumn fx:id="colIdPD" prefWidth="37.999969482421875" text="ID" />
+                <TableColumn fx:id="colTypePD" prefWidth="129.0" text="Type" />
+                  <TableColumn fx:id="colTitrePD" prefWidth="187.0" text="Titre " />
+                  <TableColumn fx:id="colTarifPD" prefWidth="102.0" text="Tarif" />
+                  <TableColumn fx:id="colStockPD" prefWidth="141.0" text="Stock" />
+                  <TableColumn fx:id="colPhotoPD" prefWidth="139.0" text="Photo" />
               </columns>
             </TableView>
          </center>

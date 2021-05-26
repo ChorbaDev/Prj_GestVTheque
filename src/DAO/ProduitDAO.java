@@ -1,5 +1,6 @@
-package Modele;
+package DAO;
 
+import Modele.Produit;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

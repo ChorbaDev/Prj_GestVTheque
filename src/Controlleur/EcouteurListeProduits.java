@@ -1,5 +1,6 @@
 package Controlleur;
 
+import DAO.ProduitDAOImpl;
 import Modele.*;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
@@ -41,7 +42,6 @@ public class EcouteurListeProduits implements Initializable {
     ObservableList<String> comboListAuteur = FXCollections.observableArrayList();
     ObservableList<String> comboListAnnee = FXCollections.observableArrayList();
     ObservableList<String> comboListLangue = FXCollections.observableArrayList();
-
     //
     @FXML private JFXComboBox<String> typeProduit;
     @FXML private JFXTextField nomProduit;
@@ -250,7 +250,6 @@ public class EcouteurListeProduits implements Initializable {
 
     private InputStream inputProduit(Produit pd) throws SQLException {
         ResultSet res=produitDao.inputProduit(pd.getIdProduit());
-        System.out.println("s");
         res.next();
         InputStream is=res.getBinaryStream("photo");
         return is;
@@ -464,8 +463,8 @@ public class EcouteurListeProduits implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         partieInvisible();
-        colType.setCellValueFactory(new PropertyValueFactory<Produit,String>("typeProduit"));
-        colId.setCellValueFactory(new PropertyValueFactory<Produit,Integer>("idProduit"));
+        colType.setCellValueFactory (new PropertyValueFactory<Produit,String>("typeProduit"));
+        colId.setCellValueFactory   (new PropertyValueFactory<Produit,Integer>("idProduit"));
         colTitre.setCellValueFactory(new PropertyValueFactory<Produit,String>("titreProduit"));
         colStock.setCellValueFactory(new PropertyValueFactory<Produit,Integer>("stockProduit"));
         colTarif.setCellValueFactory(new PropertyValueFactory<Produit,Float>("tarifProduit"));

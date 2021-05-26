@@ -1,5 +1,6 @@
-package Modele;
+package DAO;
 
+import Modele.Client;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
