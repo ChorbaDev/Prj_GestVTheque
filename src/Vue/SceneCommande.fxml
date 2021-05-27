@@ -153,7 +153,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                            <children>
-                              <JFXButton buttonType="RAISED" focusTraversable="false" prefHeight="19.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter au panier">
+                              <JFXButton buttonType="RAISED" focusTraversable="false" onAction="#ajoutAuPanier" prefHeight="19.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter au panier">
                                  <font>
                                     <Font name="Segoe UI Semibold" size="12.0" />
                                  </font>
@@ -161,7 +161,7 @@
                                     <Insets />
                                  </opaqueInsets>
                               </JFXButton>
-                              <JFXButton buttonType="RAISED" focusTraversable="false" prefHeight="19.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier">
+                              <JFXButton fx:id="modifier" buttonType="RAISED" focusTraversable="false" onAction="#modifierPanier" prefHeight="19.0" prefWidth="116.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier">
                                  <font>
                                     <Font name="Segoe UI Semibold" size="12.0" />
                                  </font>
@@ -202,17 +202,17 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TableView fx:id="tablePanier" layoutY="34.0" onMouseClicked="#selectionDePanier" prefHeight="371.0" prefWidth="320.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
+                  <TableView fx:id="tablePanier" focusTraversable="false" layoutY="34.0" onMouseClicked="#selectionDePanier" prefHeight="371.0" prefWidth="320.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
                     <columns>
-                      <TableColumn prefWidth="108.0" text="Produit" />
-                      <TableColumn prefWidth="82.0" text="Quantité" />
-                        <TableColumn prefWidth="53.0" text="Durée" />
-                        <TableColumn prefWidth="76.0" text="Prix Total" />
+                      <TableColumn fx:id="colPdPn" prefWidth="108.0" text="Produit" />
+                      <TableColumn fx:id="colQtPn" prefWidth="82.0" text="Quantité" />
+                        <TableColumn fx:id="colDureePn" prefWidth="53.0" text="Durée" />
+                        <TableColumn fx:id="colPrixPn" prefWidth="76.0" text="Prix Total" />
                     </columns>
                   </TableView>
                   <Pane layoutY="405.0" opacity="0.66" prefHeight="194.0" prefWidth="320.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="405.0">
                      <children>
-                        <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="73.0" layoutY="14.0" onAction="#retirerProduit" prefHeight="32.0" prefWidth="151.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Retirer le Produit">
+                        <JFXButton fx:id="retirer" buttonType="RAISED" focusTraversable="false" layoutX="73.0" layoutY="14.0" onAction="#retirerProduit" prefHeight="32.0" prefWidth="151.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Retirer le Produit">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>

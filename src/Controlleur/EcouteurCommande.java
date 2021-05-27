@@ -2,9 +2,9 @@ package Controlleur;
 
 import DAO.CommandeDAO;
 import DAO.CommandeDAOImpl;
-import DAO.ProduitDAO;
 import Modele.Date;
 import Modele.Produit;
+import Modele.ProduitPanier;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -15,21 +15,26 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
@@ -44,21 +49,28 @@ public class EcouteurCommande implements Initializable {
     @FXML
     private JFXComboBox<String> comboClient;
 
-    @FXML
-    private TableView<?> tablePanier;
+
 
     @FXML
     private Label montantTotale;
 
     @FXML
     private Label reduction;
-
+    @FXML private JFXButton modifier;
+    @FXML private JFXButton retirer;
     @FXML
     private JFXToggleButton toggleFacture;
     @FXML
     private JFXToggleButton toggleDispo;
     @FXML
     private JFXDatePicker date;
+
+    @FXML private TableView<ProduitPanier> tablePanier;
+    @FXML private TableColumn<ProduitPanier, String> colPdPn;
+    @FXML private TableColumn<ProduitPanier, Integer> colQtPn;
+    @FXML private TableColumn<ProduitPanier, Integer> colDureePn;
+    @FXML private TableColumn<ProduitPanier, Double> colPrixPn;
+
     @FXML private TableView<Produit> tableProduits;
     @FXML private TableColumn<Produit, Integer> colIdPD;
     @FXML private TableColumn<Produit, String> colTypePD;
@@ -69,25 +81,153 @@ public class EcouteurCommande implements Initializable {
 
     ObservableList<String> comboClients = FXCollections.observableArrayList();
     ObservableList<Produit> listeProduits = FXCollections.observableArrayList();
+    ObservableList<ProduitPanier> listePanier = FXCollections.observableArrayList();
+
     //
     private int quantiteMax;
     private CommandeDAO commandeDAO;
+    Boolean clientFidele=false;
     //
 
 
+    @FXML
+    void validerPanier(ActionEvent event) throws SQLException, IOException {
+        String str=comboClient.getSelectionModel().getSelectedItem();
+        Integer idClient=Integer.valueOf(str.substring(0,str.indexOf(' ')) );
+        commandeDAO.insertCommande(idClient);
+        commandeDAO.insertConcerne(listePanier);
+        commandeDAO.modifierStock(listePanier);
+        notifBuilder("Opération réussie",
+                "cette commande est éffectué avec succès.",
+                "/Images/checked.png");
+        viderRemplirListeProduits();
 
+    }
+
+    public void modifierPanier(){
+        int i=tablePanier.getSelectionModel().getSelectedIndex();
+        listePanier.get(i).setQuantite(spinnerQuantite.getValue());
+        tablePanier.getItems().get(i).setQuantite(spinnerQuantite.getValue());
+        Date d1=new Date();
+        Date d2=new Date(date.getValue().getDayOfMonth(),date.getValue().getMonthValue(),date.getValue().getYear());
+        listePanier.get(i).setDuree(Math.abs(d1.difference(d2)));
+        tablePanier.getItems().get(i).setDuree(Math.abs(d1.difference(d2)));
+
+    }
+    @FXML
+    void selectionDePanier(MouseEvent event) {
+        if(tablePanier.getSelectionModel().getSelectedIndex()!=-1){
+            remplirChampsInfos();
+            modifier.setDisable(false);
+            retirer.setDisable(false);
+        }
+    }
+
+    private void remplirChampsInfos() {
+        ProduitPanier pp=tablePanier.getSelectionModel().getSelectedItem();
+        int qt=pp.getQuantite();
+        spinnerQuantite.getValueFactory().setValue(qt);
+
+        Calendar cal=Calendar.getInstance();
+        cal.add(Calendar.DATE,pp.getDuree());
+        LocalDate d= LocalDate.of(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH)+1,cal.get(Calendar.DAY_OF_MONTH));
+        date.setValue(d);
+    }
 
     @FXML
     void retirerProduit(ActionEvent event) {
+            int i=tablePanier.getSelectionModel().getSelectedIndex();
+            tablePanier.getItems().remove(i);
+            listePanier.remove(i);
+            modifier.setDisable(true);
+            retirer.setDisable(true);
+            if(clientFidele)
+                montantTotale.setText(Double.toString(sommePrixTotal()*0.9)+" €");
+            else
+                montantTotale.setText(Double.toString(sommePrixTotal())+" €");
+        }
+
+    public void ajoutAuPanier(){
+        Produit pd=tableProduits.getSelectionModel().getSelectedItem();
+        Date d1=new Date();
+        Date d2=new Date(date.getValue().getDayOfMonth(),date.getValue().getMonthValue(),date.getValue().getYear());
+
+        String titrePd=pd.getTitreProduit();
+        int qt= spinnerQuantite.getValue();
+        int duree=Math.abs(d2.difference(d1));
+        double prixTot=qt*pd.getTarifProduit();
+
+        ProduitPanier pp=new ProduitPanier(titrePd,qt,duree,prixTot);
+        if(existeDansLaListe(titrePd)){
+            incrementerProduitPanier(titrePd,pd.getTarifProduit());
+        }
+        else{
+            if(qt>0 && qt<=quantiteMax){
+                listePanier.add(pp);
+                tablePanier.getItems().add(pp);
+            }
+            else{
+                notifBuilder("Attention",
+                        "Il faut saisir une quantite valide.",
+                        "/Images/warning.png");
+            }
+        }
+        if(clientFidele)
+            montantTotale.setText(Double.toString(sommePrixTotal()*0.9)+" €");
+        else
+            montantTotale.setText(Double.toString(sommePrixTotal())+" €");
 
     }
 
-    @FXML
-    void selectionDePanier(MouseEvent event) {
+    private boolean existeDansLaListe(String titrePd) {
+        for(int i=0;i<listePanier.size();i++){
+            if(listePanier.get(i).getTitreProduit().equals(titrePd))
+                return true;
+        }
+        return false;
+    }
 
+    private void incrementerProduitPanier(String titrePd, double tarifProduit) {
+        for(int i=0;i<listePanier.size();i++){
+            if(listePanier.get(i).getTitreProduit().equals(titrePd)){
+                int qt=listePanier.get(i).getQuantite();
+                int sp=spinnerQuantite.getValue();
+                if(qt>0 && (qt+sp)<=quantiteMax){
+                    listePanier.get(i).setQuantite(qt+sp);
+                    listePanier.get(i).setPrixTotal((qt+sp)*tarifProduit);
+                }
+                else{
+                    notifBuilder("Attention",
+                            "Il faut saisir une quantite valide.",
+                            "/Images/warning.png");
+                }
+            }
+
+        }
+    }
+
+    private double sommePrixTotal() {
+        double som=0;
+        for(int i=0;i<listePanier.size();i++){
+            som+=listePanier.get(i).getPrixTotal();
+        }
+        som= (double) Math.round(som * 100) / 100;
+        return som;
+    }
+    public void notifBuilder(String titre, String texte, String pathImg) {
+        Image img = new Image(pathImg);
+        Notifications notifBuilder = Notifications.create()
+                .title(titre)
+                .text(texte)
+                .graphic(new javafx.scene.image.ImageView(img))
+                .hideAfter(Duration.seconds(5))
+                .position(Pos.TOP_RIGHT);
+        notifBuilder.darkStyle();
+        notifBuilder.show();
     }
     @FXML
     public void disponible(ActionEvent event) throws SQLException, IOException {
+        ajoutInfoPanier.setDisable(true);
         if(toggleDispo.isSelected()==true){
             Iterator it=listeProduits.iterator();
             while(it.hasNext()){
@@ -104,6 +244,7 @@ public class EcouteurCommande implements Initializable {
 
     }
     public void triBD() throws SQLException, IOException {
+        ajoutInfoPanier.setDisable(true);
         viderRemplirListeProduits();
         Iterator it=listeProduits.iterator();
         while(it.hasNext()){
@@ -116,6 +257,7 @@ public class EcouteurCommande implements Initializable {
     }
     @FXML
     void triCD(ActionEvent event) throws SQLException, IOException {
+        ajoutInfoPanier.setDisable(true);
         viderRemplirListeProduits();
         Iterator it=listeProduits.iterator();
         while(it.hasNext()){
@@ -129,6 +271,7 @@ public class EcouteurCommande implements Initializable {
 
     @FXML
     void triDVD(ActionEvent event) throws SQLException, IOException {
+        ajoutInfoPanier.setDisable(true);
         viderRemplirListeProduits();
         Iterator it=listeProduits.iterator();
         while(it.hasNext()){
@@ -142,6 +285,7 @@ public class EcouteurCommande implements Initializable {
 
     @FXML
     void triDictionnaire(ActionEvent event) throws SQLException, IOException {
+        ajoutInfoPanier.setDisable(true);
         viderRemplirListeProduits();
         Iterator it=listeProduits.iterator();
         while(it.hasNext()){
@@ -155,6 +299,7 @@ public class EcouteurCommande implements Initializable {
 
     @FXML
     void triManuel(ActionEvent event) throws SQLException, IOException {
+        ajoutInfoPanier.setDisable(true);
         viderRemplirListeProduits();
         Iterator it=listeProduits.iterator();
         while(it.hasNext()){
@@ -187,21 +332,35 @@ public class EcouteurCommande implements Initializable {
     }
 
     @FXML
-    void validerPanier(ActionEvent event) {
-
-    }
-
-    @FXML
     void annulerPanier(ActionEvent event) {
+        listePanier.clear();
         tablePanier.getItems().clear();
+        modifier.setDisable(true);
+        retirer.setDisable(true);
+        montantTotale.setText("0 €");
     }
-    public void clientChoisi(){
+    public void clientChoisi() throws SQLException {
         if(comboClient.getSelectionModel().getSelectedIndex()!=-1){
-            ajoutInfoPanier.setDisable(false);
             partiePanier.setDisable(false);
+            retirer.setDisable(true);
         }
-    }
+        String str=comboClient.getSelectionModel().getSelectedItem();
+        Integer idClient=Integer.valueOf(str.substring(0,str.indexOf(' ')) );
+        str="0 %";
+        clientFidele=commandeDAO.trouverFidelite(idClient);
 
+        if(clientFidele){
+            Double d=sommePrixTotal()*0.9;
+            montantTotale.setText(Double.toString(d)+" €");
+            str="10 %";
+        }
+        else{
+            montantTotale.setText(Double.toString(sommePrixTotal())+" €");
+        }
+        reduction.setText(str);
+
+
+    }
     private Parent root;
     private Stage stage;
     private Scene scene;
@@ -224,10 +383,15 @@ public class EcouteurCommande implements Initializable {
         spinnerQuantite.setValueFactory(valueFactory);
     }
     public void selectProduit(){
+
         if(tableProduits.getSelectionModel().getSelectedIndex()!=-1){
+            ajoutInfoPanier.setDisable(false);
+            modifier.setDisable(true);
+
             Produit p=tableProduits.getSelectionModel().getSelectedItem();
             quantiteMax=p.getStockProduit();
             spinner();
+
         }
     }
     private void DisableChamps() {
@@ -250,6 +414,10 @@ public class EcouteurCommande implements Initializable {
     }
 
     private void setItemsPanier() {
+        colPdPn.setCellValueFactory(new PropertyValueFactory<ProduitPanier,String>("titreProduit"));
+        colQtPn.setCellValueFactory(new PropertyValueFactory<ProduitPanier,Integer>("quantite"));
+        colDureePn.setCellValueFactory(new PropertyValueFactory<ProduitPanier,Integer>("duree"));
+        colPrixPn.setCellValueFactory(new PropertyValueFactory<ProduitPanier,Double>("prixTotal"));
     }
 
     private void remplirTableProduits() throws SQLException, IOException {

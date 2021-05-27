@@ -17,6 +17,9 @@ public class ClientDAOImpl implements ClientDAO {
     private static final String DELETE_CLIENT_SQL = "delete from client where idClient=?";
     private static final String EXISTE_CLIENT_SQL = "select * from client where mailClient=?";
     private static final String PHOTO_PAR_ID="select pdp from client where idClient=?";
+    private static final String FED_PAR_ID="select clientFidele from client where idClient=?";
+    private static final String LISTE_CLIENTS_SQL = "SELECT idClient,nomClient,prenomClient,clientFidele,mailClient FROM client";
+
     private static PreparedStatement ps;
     private static ConnectionClass connectionClass;
     private static Connection connection;
@@ -76,19 +79,6 @@ public class ClientDAOImpl implements ClientDAO {
         return ps;
     }
 
-//    @Override
-//    public PreparedStatement updateClient(Client client) throws SQLException {
-//        ps = connection.prepareStatement(UPDATE_CLIENT_SQL);
-//        ps.setString(1, client.getNom());
-//        ps.setString(2, client.getPrenom());
-//        ps.setString(3, client.getMailClient());
-//        ps.setBoolean(4, client.isClientFidele());
-//        ps.setInt(6, client.getIdClient());
-//
-//        return ps;
-//
-//    }
-
     @Override
     public void supprimerClient(Client client) throws SQLException {
         ps = connection.prepareStatement(DELETE_CLIENT_SQL);
@@ -98,8 +88,8 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     public void remplirListeClient(ObservableList<Client> liste) throws SQLException {
-        String sql = "SELECT idClient,nomClient,prenomClient,clientFidele,mailClient FROM client";
-        ResultSet res = connection.createStatement().executeQuery(sql);
+        ps=connection.prepareStatement(LISTE_CLIENTS_SQL);
+        ResultSet res = ps.executeQuery();
         while (res.next()) {
             liste.add(new Client(
                     res.getInt("idClient"),
@@ -118,5 +108,15 @@ public class ClientDAOImpl implements ClientDAO {
         ps.setString(1, client.getMailClient());
         return ps.executeQuery().next();
 
+    }
+
+    @Override
+    public boolean trouverFedClient(int id) throws SQLException {
+        ps = connection.prepareStatement(FED_PAR_ID);
+        ps.setInt(1,id);
+        ResultSet res=ps.executeQuery();
+        res.next();
+        boolean b= res.getInt("clientFidele")==1;
+        return b;
     }
 }

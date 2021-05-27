@@ -26,4 +26,6 @@ public interface ClientDAO {
     void remplirListeClient(ObservableList<Client> liste) throws SQLException;
 
     boolean existenceClient(Client client) throws SQLException;
+
+    boolean trouverFedClient(int id) throws SQLException;
 }

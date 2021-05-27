@@ -149,11 +149,12 @@ public class ProduitDAOImpl implements ProduitDAO {
         ps=connection.prepareStatement(REMPLIR_LISTE_SQL);
         ResultSet res = ps.executeQuery();
         while(res.next()){
+            double tarif=(double) Math.round(res.getFloat("tarifJounalier") * 100) / 100;
             liste.add(new Produit(
                     res.getInt("idProduit"),
                     res.getString("titreProduit"),
                     res.getInt("stock"),
-                    res.getFloat("tarifJounalier"),
+                    tarif,
                     res.getString("type")
             ));
         }
