@@ -18,7 +18,7 @@ public class ClientDAOImpl implements ClientDAO {
     private static final String EXISTE_CLIENT_SQL = "select * from client where mailClient=?";
     private static final String PHOTO_PAR_ID="select pdp from client where idClient=?";
     private static final String FED_PAR_ID="select clientFidele from client where idClient=?";
-    private static final String LISTE_CLIENTS_SQL = "SELECT idClient,nomClient,prenomClient,clientFidele,mailClient FROM client";
+    public  final String LISTE_CLIENTS_SQL = "SELECT idClient,nomClient,prenomClient,clientFidele,mailClient FROM client";
 
     private static PreparedStatement ps;
     private static ConnectionClass connectionClass;

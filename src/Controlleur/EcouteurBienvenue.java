@@ -27,6 +27,10 @@ public class EcouteurBienvenue{
         path="/Vue/SceneAuteur.fxml";
         basculeScene(e,path);
     }
+    public void tableauDeBord(ActionEvent e) throws IOException {
+        path="/Vue/SceneTableauDeBord.fxml";
+        basculeScene(e,path);
+    }
     public void listeRealisateur(ActionEvent e) throws IOException {
         path="/Vue/SceneRealisateur.fxml";
         basculeScene(e,path);
