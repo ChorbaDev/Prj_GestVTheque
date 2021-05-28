@@ -101,19 +101,39 @@ public class EcouteurCommande implements Initializable {
                 "cette commande est éffectué avec succès.",
                 "/Images/checked.png");
         viderRemplirListeProduits();
+        ajoutInfoPanier.setDisable(true);
 
     }
 
     public void modifierPanier(){
         int i=tablePanier.getSelectionModel().getSelectedIndex();
-        listePanier.get(i).setQuantite(spinnerQuantite.getValue());
+        ProduitPanier pp=listePanier.get(i);
+        int qt=spinnerQuantite.getValue();
+        pp.setQuantite(qt);
         tablePanier.getItems().get(i).setQuantite(spinnerQuantite.getValue());
+        double tot=tarifJournalier(pp.getTitreProduit())*qt;
+        pp.setPrixTotal(tot);
         Date d1=new Date();
         Date d2=new Date(date.getValue().getDayOfMonth(),date.getValue().getMonthValue(),date.getValue().getYear());
-        listePanier.get(i).setDuree(Math.abs(d1.difference(d2)));
+        pp.setDuree(Math.abs(d1.difference(d2)));
         tablePanier.getItems().get(i).setDuree(Math.abs(d1.difference(d2)));
 
+        if(clientFidele)
+            montantTotale.setText(Double.toString(sommePrixTotal()*0.9)+" €");
+        else
+            montantTotale.setText(Double.toString(sommePrixTotal())+" €");
     }
+
+    private double tarifJournalier(String titreProduit) {
+        double d=0;
+        for(int i=0;i<listeProduits.size();i++){
+            if(listeProduits.get(i).getTitreProduit().equals(titreProduit)){
+                return listeProduits.get(i).getTarifProduit();
+            }
+        }
+        return d;
+    }
+
     @FXML
     void selectionDePanier(MouseEvent event) {
         if(tablePanier.getSelectionModel().getSelectedIndex()!=-1){
@@ -214,6 +234,7 @@ public class EcouteurCommande implements Initializable {
         som= (double) Math.round(som * 100) / 100;
         return som;
     }
+
     public void notifBuilder(String titre, String texte, String pathImg) {
         Image img = new Image(pathImg);
         Notifications notifBuilder = Notifications.create()
