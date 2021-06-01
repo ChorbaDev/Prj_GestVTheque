@@ -14,6 +14,7 @@ public class RealisateurDAOImpl implements RealisateurDAO {
     private static final String INSERT_REALISATEUR_SQL = "INSERT INTO realisateur (nomReal,prenomReal,resume) VALUES (?,?,?)";
     private static final String UPDATE_REALISATEUR_SQL = "update realisateur set nomReal=?, prenomReal=?, resume=? where idReal=? ";
     private static final String EXISTE_REALISATEUR_SQL = "select * from realisateur where resume=?";
+    private static final String COMPTER_DVD_SQL="select count(*) as n from produit,realisateur where produit.realisateur=realisateur.idReal and resume=? union select 0 from realisateur where idReal not in(Select distinct realisateur from produit);";
     private static PreparedStatement ps;
     private static ConnectionClass connectionClass;
     private static Connection connection;
@@ -51,7 +52,8 @@ public class RealisateurDAOImpl implements RealisateurDAO {
                     res.getInt("idReal"),
                     res.getString("nomReal"),
                     res.getString("prenomReal"),
-                    res.getString("resume")
+                    res.getString("resume"),
+                    compterDVDRealisateur(res.getString("resume"))
             ));
         }
     }
@@ -61,6 +63,14 @@ public class RealisateurDAOImpl implements RealisateurDAO {
         ps = connection.prepareStatement(EXISTE_REALISATEUR_SQL);
         ps.setString(1, realisateur.getResume());
         return ps.executeQuery().next();
+    }
+
+    @Override
+    public int compterDVDRealisateur(String resume) throws SQLException {
+        PreparedStatement ps1=connection.prepareStatement(COMPTER_DVD_SQL);
+        ps1.setString(1,resume);
+        ResultSet res= ps1.executeQuery();
+        return res.getInt("n");
     }
 
 }

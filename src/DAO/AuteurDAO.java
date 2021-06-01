@@ -2,6 +2,7 @@ package DAO;
 import Modele.Auteur;
 import javafx.collections.ObservableList;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface  AuteurDAO {
@@ -9,4 +10,5 @@ public interface  AuteurDAO {
     void updateAuteur(Auteur auteur) throws SQLException;
     void remplirListeAuteur(ObservableList<Auteur> liste) throws SQLException;
     boolean existenceAuteur(Auteur auteur) throws SQLException;
+    int compterLivresAuteur(String resume) throws SQLException;
 }

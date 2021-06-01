@@ -1,7 +1,6 @@
 package DAO;
 
 import Controlleur.ConnectionClass;
-import DAO.AuteurDAO;
 import Modele.Auteur;
 import javafx.collections.ObservableList;
 import java.sql.Connection;
@@ -14,6 +13,7 @@ public class AuteurDAOImpl implements AuteurDAO {
     private static final String UPDATE_AUTEUR_SQL="update auteur set nomAuteur=?, prenomAuteur=?, resume=? where idAuteur=? ";
     private static final String EXISTE_AUTEUR_SQL="select * from auteur where resume=?";
     private static final String REMPLIR_LISTE="SELECT idAuteur,nomAuteur,prenomAuteur,resume FROM auteur";
+    private static final String COMPTER_LIVRES_SQL="select count(*) as n from produit,auteur where produit.auteur=auteur.idAuteur and resume=? union select 0 from auteur where idAuteur not in(Select distinct auteur from produit);";
     private static PreparedStatement ps;
     private static ConnectionClass connectionClass;
     private static Connection connection;
@@ -50,7 +50,9 @@ public class AuteurDAOImpl implements AuteurDAO {
                     res.getInt("idAuteur"),
                     res.getString("nomAuteur"),
                     res.getString("prenomAuteur"),
-                    res.getString("resume")
+                    res.getString("resume"),
+                    compterLivresAuteur(res.getString("resume"))
+
             ));
         }
     }
@@ -61,5 +63,15 @@ public class AuteurDAOImpl implements AuteurDAO {
         ps.setString(1,auteur.getResume());
         return ps.executeQuery().next();
     }
+
+    @Override
+    public int compterLivresAuteur(String resume) throws SQLException {
+        PreparedStatement ps1=connection.prepareStatement(COMPTER_LIVRES_SQL);
+        ps1.setString(1,resume);
+        ResultSet res= ps1.executeQuery();
+        return res.getInt("n");
+
+    }
+
 
 }

@@ -10,6 +10,19 @@ import java.util.Objects;
 public class Auteur extends Personne{
     private IntegerProperty idAuteur;
     private StringProperty resume;
+    private IntegerProperty nbLivres;
+
+    public int getNbLivres() {
+        return nbLivres.get();
+    }
+
+    public IntegerProperty nbLivresProperty() {
+        return nbLivres;
+    }
+
+    public void setNbLivres(int nbLivres) {
+        this.nbLivres.set(nbLivres);
+    }
 
     public Auteur(int idAuteur, String nomAuteur, String prenomAuteur, String resume) {
         super(nomAuteur, prenomAuteur);
@@ -20,6 +33,13 @@ public class Auteur extends Personne{
     public Auteur(String nomAuteur, String prenomAuteur, String resume) {
         super(nomAuteur, prenomAuteur);
         this.resume =new SimpleStringProperty(resume);
+    }
+
+    public Auteur(int idAuteur, String nomAuteur, String prenomAuteur, String resume, int nbLivres) {
+        super(nomAuteur, prenomAuteur);
+        this.idAuteur =new SimpleIntegerProperty(idAuteur);
+        this.resume = new SimpleStringProperty(resume);
+        this.nbLivres = new SimpleIntegerProperty(nbLivres);
     }
 
     public int getIdAuteur() {

@@ -1,5 +1,6 @@
 package Controlleur;
 
+import Modele.Auteur;
 import Modele.Realisateur;
 import DAO.RealisateurDAOImpl;
 import com.jfoenix.controls.JFXTextArea;
@@ -47,6 +48,7 @@ public class EcouteurRealisateur implements Initializable {
 
     @FXML
     private TableColumn<Realisateur, String> colPrenomRealisateur;
+    @FXML private TableColumn<Auteur, Integer> colNbDVDRealisateur;
 
 
     /*concerne la scene réalisateur*/

@@ -35,6 +35,7 @@ public class EcouteurAuteur implements Initializable {
     @FXML private TableColumn<Auteur, Integer> colIdAuteur;
     @FXML private TableColumn<Auteur, String> colNomAuteur;
     @FXML private TableColumn<Auteur, String> colPrenomAuteur;
+    @FXML private TableColumn<Auteur, Integer> colNbLivresAuteur;
 
     /*champs en relation avec l'auteur*/
     @FXML private JFXTextField edtNomAuteur;

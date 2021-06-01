@@ -13,4 +13,6 @@ public interface RealisateurDAO {
     void remplirListeRealisateur(ObservableList<Realisateur> liste) throws SQLException;
 
     boolean existenceRealisateur(Realisateur realisateur) throws SQLException;
+
+    int compterDVDRealisateur(String resume) throws SQLException;
 }
