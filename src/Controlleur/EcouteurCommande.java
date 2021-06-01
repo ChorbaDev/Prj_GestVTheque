@@ -5,6 +5,16 @@ import DAO.CommandeDAOImpl;
 import Modele.Date;
 import Modele.Produit;
 import Modele.ProduitPanier;
+
+
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Cell;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -30,6 +40,8 @@ import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 import javax.swing.text.html.ImageView;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -103,6 +115,35 @@ public class EcouteurCommande implements Initializable {
                 "/Images/checked.png");
         viderRemplirListeProduits();
         ajoutInfoPanier.setDisable(true);
+        if(toggleFacture.isSelected()){
+            facture();
+        }
+    }
+
+    private void facture() throws FileNotFoundException {
+        String path="../Facture/facture.pdf";
+        PdfWriter pdfWriter=new PdfWriter(path);
+        PdfDocument pdfDocument= new PdfDocument(pdfWriter);
+        Document document = new Document(pdfDocument);
+        pdfDocument.setDefaultPageSize(PageSize.A4);
+
+        float col=280f;
+        float colWidth[]={col,col};
+
+        Table table = new Table(colWidth);
+
+        table.addCell(new Cell().add(new Paragraph("FACTURE")));
+        table.addCell(new Cell().add(new Paragraph("VStore\n"+"IUT de Metz\n" +
+                "Île du Saulcy\n" +
+                "BP 10628\n" +
+                "57045 Metz cedex 01")));
+
+        document.add(table);
+        document.close();
+        notifBuilder("Opération réussie",
+                "Facture générée",
+                "/Images/checked.png");
+
     }
 
     public void modifierPanier(){
