@@ -25,7 +25,8 @@
               <columns>
                 <TableColumn fx:id="colIdAuteur" prefWidth="89.0" text="ID" />
                   <TableColumn fx:id="colNomAuteur" prefWidth="173.0" text="Nom" />
-                  <TableColumn fx:id="colPrenomAuteur" prefWidth="176.0" text="Prénom" />
+                  <TableColumn fx:id="colPrenomAuteur" prefWidth="151.0" text="Prénom" />
+                  <TableColumn fx:id="colNbLivresAuteur" prefWidth="136.0" text="Nombre de livres" />
               </columns>
             </TableView>
             <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">

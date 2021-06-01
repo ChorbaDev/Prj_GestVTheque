@@ -58,6 +58,7 @@ public class EcouteurCommande implements Initializable {
     private Label reduction;
     @FXML private JFXButton modifier;
     @FXML private JFXButton retirer;
+    @FXML private JFXButton valid;
     @FXML
     private JFXToggleButton toggleFacture;
     @FXML
@@ -102,7 +103,6 @@ public class EcouteurCommande implements Initializable {
                 "/Images/checked.png");
         viderRemplirListeProduits();
         ajoutInfoPanier.setDisable(true);
-
     }
 
     public void modifierPanier(){
@@ -171,7 +171,7 @@ public class EcouteurCommande implements Initializable {
         Produit pd=tableProduits.getSelectionModel().getSelectedItem();
         Date d1=new Date();
         Date d2=new Date(date.getValue().getDayOfMonth(),date.getValue().getMonthValue(),date.getValue().getYear());
-
+        valid.setDisable(false);
         String titrePd=pd.getTitreProduit();
         int qt= spinnerQuantite.getValue();
         int duree=Math.abs(d2.difference(d1));
@@ -358,6 +358,7 @@ public class EcouteurCommande implements Initializable {
         tablePanier.getItems().clear();
         modifier.setDisable(true);
         retirer.setDisable(true);
+        valid.setDisable(true);
         montantTotale.setText("0 €");
     }
     public void clientChoisi() throws SQLException {
@@ -365,6 +366,7 @@ public class EcouteurCommande implements Initializable {
             partiePanier.setDisable(false);
             retirer.setDisable(true);
         }
+        valid.setDisable(listePanier.size()==0);
         String str=comboClient.getSelectionModel().getSelectedItem();
         Integer idClient=Integer.valueOf(str.substring(0,str.indexOf(' ')) );
         str="0 %";

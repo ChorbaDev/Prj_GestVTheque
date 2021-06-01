@@ -242,7 +242,6 @@ public class EcouteurListeProduits implements Initializable {
                 InputStream is=inputProduit(pd);
                 statement.setBinaryStream(11,is);
             }
-            statement.setString(12,"Document");
             statement.executeUpdate();
             statement.close();
             nettoyageScene();

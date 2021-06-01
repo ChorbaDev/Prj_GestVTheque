@@ -217,7 +217,7 @@
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="224.0" layoutY="164.0" onAction="#validerPanier" prefWidth="85.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Valider">
+                        <JFXButton fx:id="valid" buttonType="RAISED" focusTraversable="false" layoutX="224.0" layoutY="164.0" onAction="#validerPanier" prefWidth="85.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Valider">
                            <font>
                               <Font name="Segoe UI Semibold" size="14.0" />
                            </font>
