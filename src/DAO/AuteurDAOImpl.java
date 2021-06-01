@@ -69,6 +69,7 @@ public class AuteurDAOImpl implements AuteurDAO {
         PreparedStatement ps1=connection.prepareStatement(COMPTER_LIVRES_SQL);
         ps1.setString(1,resume);
         ResultSet res= ps1.executeQuery();
+        res.next();
         return res.getInt("n");
 
     }

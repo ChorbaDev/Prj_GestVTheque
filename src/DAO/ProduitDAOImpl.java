@@ -16,7 +16,6 @@ public class ProduitDAOImpl implements ProduitDAO {
     private static final String INSERT_PRODUIT_SQL="insert into produit (titreProduit,tarifJounalier,produit.type,stock,anneeSortie,langue,duree,nbPages,realisateur,auteur,photo) values (?,?,?,?,?,?,?,?,?,?,?)";
     private static final String UPDATE_PRODUIT_SQL="update produit set  titreProduit=? ,tarifJounalier=? ,produit.type=? ,stock=? ,anneeSortie=?,langue=?,duree=?,nbPages=?,realisateur=?,auteur=?,photo=? where idProduit=?";
     private static final String REMPLIR_LISTE_SQL ="select idProduit,tarifJounalier,produit.type,stock,titreProduit from produit";
-    private static final String REMPLIR_COMBOTYPE_SQL ="select idType from typeproduit";
     private static final String REMPLIR_COMBOREAL_SQL ="select idReal,nomReal from realisateur";
     private static final String REMPLIR_COMBOAUTEUR_SQL ="select idAuteur,nomAuteur from auteur";
     private static final String SUPPRIMER_PRODUIT_SQL="delete from produit where idProduit=?";

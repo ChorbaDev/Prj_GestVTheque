@@ -40,7 +40,7 @@ public class TableauDAOImpl implements TableauDAO{
             ps2.setInt(1,id);
             ResultSet res2=ps2.executeQuery();
             res2.next();
-            set.getData().add(new XYChart.Data<String,Integer>(nom,res2.getInt("n")));
+            set.getData().add(new XYChart.Data<String,Integer>(id+" "+nom,res2.getInt("n")));
         }
 
     }

@@ -49,6 +49,7 @@ public class EcouteurAuteur implements Initializable {
         colIdAuteur.setCellValueFactory(new PropertyValueFactory<Auteur, Integer>("idAuteur"));
         colNomAuteur.setCellValueFactory(new PropertyValueFactory<Auteur, String>("nom"));
         colPrenomAuteur.setCellValueFactory(new PropertyValueFactory<Auteur, String>("prenom"));
+        colNbLivresAuteur.setCellValueFactory(new PropertyValueFactory<Auteur, Integer>("nbLivres"));
         tblAuteur.setItems(obList);
         try {
             auteurDao=new AuteurDAOImpl();
