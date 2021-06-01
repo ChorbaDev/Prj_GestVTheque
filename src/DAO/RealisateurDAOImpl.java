@@ -70,6 +70,7 @@ public class RealisateurDAOImpl implements RealisateurDAO {
         PreparedStatement ps1=connection.prepareStatement(COMPTER_DVD_SQL);
         ps1.setString(1,resume);
         ResultSet res= ps1.executeQuery();
+        res.next();
         return res.getInt("n");
     }
 

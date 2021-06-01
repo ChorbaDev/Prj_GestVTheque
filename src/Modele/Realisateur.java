@@ -11,7 +11,6 @@ public class Realisateur extends Personne {
     private IntegerProperty nbDVD;
 
 
-
     public Realisateur(int idRealisateur, String nomRealisateur, String prenomRealisateur, String resume) {
         super(nomRealisateur, prenomRealisateur);
         this.idRealisateur = new SimpleIntegerProperty(idRealisateur);

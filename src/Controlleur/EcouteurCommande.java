@@ -28,7 +28,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-
 import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.net.URL;
@@ -39,32 +38,20 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 
 public class EcouteurCommande implements Initializable {
-    @FXML
-    private Spinner<Integer> spinnerQuantite;
+    @FXML private Spinner<Integer> spinnerQuantite;
+    @FXML private VBox ajoutInfoPanier;
+    @FXML private AnchorPane partiePanier;
+    @FXML private JFXComboBox<String> comboClient;
 
-    @FXML
-    private VBox ajoutInfoPanier;
-    @FXML
-    private AnchorPane partiePanier;
-    @FXML
-    private JFXComboBox<String> comboClient;
+    @FXML private Label montantTotale;
+    @FXML private Label reduction;
 
-
-
-    @FXML
-    private Label montantTotale;
-
-    @FXML
-    private Label reduction;
     @FXML private JFXButton modifier;
     @FXML private JFXButton retirer;
     @FXML private JFXButton valid;
-    @FXML
-    private JFXToggleButton toggleFacture;
-    @FXML
-    private JFXToggleButton toggleDispo;
-    @FXML
-    private JFXDatePicker date;
+    @FXML private JFXToggleButton toggleFacture;
+    @FXML private JFXToggleButton toggleDispo;
+    @FXML private JFXDatePicker date;
 
     @FXML private TableView<ProduitPanier> tablePanier;
     @FXML private TableColumn<ProduitPanier, String> colPdPn;
@@ -90,6 +77,11 @@ public class EcouteurCommande implements Initializable {
     Boolean clientFidele=false;
     //
 
+    /**
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
 
     @FXML
     void validerPanier(ActionEvent event) throws SQLException, IOException {
@@ -105,6 +97,9 @@ public class EcouteurCommande implements Initializable {
         ajoutInfoPanier.setDisable(true);
     }
 
+    /**
+     * modification du produit selectionner dans panier
+     */
     public void modifierPanier(){
         int i=tablePanier.getSelectionModel().getSelectedIndex();
         ProduitPanier pp=listePanier.get(i);
@@ -124,6 +119,10 @@ public class EcouteurCommande implements Initializable {
             montantTotale.setText(Double.toString(sommePrixTotal())+" €");
     }
 
+    /**
+     * @param titreProduit
+     * @return tarif de produit du nom titreProduit
+     */
     private double tarifJournalier(String titreProduit) {
         double d=0;
         for(int i=0;i<listeProduits.size();i++){
@@ -134,6 +133,11 @@ public class EcouteurCommande implements Initializable {
         return d;
     }
 
+    /**
+     * actvier le bouton modifier et bouton retirer dans le cas ou un produit dans le panier est selectionné
+     * et remplir les champs de spinner et date fin location
+     * @param event
+     */
     @FXML
     void selectionDePanier(MouseEvent event) {
         if(tablePanier.getSelectionModel().getSelectedIndex()!=-1){
@@ -143,6 +147,9 @@ public class EcouteurCommande implements Initializable {
         }
     }
 
+    /**
+     * remplir les champs de spinner et date fin location
+     */
     private void remplirChampsInfos() {
         ProduitPanier pp=tablePanier.getSelectionModel().getSelectedItem();
         int qt=pp.getQuantite();
@@ -154,6 +161,10 @@ public class EcouteurCommande implements Initializable {
         date.setValue(d);
     }
 
+    /**
+     * retirer le produit selectionner dans le panier de la liste on calculant le prix totale de nouveau
+     * @param event
+     */
     @FXML
     void retirerProduit(ActionEvent event) {
             int i=tablePanier.getSelectionModel().getSelectedIndex();
@@ -167,11 +178,15 @@ public class EcouteurCommande implements Initializable {
                 montantTotale.setText(Double.toString(sommePrixTotal())+" €");
         }
 
+    /**
+     * ajouter un produit selectionner sur la liste du panier
+     */
     public void ajoutAuPanier(){
         Produit pd=tableProduits.getSelectionModel().getSelectedItem();
+        //date du jour
         Date d1=new Date();
+        //date de fin location
         Date d2=new Date(date.getValue().getDayOfMonth(),date.getValue().getMonthValue(),date.getValue().getYear());
-        valid.setDisable(false);
         String titrePd=pd.getTitreProduit();
         int qt= spinnerQuantite.getValue();
         int duree=Math.abs(d2.difference(d1));
@@ -196,7 +211,7 @@ public class EcouteurCommande implements Initializable {
             montantTotale.setText(Double.toString(sommePrixTotal()*0.9)+" €");
         else
             montantTotale.setText(Double.toString(sommePrixTotal())+" €");
-
+        valid.setDisable(false);
     }
 
     private boolean existeDansLaListe(String titrePd) {

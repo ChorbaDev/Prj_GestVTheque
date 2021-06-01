@@ -1,6 +1,5 @@
 package Controlleur;
 
-import Modele.Auteur;
 import Modele.Realisateur;
 import DAO.RealisateurDAOImpl;
 import com.jfoenix.controls.JFXTextArea;
@@ -48,7 +47,7 @@ public class EcouteurRealisateur implements Initializable {
 
     @FXML
     private TableColumn<Realisateur, String> colPrenomRealisateur;
-    @FXML private TableColumn<Auteur, Integer> colNbDVDRealisateur;
+    @FXML private TableColumn<Realisateur, Integer> colNbDVD;
 
 
     /*concerne la scene réalisateur*/
@@ -67,6 +66,7 @@ public class EcouteurRealisateur implements Initializable {
         colIdRealisateur.setCellValueFactory(new PropertyValueFactory<Realisateur, Integer>("idRealisateur"));
         colNomRealisateur.setCellValueFactory(new PropertyValueFactory<Realisateur, String>("nom"));
         colPrenomRealisateur.setCellValueFactory(new PropertyValueFactory<Realisateur, String>("prenom"));
+        colNbDVD.setCellValueFactory(new PropertyValueFactory<Realisateur,Integer>("nbDVD"));
         tblRealisateur.setItems(obList);
         try {
             realisateurDAO = new RealisateurDAOImpl();
@@ -147,7 +147,7 @@ public class EcouteurRealisateur implements Initializable {
         if (!tblRealisateur.getSelectionModel().isEmpty()) {
             Realisateur realisateur = tblRealisateur.getSelectionModel().getSelectedItem();
             Realisateur realisateurSelectionner = new Realisateur(realisateur.getIdRealisateur(), edtNomRealisateur.getText(), edtPrenomRealisateur.getText(), mmoResumeRealisateur.getText());
-            if (!realisateur.equals(realisateurSelectionner)) {
+            if (!realisateur.equals(realisateurSelectionner) && validationDesChamps()) {
                 realisateurDAO.updateRealisateur(realisateurSelectionner);
                 notifBuilder("Opération réussie",
                         "Votre opération de modifier le réalisateur' " + realisateur.getNom() + " a réussie.",

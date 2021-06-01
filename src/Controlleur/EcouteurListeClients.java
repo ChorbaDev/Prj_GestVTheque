@@ -166,7 +166,7 @@ public class EcouteurListeClients implements Initializable {
      * Modifier les informations du client selectionner dans la liste avec les champs remplis
      */
     public void modifierClient() throws SQLException, IOException {
-        if (!table.getSelectionModel().isEmpty()) {
+        if (!table.getSelectionModel().isEmpty() && validationDesChamps()) {
             Client client = table.getSelectionModel().getSelectedItem();
             Client clientSelectionner = new Client(client.getIdClient(), nom.getText(), prenom.getText(), mail.getText(), fidele.isSelected());
             if (!client.equals(clientSelectionner) || uneImageEstSelectionner) {

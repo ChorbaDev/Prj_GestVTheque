@@ -44,6 +44,10 @@ public class EcouteurAuteur implements Initializable {
 
     private final ObservableList<Auteur> obList = FXCollections.observableArrayList();
 
+    /**
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colIdAuteur.setCellValueFactory(new PropertyValueFactory<Auteur, Integer>("idAuteur"));
@@ -59,11 +63,21 @@ public class EcouteurAuteur implements Initializable {
         }
     }
 
+    /**
+     * retourner au sceneBienvenue
+     * @param e
+     * @throws IOException
+     */
     public void retour(ActionEvent e) throws IOException {
         path = "/Vue/SceneBienvenue.fxml";
         basculeScene(e, path);
     }
 
+    /**
+     * @param e
+     * @param pathURL
+     * @throws IOException
+     */
     public void basculeScene(ActionEvent e, String pathURL) throws IOException {
         root = FXMLLoader.load(getClass().getResource(pathURL));
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -72,26 +86,44 @@ public class EcouteurAuteur implements Initializable {
         stage.show();
     }
 
+    /**
+     * nettoyage du scene
+     * @throws SQLException
+     */
     private void nettoyageScene() throws SQLException {
         viderChamps();
         viderListe();
         remplirLaListe();
     }
 
+    /**
+     * remplir la liste des auteurs
+     * @throws SQLException
+     */
     private void remplirLaListe() throws SQLException {
         auteurDao.remplirListeAuteur(obList);
     }
 
+    /**
+     * vider les champs du text
+     */
     private void viderChamps() {
         edtNomAuteur.setText("");
         edtPrenomAuteur.setText("");
         mmoResumeAuteur.setText("");
     }
 
+    /**
+     * vider la liste des auteurs
+     */
     private void viderListe() {
         tblAuteur.getItems().clear();
     }
 
+    /**
+     * ajouter l'auteur a la bdd et dans la lisView aussi
+     * @throws SQLException
+     */
     public void ajoutAuteur() throws SQLException {
         Auteur auteur=new Auteur(edtNomAuteur.getText().trim(),edtPrenomAuteur.getText().trim(),mmoResumeAuteur.getText().trim());
         if (auteurDao.existenceAuteur(auteur)) {
@@ -111,10 +143,19 @@ public class EcouteurAuteur implements Initializable {
                     "/Images/warning.png");
         }
     }
+
+    /**
+     * @return vrai si tout les champs sont remplis sinon faux
+     */
     private boolean validationDesChamps() {
         return !edtNomAuteur.getText().isEmpty() && !edtPrenomAuteur.getText().isEmpty() && !mmoResumeAuteur.getText().isEmpty();
     }
 
+    /**
+     * remplir les champs avec les infos d'auteur selectionner sinon rien faire
+     * @throws SQLException
+     * @throws IOException
+     */
     public void selectionAuteur() throws SQLException, IOException {
         viderChamps();
         if (!tblAuteur.getSelectionModel().isEmpty()) {
@@ -125,11 +166,15 @@ public class EcouteurAuteur implements Initializable {
         }
     }
 
+    /**
+     * modifier l'auteur selectionner en utilisant les champs du textes remplis
+     * @throws SQLException
+     */
     public void modifierAuteur() throws SQLException {
         if (!tblAuteur.getSelectionModel().isEmpty()) {
             Auteur auteur = tblAuteur.getSelectionModel().getSelectedItem();
             Auteur auteurSelectionner = new Auteur(auteur.getIdAuteur(), edtNomAuteur.getText(), edtPrenomAuteur.getText(), mmoResumeAuteur.getText());
-            if (!auteur.equals(auteurSelectionner)) {
+            if (!auteur.equals(auteurSelectionner) && validationDesChamps()) {
                 auteurDao.updateAuteur(auteurSelectionner);
                 notifBuilder("Opération réussie",
                         "Votre opération de modifier l'auteur' " + auteur.getNom() + " a réussie.",
@@ -144,6 +189,12 @@ public class EcouteurAuteur implements Initializable {
 
     }
 
+    /**
+     * constructions de la notification a affichier
+     * @param titre
+     * @param texte
+     * @param pathImg
+     */
     public void notifBuilder(String titre, String texte, String pathImg) {
         Image img = new Image(pathImg);
         Notifications notifBuilder = Notifications.create()
@@ -155,6 +206,7 @@ public class EcouteurAuteur implements Initializable {
         notifBuilder.darkStyle();
         notifBuilder.show();
     }
+
     public void vider(){
         viderChamps();
     }
