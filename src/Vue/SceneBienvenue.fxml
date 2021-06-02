@@ -37,7 +37,7 @@
                   <Font name="Segoe UI Semibold" size="18.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="916.0" layoutY="710.0" onAction="#commander" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Commander">
+            <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="916.0" layoutY="710.0" onAction="#commander" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Commande">
                <font>
                   <Font name="Segoe UI Semibold" size="18.0" />
                </font>

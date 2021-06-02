@@ -6,6 +6,10 @@ import java.sql.SQLException;
 public class ConnectionClass {
     public Connection connection;
 
+    /**
+     * @return Fait la conncetion a la bdd
+     * @throws SQLException
+     */
     public Connection getConnection() throws SQLException {
         String dbName="videotheque";
         String userName="root";
