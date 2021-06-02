@@ -113,7 +113,7 @@ public class EcouteurCommande implements Initializable {
     }
 
     private void facture() throws FileNotFoundException {
-        String path="../Facture/facture.pdf";
+     /*   String path="../Facture/facture.pdf";
         PdfWriter pdfWriter=new PdfWriter(path);
         PdfDocument pdfDocument= new PdfDocument(pdfWriter);
         Document document = new Document(pdfDocument);
@@ -134,7 +134,7 @@ public class EcouteurCommande implements Initializable {
         document.close();
         notifBuilder("Opération réussie",
                 "Facture générée",
-                "/Images/checked.png");
+                "/Images/checked.png");*/
 
     }
 
