@@ -10,6 +10,7 @@ import Modele.ProduitPanier;
 import be.quodlibet.boxable.*;
 import be.quodlibet.boxable.Cell;
 import be.quodlibet.boxable.line.LineStyle;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -33,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.pdfbox.jbig2.segments.Table;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -42,8 +44,6 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.controlsfx.control.Notifications;
 import javax.swing.text.html.ImageView;
 import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -152,7 +152,7 @@ public class EcouteurCommande implements Initializable {
         float yPosition = 770;
 
 
-        Table tableTitre = new BaseTable(yPosition, yStart,
+        BaseTable tableTitre = new BaseTable(yPosition, yStart,
                 bottomMargin, tableWidth, margin, document, page, true, drawContent);
 
         // the parameter is the row height
@@ -182,7 +182,7 @@ public class EcouteurCommande implements Initializable {
         yPosition=yPosition-tableTitre.getHeaderAndDataHeight();
 
 
-        Table tableInfo = new BaseTable(yPosition, yStart,
+        BaseTable tableInfo = new BaseTable(yPosition, yStart,
                 bottomMargin, tableWidth, margin, document, page, false, drawContent);
         headerRow = tableInfo.createRow(50);
         // the first parameter is the cell width
@@ -224,7 +224,7 @@ public class EcouteurCommande implements Initializable {
         yPosition=yPosition-tableInfo.getHeaderAndDataHeight();
 
 
-        Table tableCommande = new BaseTable(yPosition, yStart,
+        BaseTable tableCommande = new BaseTable(yPosition, yStart,
                 bottomMargin, tableWidth, margin, document, page, true, drawContent);
 
         // the parameter is the row height

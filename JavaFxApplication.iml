@@ -19,5 +19,6 @@
     <orderEntry type="library" name="preflight-app-2.0.23" level="project" />
     <orderEntry type="library" name="xmpbox-2.0.23" level="project" />
     <orderEntry type="library" name="com.github.dhorions:boxable:1.6" level="project" />
+    <orderEntry type="library" name="github.dhorions.boxable" level="project" />
   </component>
 </module>
