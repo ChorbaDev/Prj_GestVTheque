@@ -32,17 +32,18 @@ public class Facture {
 
     private final PDDocument document = new PDDocument();
     private final PDPage page = new PDPage(PDRectangle.A4);
-    // PDRectangle.LETTER and others are also possible
-    // rect can be used to get the page width and height
 
     //Dummy Table
     private final float margin = 50;
     private final int spaceBetweenTables = 50;
+
     // starting y position is whole page height subtracted by top and bottom margin
     private final float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin) - spaceBetweenTables;
+
     // we want table across whole page width (subtracted by left and right margin ofcourse)
     private final float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
     private final String outputFileName = "Facture.pdf";
+
     PDPageContentStream cos = new PDPageContentStream(document, page);
     private String nom;
     private String prenom;
@@ -52,6 +53,7 @@ public class Facture {
     private boolean drawContent = true;
     private float yStart = yStartNewPage;
     private float bottomMargin = 70;
+
     // y position is your coordinate of top left corner of the table
     private float yPosition = 770;
 
@@ -64,19 +66,15 @@ public class Facture {
         document.addPage(page);
 
         Image image = new Image(ImageIO.read(new File("src/Images/logoBlack.png")));
-        // imagine we have pretty big logo and we want scale that a little bit
         float imageWidth = 75;
         image = image.scaleByWidth(imageWidth);
 
-
-        // Start a new content stream which will "hold" the to be created content
-
-
-        // close the content stream
-        // Save the results and ensure that the document is properly closed:
         genTableTitre(image);
+
         genTableInfo(nom, prenom, nofact, nocom);
+
         genTableCommande(listePanier, sommePrixTot, clientFidele, mTot);
+
         cos.close();
         document.save(outputFileName);
         document.close();
@@ -189,16 +187,19 @@ public class Facture {
         row = tableCommande.createRow(20);
         cell = row.createCell(80, "Réduction");
         cell.setFontSize(8);
+        cell.setFillColor(new Color(242, 242, 242));
         cell = row.createCell(20, str);
         cell.setFontSize(8);
+        cell.setFillColor(new Color(242, 242, 242));
         cell.setAlign(HorizontalAlignment.RIGHT);
         row = tableCommande.createRow(20);
         cell = row.createCell(80, "Montant Final");
         cell.setFontSize(8);
+        cell.setFillColor(new Color(242, 242, 242));
         cell = row.createCell(20, mTot);
         cell.setFontSize(8);
+        cell.setFillColor(new Color(242, 242, 242));
         cell.setAlign(HorizontalAlignment.RIGHT);
-
 
         tableCommande.draw();
         setyPosition(yPosition - tableCommande.getHeaderAndDataHeight());
