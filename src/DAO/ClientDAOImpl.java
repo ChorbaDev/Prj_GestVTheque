@@ -16,6 +16,7 @@ public class ClientDAOImpl implements ClientDAO {
     private static final String UPDATE_CLIENT_SQL = "update client set nomClient=? , prenomClient=? , mailClient=? ,clientFidele=?,pdp=? where idClient=?";
     private static final String DELETE_CLIENT_SQL = "delete from client where idClient=?";
     private static final String EXISTE_CLIENT_SQL = "select * from client where mailClient=?";
+    private static final String CLIENT_PAR_ID = "select * from client where idClient=?";
     private static final String PHOTO_PAR_ID="select pdp from client where idClient=?";
     private static final String FED_PAR_ID="select clientFidele from client where idClient=?";
     public  final String LISTE_CLIENTS_SQL = "SELECT idClient,nomClient,prenomClient,clientFidele,mailClient FROM client";
@@ -28,7 +29,14 @@ public class ClientDAOImpl implements ClientDAO {
         connectionClass = new ConnectionClass();
         connection = connectionClass.getConnection();
     }
-
+    @Override
+    public String InfosClient(int idClient,String info) throws SQLException {
+        ps=connection.prepareStatement(CLIENT_PAR_ID);
+        ps.setInt(1,idClient);
+        ResultSet res=ps.executeQuery();
+        res.next();
+        return res.getString(info);
+    }
     @Override
     public ResultSet inputClient(int idClient) throws SQLException {
         ps=connection.prepareStatement(PHOTO_PAR_ID);

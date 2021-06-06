@@ -1,5 +1,6 @@
 package Controlleur;
 
+import DAO.ClientDAOImpl;
 import DAO.CommandeDAO;
 import DAO.CommandeDAOImpl;
 import Modele.Date;
@@ -91,6 +92,9 @@ public class EcouteurCommande implements Initializable {
     private int quantiteMax;
     private CommandeDAO commandeDAO;
     Boolean clientFidele=false;
+
+    public EcouteurCommande() throws SQLException {
+    }
     //
 
     /**
@@ -120,12 +124,19 @@ public class EcouteurCommande implements Initializable {
      * générer une facture d'une commande
      * @throws IOException
      */
-    private void facture() throws IOException
-    {
+    int nbFacture=0;
+    ClientDAOImpl clientDAO=new ClientDAOImpl();
+    private void facture() throws IOException, SQLException {
         ArrayList<ProduitPanier> aListePanier= new ArrayList<>();
         aListePanier.addAll(listePanier);
         double tot= sommePrixTotal();
-        Facture facture = new Facture("Ghoniem","Yassine",1,1,aListePanier,tot,clientFidele,montantTotale.getText());
+        String selectedClient=comboClient.getSelectionModel().getSelectedItem();
+        int id=Integer.valueOf(selectedClient.substring(0,selectedClient.indexOf(" ")));
+        String nom=clientDAO.InfosClient(id,"nomClient");
+        String prenom=clientDAO.InfosClient(id,"prenomClient");
+        nbFacture++;
+        int cmd=commandeDAO.getMaxIdCmd()+1;
+        Facture facture = new Facture(nom,prenom,nbFacture,cmd,aListePanier,tot,clientFidele,montantTotale.getText());
     }
 
     /**

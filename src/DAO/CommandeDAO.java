@@ -14,4 +14,5 @@ public interface CommandeDAO {
     void insertCommande(int idClient) throws SQLException;
     void insertConcerne(ObservableList<ProduitPanier> ListePP) throws SQLException;
     void modifierStock(ObservableList<ProduitPanier> ListePP) throws SQLException;
+    int getMaxIdCmd() throws SQLException;
 }

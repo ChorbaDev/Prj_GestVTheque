@@ -22,14 +22,22 @@ public class CommandeDAOImpl implements CommandeDAO{
     private static final String INSERT_COMMANDE_SQL="insert into commande (idClient,reduction,dateCreation) values (?,?,?)";
     private static final String INSERT_CONCERNE_SQL="insert into concerne values(?,?,?,?,?)";
     private static final String ID_PAR_TITRE_PD="SELECT idProduit from produit where titreProduit=?";
-    private static final String SCOOP_ID="SELECT MAX(idCmd) as id from commande";
+    private static final String SCOOP_ID="SELECT MAX(idCmd)  as id from commande";
     private static final String MODIF_STOCK_SQL="update produit set stock=? where idProduit=?";
     private static PreparedStatement ps;
     private static ConnectionClass connectionClass;
     private static Connection connection;
+
     public CommandeDAOImpl() throws SQLException {
         connectionClass = new ConnectionClass();
         connection = connectionClass.getConnection();
+    }
+    @Override
+    public int getMaxIdCmd() throws SQLException {
+        ps=connection.prepareStatement(SCOOP_ID);
+        ResultSet res=ps.executeQuery();
+        res.next();
+        return res.getInt("id");
     }
     @Override
     public void remplirComboClient(ObservableList<String> clients) throws SQLException {

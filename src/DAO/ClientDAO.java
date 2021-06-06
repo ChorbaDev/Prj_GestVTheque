@@ -28,4 +28,6 @@ public interface ClientDAO {
     boolean existenceClient(Client client) throws SQLException;
 
     boolean trouverFedClient(int id) throws SQLException;
+
+    String InfosClient(int idClient,String info) throws SQLException;
 }
