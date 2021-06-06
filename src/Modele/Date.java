@@ -52,4 +52,10 @@ public class Date {
     public boolean superieurEgale(Date d){
         return this.difference(d)>0;
     }
+
+    @Override
+    public String toString()
+    {
+        return jour+"/"+mois+"/"+annee;
+    }
 }

@@ -3,6 +3,7 @@ package Controlleur;
 import DAO.CommandeDAO;
 import DAO.CommandeDAOImpl;
 import Modele.Date;
+import Modele.Facture;
 import Modele.Produit;
 import Modele.ProduitPanier;
 
@@ -48,9 +49,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class EcouteurCommande implements Initializable {
     @FXML private Spinner<Integer> spinnerQuantite;
@@ -121,232 +122,10 @@ public class EcouteurCommande implements Initializable {
      */
     private void facture() throws IOException
     {
-        String outputFileName = "Facture.pdf";
-
-        // Create a new font object selecting one of the PDF base fonts
-        PDFont fontPlain = PDType1Font.HELVETICA;
-        PDFont fontBold = PDType1Font.HELVETICA_BOLD;
-        PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
-        PDFont fontMono = PDType1Font.COURIER;
-
-        // Create a document and add a page to it
-        PDDocument document = new PDDocument();
-        PDPage page = new PDPage(PDRectangle.A4);
-        // PDRectangle.LETTER and others are also possible
-        // rect can be used to get the page width and height
-        document.addPage(page);
-
-        // Start a new content stream which will "hold" the to be created content
-        PDPageContentStream cos = new PDPageContentStream(document, page);
-
-        //Dummy Table
-        float margin = 50;
-        int spaceBetweenTables = 50;
-// starting y position is whole page height subtracted by top and bottom margin
-        float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin)-spaceBetweenTables;
-// we want table across whole page width (subtracted by left and right margin ofcourse)
-        float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
-
-
-
-        boolean drawContent = true;
-        float yStart = yStartNewPage;
-        float bottomMargin = 70;
-        // y position is your coordinate of top left corner of the table
-        float yPosition = 770;
-
-
-        BaseTable tableTitre = new BaseTable(yPosition, yStart,
-                bottomMargin, tableWidth, margin, document, page, true, drawContent);
-
-        // the parameter is the row height
-        Row<PDPage> headerRow = tableTitre.createRow(50);
-        // the first parameter is the cell width
-        Cell<PDPage> cell = headerRow.createCell(100, "Logo");
-        cell.setFont(fontBold);
-        cell.setFontSize(20);
-        // vertical alignment
-        cell.setValign(VerticalAlignment.MIDDLE);
-        // border style
-        cell.setTopBorderStyle(new LineStyle(Color.BLACK, 10));
-        tableTitre.addHeaderRow(headerRow);
-
-        Row<PDPage> row = tableTitre.createRow(20);
-        cell = row.createCell(50, "FACTURE");
-        cell.setFontSize(24);
-        cell.setFont(fontBold);
-        cell.setValign(VerticalAlignment.MIDDLE);
-        cell.setAlign(HorizontalAlignment.CENTER);
-        cell = row.createCell(50, "VStore<br> IUT de Metz<br> Ile du Saulcy<br> BP 10628<br> 57045 Metz cedex 01");
-        cell.setFontSize(12);
-        cell.setAlign(HorizontalAlignment.RIGHT);
-
-        tableTitre.draw();
-
-        yPosition=yPosition-tableTitre.getHeaderAndDataHeight();
-
-
-        BaseTable tableInfo = new BaseTable(yPosition, yStart,
-                bottomMargin, tableWidth, margin, document, page, false, drawContent);
-        headerRow = tableInfo.createRow(50);
-        // the first parameter is the cell width
-        cell = headerRow.createCell(100, "Informations du Client");
-        cell.setFont(fontBold);
-        cell.setFontSize(20);
-        // vertical alignment
-        cell.setValign(VerticalAlignment.MIDDLE);
-        // border style
-        cell.setTopBorderStyle(new LineStyle(Color.BLACK, 10));
-        tableInfo.addHeaderRow(headerRow);
-
-        row = tableInfo.createRow(20);
-        cell = row.createCell(20, "Nom :");
-        cell.setFontSize(12);
-        cell = row.createCell(40, "NOM+PRENOM");
-        cell.setFontSize(12);
-        cell.setFont(fontBold);
-        cell = row.createCell(20, "Facture n° :");
-        cell.setFontSize(12);
-        cell = row.createCell(20, "NOFACTURE");
-        cell.setFontSize(12);
-        cell.setFont(fontBold);
-
-        row = tableInfo.createRow(20);
-        cell = row.createCell(20, "Commande n° :");
-        cell.setFontSize(12);
-        cell = row.createCell(40, "NOCOMMANDE");
-        cell.setFontSize(12);
-        cell.setFont(fontBold);
-        cell = row.createCell(20, "Date :");
-        cell.setFontSize(12);
-        cell = row.createCell(20, "DATEDUJOUR");
-        cell.setFontSize(12);
-        cell.setFont(fontBold);
-
-        tableInfo.draw();
-
-        yPosition=yPosition-tableInfo.getHeaderAndDataHeight();
-
-
-        BaseTable tableCommande = new BaseTable(yPosition, yStart,
-                bottomMargin, tableWidth, margin, document, page, true, drawContent);
-
-        // the parameter is the row height
-        headerRow = tableCommande.createRow(20);
-        // the first parameter is the cell width
-        cell = headerRow.createCell(15, "Type");
-        cell.setFont(fontBold);
-        cell.setFontSize(14);
-        cell.setFillColor(Color.LIGHT_GRAY);
-
-        // vertical alignment
-        cell.setValign(VerticalAlignment.MIDDLE);
-        cell.setAlign(HorizontalAlignment.CENTER);
-
-        cell = headerRow.createCell(35, "Titre");
-        cell.setFont(fontBold);
-        cell.setFontSize(14);
-        cell.setFillColor(Color.LIGHT_GRAY);
-
-        // vertical alignment
-        cell.setValign(VerticalAlignment.MIDDLE);
-        cell.setAlign(HorizontalAlignment.CENTER);
-
-        cell = headerRow.createCell(15, "Prix Unit");
-        cell.setFont(fontBold);
-        cell.setFontSize(14);
-        cell.setFillColor(Color.LIGHT_GRAY);
-
-        // vertical alignment
-        cell.setValign(VerticalAlignment.MIDDLE);
-        cell.setAlign(HorizontalAlignment.CENTER);
-
-        cell = headerRow.createCell(15, "Quantité");
-        cell.setFont(fontBold);
-        cell.setFontSize(14);
-        cell.setFillColor(Color.LIGHT_GRAY);
-
-        // vertical alignment
-        cell.setValign(VerticalAlignment.MIDDLE);
-        cell.setAlign(HorizontalAlignment.CENTER);
-
-        cell = headerRow.createCell(20, "Prix Total");
-        cell.setFont(fontBold);
-        cell.setFontSize(14);
-        cell.setFillColor(Color.LIGHT_GRAY);
-
-        // alignment
-        cell.setValign(VerticalAlignment.MIDDLE);
-        cell.setAlign(HorizontalAlignment.CENTER);
-
-        // border style
-        tableCommande.addHeaderRow(headerRow);
-
-
-        for(int i=1;i<=10;i++){
-            row = tableCommande.createRow(15);
-            cell = row.createCell(15, "Typeprd");
-            cell.setFontSize(11);
-            // alignment
-            cell.setValign(VerticalAlignment.MIDDLE);
-            cell.setAlign(HorizontalAlignment.CENTER);
-
-            cell = row.createCell(35, "nomprod");
-            cell.setFontSize(11);
-            // alignment
-            cell.setValign(VerticalAlignment.MIDDLE);
-            cell.setAlign(HorizontalAlignment.CENTER);
-
-            cell = row.createCell(15, "prixunip");
-            cell.setFontSize(11);
-            // alignment
-            cell.setValign(VerticalAlignment.MIDDLE);
-            cell.setAlign(HorizontalAlignment.CENTER);
-
-            cell = row.createCell(15, "qteprd");
-            cell.setFontSize(11);
-            // alignment
-            cell.setValign(VerticalAlignment.MIDDLE);
-            cell.setAlign(HorizontalAlignment.CENTER);
-
-            cell = row.createCell(20, "prixtot");
-            cell.setFontSize(11);
-            // alignment
-            cell.setValign(VerticalAlignment.MIDDLE);
-            cell.setAlign(HorizontalAlignment.CENTER);
-
-        }
-
-        row = tableCommande.createRow(20);
-        cell = row.createCell(80, "Total");
-        cell.setFontSize(11);
-        cell.setFillColor(Color.LIGHT_GRAY);
-        cell = row.createCell(20, "somme");
-        cell.setFontSize(11);
-        cell.setFillColor(Color.LIGHT_GRAY);
-        row = tableCommande.createRow(20);
-        cell = row.createCell(80, "Réduction");
-        cell.setFontSize(11);
-        cell = row.createCell(20, "%%%");
-        cell.setFontSize(11);
-        row = tableCommande.createRow(20);
-        cell = row.createCell(80, "Montant Final");
-        cell.setFontSize(11);
-        cell = row.createCell(20, "montant");
-        cell.setFontSize(11);
-
-        tableCommande.draw();
-
-        float tableHeight = tableTitre.getHeaderAndDataHeight();
-        System.out.println("tableHeight = "+tableHeight);
-
-        // close the content stream
-        cos.close();
-
-        // Save the results and ensure that the document is properly closed:
-        document.save(outputFileName);
-        document.close();
-
+        ArrayList<ProduitPanier> aListePanier= new ArrayList<>();
+        aListePanier.addAll(listePanier);
+        double tot= sommePrixTotal();
+        Facture facture = new Facture("Ghoniem","Yassine",1,1,aListePanier,tot,clientFidele,montantTotale.getText());
     }
 
     /**
