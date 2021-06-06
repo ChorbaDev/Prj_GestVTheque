@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="Controlleur.EcouteurBienvenue">
+    <children>
+        <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="228.0" layoutY="233.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../Images/backLogin.png"/>
+            </image>
+        </ImageView>
+        <Pane layoutX="465.0" layoutY="155.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="916.0" layoutY="100.0"
+                           onAction="#listeProduits" prefHeight="50.0" prefWidth="200.0"
+                           style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                           text="Liste Produits">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="18.0"/>
+                    </font>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="916.0" layoutY="180.0"
+                           onAction="#listeClients" prefHeight="50.0" prefWidth="200.0"
+                           style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                           text=" Liste Clients">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="18.0"/>
+                    </font>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="916.0" layoutY="261.0"
+                           onAction="#listeAuteurs" prefHeight="48.0" prefWidth="200.0"
+                           style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                           text="Liste Auteurs">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="18.0"/>
+                    </font>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="916.0" layoutY="341.0"
+                           onAction="#listeRealisateur" prefHeight="50.0" prefWidth="200.0"
+                           style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                           text="Liste Réalisateurs">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="18.0"/>
+                    </font>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="916.0" layoutY="710.0"
+                           onAction="#commander" prefHeight="50.0" prefWidth="200.0"
+                           style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                           text="Commande">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="18.0"/>
+                    </font>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="916.0" layoutY="650.0"
+                           onAction="#tableauDeBord" prefHeight="50.0" prefWidth="200.0"
+                           style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                           text="Tableau de bord">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="18.0"/>
+                    </font>
+                </JFXButton>
+                <Label layoutX="340.0" layoutY="326.0" text="Commandez et profitez !" textFill="WHITE">
+                    <font>
+                        <Font name="Segoe UI Bold" size="20.0"/>
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

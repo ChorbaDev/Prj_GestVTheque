@@ -14,166 +14,187 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../Images/background.png" />
-         </image>
-      </ImageView>
-      <VBox layoutX="20.0" layoutY="77.0" opacity="0.33" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="1056.0" AnchorPane.topAnchor="100.0">
-         <children>
-            <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" text="DVD">
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="20.0" top="20.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;" text="CD">
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="20.0" top="20.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;" text="Roman">
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="20.0" top="20.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;" text="BD">
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="20.0" top="20.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;" text="Manuel Scolaire">
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="20.0" top="20.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;" text="Dictionnaire">
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="20.0" top="20.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;" text="Déconnexion">
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="140.0" />
-               </VBox.margin>
-            </JFXButton>
-            <JFXButton prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;" text="Modifier vos infos">
-               <font>
-                  <Font name="Segoe UI Bold" size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </JFXButton>
-         </children>
-      </VBox>
-      <HBox layoutX="170.0" layoutY="14.0" opacity="0.33" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color-bottom: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <ImageView fitHeight="90.0" fitWidth="778.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Images/logoBlack.png" />
-               </image>
-            </ImageView>
-            <Label text="Bonjour, ">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="570.0" top="50.0" />
-               </HBox.margin>
-            </Label>
-            <Label text="Nom">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <HBox.margin>
-                  <Insets top="50.0" />
-               </HBox.margin>
-            </Label>
-         </children>
-      </HBox>
-      <AnchorPane layoutX="786.0" layoutY="100.0" prefHeight="600.0" prefWidth="426.0" style="-fx-border-color: white;" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-         <children>
-            <TableView prefHeight="443.0" prefWidth="426.0" AnchorPane.rightAnchor="0.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="Produit" />
-                <TableColumn prefWidth="229.0" text="Description" />
-                  <TableColumn minWidth="0.0" prefWidth="55.0" text="Quantité" />
-                  <TableColumn prefWidth="66.0" text="Prix" />
-              </columns>
-            </TableView>
-            <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="484.0" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Modifier Quantité" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </JFXButton>
-            <Spinner editable="true" layoutX="171.0" layoutY="487.0" prefHeight="25.0" prefWidth="91.0" />
-            <JFXButton buttonType="RAISED" layoutX="15.0" layoutY="537.0" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Retirer le produit" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </JFXButton>
-            <Label layoutX="241.0" layoutY="567.0" text="Montant total :" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="371.0" layoutY="568.0" text="0.00" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <HBox layoutX="-6.0" layoutY="700.0" opacity="0.33" prefHeight="107.0" prefWidth="1215.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="0.0" />
-      <TableView layoutX="170.0" layoutY="100.0" prefHeight="519.0" prefWidth="568.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Type" />
-            <TableColumn prefWidth="101.0" text="Produit" />
-          <TableColumn prefWidth="209.0" text="Description" />
-            <TableColumn prefWidth="91.0" text="Stock" />
-            <TableColumn prefWidth="91.0" text="Prix" />
-        </columns>
-      </TableView>
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171">
+    <children>
+        <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../Images/background.png"/>
+            </image>
+        </ImageView>
+        <VBox layoutX="20.0" layoutY="77.0" opacity="0.33" prefHeight="200.0" prefWidth="150.0"
+              style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.bottomAnchor="100.0"
+              AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="1056.0" AnchorPane.topAnchor="100.0">
+            <children>
+                <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" text="DVD">
+                    <font>
+                        <Font name="Segoe UI Bold" size="15.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="20.0" top="20.0"/>
+                    </padding>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;"
+                           text="CD">
+                    <font>
+                        <Font name="Segoe UI Bold" size="15.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="20.0" top="20.0"/>
+                    </padding>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;"
+                           text="Roman">
+                    <font>
+                        <Font name="Segoe UI Bold" size="15.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="20.0" top="20.0"/>
+                    </padding>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;"
+                           text="BD">
+                    <font>
+                        <Font name="Segoe UI Bold" size="15.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="20.0" top="20.0"/>
+                    </padding>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;"
+                           text="Manuel Scolaire">
+                    <font>
+                        <Font name="Segoe UI Bold" size="15.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="20.0" top="20.0"/>
+                    </padding>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;"
+                           text="Dictionnaire">
+                    <font>
+                        <Font name="Segoe UI Bold" size="15.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="20.0" top="20.0"/>
+                    </padding>
+                </JFXButton>
+                <JFXButton prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;" text="Déconnexion">
+                    <font>
+                        <Font name="Segoe UI Bold" size="15.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="140.0"/>
+                    </VBox.margin>
+                </JFXButton>
+                <JFXButton prefHeight="31.0" prefWidth="143.0" style="-fx-border-color: white;"
+                           text="Modifier vos infos">
+                    <font>
+                        <Font name="Segoe UI Bold" size="14.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </JFXButton>
+            </children>
+        </VBox>
+        <HBox layoutX="170.0" layoutY="14.0" opacity="0.33" prefHeight="100.0" prefWidth="200.0"
+              style="-fx-background-color: white; -fx-border-color-bottom: white;" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="90.0" fitWidth="778.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../Images/logoBlack.png"/>
+                    </image>
+                </ImageView>
+                <Label text="Bonjour, ">
+                    <font>
+                        <Font name="System Bold" size="20.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets left="570.0" top="50.0"/>
+                    </HBox.margin>
+                </Label>
+                <Label text="Nom">
+                    <font>
+                        <Font name="System Bold" size="20.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets top="50.0"/>
+                    </HBox.margin>
+                </Label>
+            </children>
+        </HBox>
+        <AnchorPane layoutX="786.0" layoutY="100.0" prefHeight="600.0" prefWidth="426.0"
+                    style="-fx-border-color: white;" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="100.0">
+            <children>
+                <TableView prefHeight="443.0" prefWidth="426.0" AnchorPane.rightAnchor="0.0">
+                    <columns>
+                        <TableColumn prefWidth="75.0" text="Produit"/>
+                        <TableColumn prefWidth="229.0" text="Description"/>
+                        <TableColumn minWidth="0.0" prefWidth="55.0" text="Quantité"/>
+                        <TableColumn prefWidth="66.0" text="Prix"/>
+                    </columns>
+                </TableView>
+                <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="484.0" prefHeight="31.0" prefWidth="143.0"
+                           style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;"
+                           text="Modifier Quantité" textFill="WHITE">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </JFXButton>
+                <Spinner editable="true" layoutX="171.0" layoutY="487.0" prefHeight="25.0" prefWidth="91.0"/>
+                <JFXButton buttonType="RAISED" layoutX="15.0" layoutY="537.0" prefHeight="31.0" prefWidth="143.0"
+                           style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;"
+                           text="Retirer le produit" textFill="WHITE">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </JFXButton>
+                <Label layoutX="241.0" layoutY="567.0" text="Montant total :" textFill="WHITE">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="371.0" layoutY="568.0" text="0.00" textFill="WHITE">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <HBox layoutX="-6.0" layoutY="700.0" opacity="0.33" prefHeight="107.0" prefWidth="1215.0"
+              style="-fx-background-color: white;" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="-6.0"
+              AnchorPane.rightAnchor="0.0"/>
+        <TableView layoutX="170.0" layoutY="100.0" prefHeight="519.0" prefWidth="568.0">
+            <columns>
+                <TableColumn prefWidth="75.0" text="Type"/>
+                <TableColumn prefWidth="101.0" text="Produit"/>
+                <TableColumn prefWidth="209.0" text="Description"/>
+                <TableColumn prefWidth="91.0" text="Stock"/>
+                <TableColumn prefWidth="91.0" text="Prix"/>
+            </columns>
+        </TableView>
+    </children>
 </AnchorPane>

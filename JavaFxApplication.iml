@@ -5,10 +5,20 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="corretto-1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="mysql-connector-java-5.1.38-bin" level="project" />
-    <orderEntry type="library" exported="" name="lib" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.38-bin" level="project" />
     <orderEntry type="library" name="jfoenix-8.0.10" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="controlsfx-8.40.11" level="project" />
+    <orderEntry type="library" name="fontbox-2.0.23" level="project" />
+    <orderEntry type="library" name="pdfbox-2.0.23" level="project" />
+    <orderEntry type="library" name="pdfbox-app-2.0.23" level="project" />
+    <orderEntry type="library" name="pdfbox-tools-2.0.23" level="project" />
+    <orderEntry type="library" name="preflight-2.0.23" level="project" />
+    <orderEntry type="library" name="preflight-app-2.0.23" level="project" />
+    <orderEntry type="library" name="xmpbox-2.0.23" level="project" />
+    <orderEntry type="library" name="com.github.dhorions:boxable:1.6" level="project" />
+    <orderEntry type="library" name="github.dhorions.boxable" level="project" />
   </component>
 </module>

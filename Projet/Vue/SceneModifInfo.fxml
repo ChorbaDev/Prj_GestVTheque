@@ -11,66 +11,86 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="500.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../../background.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="650.0" fitWidth="500.0" layoutX="397.0" layoutY="69.0" opacity="0.33" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0">
-         <image>
-            <Image url="@../../insc.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="350.0" layoutY="14.0" text="Modifier Vos info" textFill="WHITE">
-         <font>
-            <Font name="Segoe UI Semibold" size="40.0" />
-         </font>
-      </Label>
-      <JFXTextField fx:id="edtNom" focusColor="#e1a3a3" labelFloat="true" layoutX="385.0" layoutY="133.0" prefHeight="32.0" prefWidth="210.0" promptText="Nom" style="-fx-text-fill: white; -fx-prompt-text-fill: #adadad;" unFocusColor="WHITE">
-         <font>
-            <Font name="Segoe UI" size="18.0" />
-         </font>
-      </JFXTextField>
-      <JFXTextField fx:id="edtPrenom" focusColor="#e1a3a3" focusTraversable="false" labelFloat="true" layoutX="385.0" layoutY="213.0" prefHeight="32.0" prefWidth="210.0" promptText="Prénom" style="-fx-text-fill: white; -fx-prompt-text-fill: #adadad;" unFocusColor="WHITE">
-         <font>
-            <Font name="Segoe UI" size="18.0" />
-         </font>
-      </JFXTextField>
-      <JFXTextField fx:id="edtMail" focusColor="#e1a3a3" focusTraversable="false" labelFloat="true" layoutX="385.0" layoutY="293.0" prefHeight="32.0" prefWidth="210.0" promptText="Adresse E-mail" style="-fx-text-fill: white; -fx-prompt-text-fill: #adadad;" unFocusColor="WHITE">
-         <font>
-            <Font name="Segoe UI" size="18.0" />
-         </font>
-      </JFXTextField>
-      <JFXButton fx:id="btnCreer" buttonType="RAISED" focusTraversable="false" layoutX="385.0" layoutY="553.0" prefHeight="39.0" prefWidth="210.0" ripplerFill="WHITE" style="-fx-background-color: #6B0504; -fx-background-radius: 100;" text="Valider" textFill="WHITE">
-         <font>
-            <Font name="Segoe UI Bold" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXButton>
-      <JFXPasswordField fx:id="edtMdp" focusColor="#e1a3a3" focusTraversable="false" labelFloat="true" layoutX="385.0" layoutY="373.0" prefHeight="32.0" prefWidth="210.0" promptText="Mot de passe" style="-fx-prompt-text-fill: #adadad; -fx-text-fill: white;" unFocusColor="WHITE">
-         <font>
-            <Font name="Segoe UI" size="18.0" />
-         </font>
-      </JFXPasswordField>
-      <JFXPasswordField fx:id="edtCMdp" focusColor="#e1a3a3" focusTraversable="false" labelFloat="true" layoutX="385.0" layoutY="453.0" prefHeight="32.0" prefWidth="218.0" promptText="Confirmer le mot de passe" style="-fx-prompt-text-fill: #adadad; -fx-text-fill: white;" unFocusColor="WHITE">
-         <font>
-            <Font name="Segoe UI" size="18.0" />
-         </font>
-      </JFXPasswordField>
-      <ImageView fitHeight="229.0" fitWidth="210.0" layoutX="622.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../Photo-non-disponible.jpg" />
-         </image>
-      </ImageView>
-      <JFXButton layoutX="652.0" layoutY="408.0" prefHeight="27.0" prefWidth="173.0" style="-fx-background-color: #6B0504; -fx-text-fill: white; -fx-background-radius: 100;" text="Modifier votre image">
-         <font>
-            <Font name="Segoe UI" size="13.0" />
-         </font>
-      </JFXButton>
-      <JFXButton layoutX="622.0" layoutY="409.0" style="-fx-background-color: #6B0504; -fx-background-radius: 100;" text="X" textFill="WHITE" />
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171">
+    <children>
+        <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="500.0" layoutY="275.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../../background.png"/>
+            </image>
+        </ImageView>
+        <ImageView fitHeight="650.0" fitWidth="500.0" layoutX="397.0" layoutY="69.0" opacity="0.33" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0">
+            <image>
+                <Image url="@../../insc.png"/>
+            </image>
+        </ImageView>
+        <Label layoutX="350.0" layoutY="14.0" text="Modifier Vos info" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI Semibold" size="40.0"/>
+            </font>
+        </Label>
+        <JFXTextField fx:id="edtNom" focusColor="#e1a3a3" labelFloat="true" layoutX="385.0" layoutY="133.0"
+                      prefHeight="32.0" prefWidth="210.0" promptText="Nom"
+                      style="-fx-text-fill: white; -fx-prompt-text-fill: #adadad;" unFocusColor="WHITE">
+            <font>
+                <Font name="Segoe UI" size="18.0"/>
+            </font>
+        </JFXTextField>
+        <JFXTextField fx:id="edtPrenom" focusColor="#e1a3a3" focusTraversable="false" labelFloat="true" layoutX="385.0"
+                      layoutY="213.0" prefHeight="32.0" prefWidth="210.0" promptText="Prénom"
+                      style="-fx-text-fill: white; -fx-prompt-text-fill: #adadad;" unFocusColor="WHITE">
+            <font>
+                <Font name="Segoe UI" size="18.0"/>
+            </font>
+        </JFXTextField>
+        <JFXTextField fx:id="edtMail" focusColor="#e1a3a3" focusTraversable="false" labelFloat="true" layoutX="385.0"
+                      layoutY="293.0" prefHeight="32.0" prefWidth="210.0" promptText="Adresse E-mail"
+                      style="-fx-text-fill: white; -fx-prompt-text-fill: #adadad;" unFocusColor="WHITE">
+            <font>
+                <Font name="Segoe UI" size="18.0"/>
+            </font>
+        </JFXTextField>
+        <JFXButton fx:id="btnCreer" buttonType="RAISED" focusTraversable="false" layoutX="385.0" layoutY="553.0"
+                   prefHeight="39.0" prefWidth="210.0" ripplerFill="WHITE"
+                   style="-fx-background-color: #6B0504; -fx-background-radius: 100;" text="Valider" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI Bold" size="18.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </JFXButton>
+        <JFXPasswordField fx:id="edtMdp" focusColor="#e1a3a3" focusTraversable="false" labelFloat="true" layoutX="385.0"
+                          layoutY="373.0" prefHeight="32.0" prefWidth="210.0" promptText="Mot de passe"
+                          style="-fx-prompt-text-fill: #adadad; -fx-text-fill: white;" unFocusColor="WHITE">
+            <font>
+                <Font name="Segoe UI" size="18.0"/>
+            </font>
+        </JFXPasswordField>
+        <JFXPasswordField fx:id="edtCMdp" focusColor="#e1a3a3" focusTraversable="false" labelFloat="true"
+                          layoutX="385.0" layoutY="453.0" prefHeight="32.0" prefWidth="218.0"
+                          promptText="Confirmer le mot de passe"
+                          style="-fx-prompt-text-fill: #adadad; -fx-text-fill: white;" unFocusColor="WHITE">
+            <font>
+                <Font name="Segoe UI" size="18.0"/>
+            </font>
+        </JFXPasswordField>
+        <ImageView fitHeight="229.0" fitWidth="210.0" layoutX="622.0" layoutY="162.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../Photo-non-disponible.jpg"/>
+            </image>
+        </ImageView>
+        <JFXButton layoutX="652.0" layoutY="408.0" prefHeight="27.0" prefWidth="173.0"
+                   style="-fx-background-color: #6B0504; -fx-text-fill: white; -fx-background-radius: 100;"
+                   text="Modifier votre image">
+            <font>
+                <Font name="Segoe UI" size="13.0"/>
+            </font>
+        </JFXButton>
+        <JFXButton layoutX="622.0" layoutY="409.0" style="-fx-background-color: #6B0504; -fx-background-radius: 100;"
+                   text="X" textFill="WHITE"/>
+    </children>
 </AnchorPane>
