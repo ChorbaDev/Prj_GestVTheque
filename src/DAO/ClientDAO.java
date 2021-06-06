@@ -19,8 +19,6 @@ public interface ClientDAO {
 
     PreparedStatement insertClient(Client client) throws SQLException;
 
-//    PreparedStatement updateClient(Client client) throws SQLException;
-
     void supprimerClient(Client client) throws SQLException;
 
     void remplirListeClient(ObservableList<Client> liste) throws SQLException;
