@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" jdk="corretto-1.8" jdk_type="JavaSDK">
+	<output-test url="file://$MODULE_DIR$/out/test/JavaFxApplication"/>
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="mysql-connector-java-5.1.38-bin" value="project"/>
+		<level name="jfoenix-8.0.10" value="project"/>
+		<level name="lib" value="project"/>
+		<level name="controlsfx-8.40.11" value="project"/>
+		<level name="fontbox-2.0.23" value="project"/>
+		<level name="pdfbox-2.0.23" value="project"/>
+		<level name="pdfbox-app-2.0.23" value="project"/>
+		<level name="pdfbox-tools-2.0.23" value="project"/>
+		<level name="preflight-2.0.23" value="project"/>
+		<level name="preflight-app-2.0.23" value="project"/>
+		<level name="xmpbox-2.0.23" value="project"/>
+		<level name="com.github.dhorions:boxable:1.6" value="project"/>
+		<level name="github.dhorions.boxable" value="project"/>
+	</levels>
+</component>
