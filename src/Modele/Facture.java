@@ -181,23 +181,23 @@ public class Facture {
 
         Row<PDPage> row = tableCommande.createRow(20);
         Cell cell = row.createCell(80, "Total");
-        cell.setFontSize(11);
+        cell.setFontSize(8);
         cell.setFillColor(new Color(242, 242, 242));
         cell = row.createCell(20, Double.toString(sommePrixTot)+"€");
-        cell.setFontSize(11);
+        cell.setFontSize(8);
         cell.setAlign(HorizontalAlignment.RIGHT);
         cell.setFillColor(new Color(242, 242, 242));
         row = tableCommande.createRow(20);
         cell = row.createCell(80, "Réduction");
-        cell.setFontSize(11);
+        cell.setFontSize(8);
         cell = row.createCell(20, str);
-        cell.setFontSize(11);
+        cell.setFontSize(8);
         cell.setAlign(HorizontalAlignment.RIGHT);
         row = tableCommande.createRow(20);
         cell = row.createCell(80, "Montant Final");
-        cell.setFontSize(11);
+        cell.setFontSize(8);
         cell = row.createCell(20, mTot);
-        cell.setFontSize(11);
+        cell.setFontSize(8);
         cell.setAlign(HorizontalAlignment.RIGHT);
 
 
