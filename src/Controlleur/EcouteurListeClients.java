@@ -1,7 +1,7 @@
 package Controlleur;
 
-import Modele.Client;
 import DAO.ClientDAOImpl;
+import Modele.Client;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
@@ -23,12 +23,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+
 import java.io.*;
 import java.net.URL;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class EcouteurListeClients implements Initializable {
+    ObservableList<Client> obList = FXCollections.observableArrayList();
     /**
      * Les Attributs necessaire pour pouvoir basculer a des autres scenes
      */
@@ -36,53 +40,68 @@ public class EcouteurListeClients implements Initializable {
     private Stage stage;
     private Scene scene;
     private String path;
-
     /**
      * Des Attributs concerne la liste (Table view)
      */
-    @FXML private TableView<Client> table;
-    @FXML private TableColumn<Client, Integer> colId;
-    @FXML private TableColumn<Client, String> colNom;
-    @FXML private TableColumn<Client, String> colPrenom;
-    @FXML private TableColumn<Client, String> colMail;
-    @FXML private TableColumn<Client, Boolean> colFidele;
+    @FXML
+    private TableView<Client> table;
+    @FXML
+    private TableColumn<Client, Integer> colId;
+    @FXML
+    private TableColumn<Client, String> colNom;
+    @FXML
+    private TableColumn<Client, String> colPrenom;
+    @FXML
+    private TableColumn<Client, String> colMail;
+    @FXML
+    private TableColumn<Client, Boolean> colFidele;
     /**
-    * Des Attributs concerne la scene
-    */
-    @FXML private JFXTextField nom;
-    @FXML private JFXTextField prenom;
-    @FXML private JFXCheckBox fidele;
-    @FXML private JFXTextField mail;
-    @FXML private ImageView image;
+     * Des Attributs concerne la scene
+     */
+    @FXML
+    private JFXTextField nom;
+    @FXML
+    private JFXTextField prenom;
+    @FXML
+    private JFXCheckBox fidele;
+    @FXML
+    private JFXTextField mail;
+    @FXML
+    private ImageView image;
     /**
      * Des Attributs utiliser au cours de traitement des donnees
      */
     private FileInputStream fis = new FileInputStream(new File("src/Images/Photo-non-disponible.jpg"));
     private Boolean uneImageEstSelectionner = false;
     private ClientDAOImpl clientDAO;
-    ObservableList<Client> obList = FXCollections.observableArrayList();
 
-    public EcouteurListeClients() throws FileNotFoundException {
+    public EcouteurListeClients() throws FileNotFoundException
+    {
     }
+
     /**
      * Permet de remplir la liste avec des clients
      */
-    public void remplirLaListe() throws SQLException {
+    public void remplirLaListe() throws SQLException
+    {
         clientDAO.remplirListeClient(obList);
     }
+
     /**
      * Nettoyage du scene :
      * vider les champs
      * vides la liste
      * remplir la liste de nouveau
      */
-    private void nettoyageScene() throws SQLException {
+    private void nettoyageScene() throws SQLException
+    {
         viderChamps();
         viderListe();
         remplirLaListe();
     }
 
-    private void viderListe() {
+    private void viderListe()
+    {
         table.getItems().clear();
     }
 
@@ -90,7 +109,8 @@ public class EcouteurListeClients implements Initializable {
      * Permet d'acceder a la base de donnees et supprimer le client concerner
      * afficher l'ensemble des clients sur la liste apres la suppression du client
      */
-    public void supprimerClient() throws SQLException {
+    public void supprimerClient() throws SQLException
+    {
         if (!table.getSelectionModel().isEmpty()) {
             Client clientSupprmier = table.getSelectionModel().getSelectedItem();
             clientDAO.supprimerClient(clientSupprmier);
@@ -104,13 +124,15 @@ public class EcouteurListeClients implements Initializable {
                     "/Images/warning.png");
         }
     }
+
     /**
      * Permet d'acceder a la base de donnees et ajouter le client concerner
      * afficher l'ensemble des clients sur la liste apres l'addition' du client
      */
-    public void ajoutClient() throws SQLException, IOException {
+    public void ajoutClient() throws SQLException, IOException
+    {
         Client client = new Client(nom.getText().trim(), prenom.getText().trim(), mail.getText().trim(), fidele.isSelected());
-        PreparedStatement statement=clientDAO.insertClient(client);
+        PreparedStatement statement = clientDAO.insertClient(client);
         if (clientDAO.existenceClient(client)) {
             notifBuilder("Attention",
                     "le mail " + mail.getText() + " déja existe dans la base de données.",
@@ -132,14 +154,17 @@ public class EcouteurListeClients implements Initializable {
                     "/Images/warning.png");
         }
     }
+
     /**
      * Verifier si les champs a remplir sont remplis ou non
      */
-    private boolean validationDesChamps() {
+    private boolean validationDesChamps()
+    {
         return !nom.getText().isEmpty() && !prenom.getText().isEmpty() && !mail.getText().isEmpty();
     }
 
-    public void ChoisirUneImage() throws FileNotFoundException {
+    public void ChoisirUneImage() throws FileNotFoundException
+    {
         FileChooser fc = new FileChooser();
         FileChooser.ExtensionFilter ext1 = new FileChooser.ExtensionFilter("JPG files(*.jpg)", "*.JPG");
         FileChooser.ExtensionFilter ext2 = new FileChooser.ExtensionFilter("PNG files(*.png)", "*.PNG");
@@ -152,10 +177,12 @@ public class EcouteurListeClients implements Initializable {
         }
 
     }
+
     /**
      * Vider l'image la remplacer par l'image par defaut (Photo-non-disponible.jpg)
      */
-    public void viderImage() throws IOException {
+    public void viderImage() throws IOException
+    {
         File file = new File("src/Images/Photo-non-disponible.jpg");
         fis = new FileInputStream(file);
         image.setImage(new Image("/Images/Photo-non-disponible.jpg"));
@@ -165,7 +192,8 @@ public class EcouteurListeClients implements Initializable {
     /**
      * Modifier les informations du client selectionner dans la liste avec les champs remplis
      */
-    public void modifierClient() throws SQLException, IOException {
+    public void modifierClient() throws SQLException, IOException
+    {
         if (!table.getSelectionModel().isEmpty() && validationDesChamps()) {
             Client client = table.getSelectionModel().getSelectedItem();
             Client clientSelectionner = new Client(client.getIdClient(), nom.getText(), prenom.getText(), mail.getText(), fidele.isSelected());
@@ -183,8 +211,9 @@ public class EcouteurListeClients implements Initializable {
 
     }
 
-    private void modifierClientSelectionner(Client cl) throws SQLException, IOException {
-        PreparedStatement statement=clientDAO.modifierClientSelectionner(cl);
+    private void modifierClientSelectionner(Client cl) throws SQLException, IOException
+    {
+        PreparedStatement statement = clientDAO.modifierClientSelectionner(cl);
         if (uneImageEstSelectionner) {
             statement.setBinaryStream(5, fis);
             uneImageEstSelectionner = false;
@@ -196,19 +225,23 @@ public class EcouteurListeClients implements Initializable {
         statement.close();
         nettoyageScene();
     }
+
     /**
      * convertir la photo de profil en bits binaire
      */
-    private InputStream inputClient(Client cl) throws SQLException {
-        ResultSet res=clientDAO.inputClient(cl.getIdClient());
+    private InputStream inputClient(Client cl) throws SQLException
+    {
+        ResultSet res = clientDAO.inputClient(cl.getIdClient());
         res.next();
         InputStream is = res.getBinaryStream("pdp");
         return is;
     }
+
     /**
      * s'il y a un client selectionner, cette methode permet de transfere les donnees aux champs
      */
-    public void selectionClient() throws SQLException, IOException {
+    public void selectionClient() throws SQLException, IOException
+    {
         viderChamps();
         if (!table.getSelectionModel().isEmpty()) {
             Client clientSelectionner = table.getSelectionModel().getSelectedItem();
@@ -221,20 +254,26 @@ public class EcouteurListeClients implements Initializable {
             }
         }
     }
+
     /**
      * @param cl client selectionner
      * @return l'image du client en parametre
      */
-    private Image imageClient(Client cl) throws SQLException, IOException {
+    private Image imageClient(Client cl) throws SQLException, IOException
+    {
         return clientDAO.imageClient(cl.getIdClient());
     }
-    private void selectionImage(Client cl) throws SQLException, IOException {
+
+    private void selectionImage(Client cl) throws SQLException, IOException
+    {
         image.setImage(imageClient(cl));
     }
+
     /**
-     *permet d'afficher des notifications
+     * permet d'afficher des notifications
      */
-    public void notifBuilder(String titre, String texte, String pathImg) {
+    public void notifBuilder(String titre, String texte, String pathImg)
+    {
         Image img = new Image(pathImg);
         Notifications notifBuilder = Notifications.create()
                 .title(titre)
@@ -245,28 +284,34 @@ public class EcouteurListeClients implements Initializable {
         notifBuilder.darkStyle();
         notifBuilder.show();
     }
+
     /**
-     *vider les champs
+     * vider les champs
      */
-    private void viderChamps() {
+    private void viderChamps()
+    {
         mail.setText("");
         nom.setText("");
         prenom.setText("");
         image.setImage(new Image("/Images/Photo-non-disponible.jpg"));
         fidele.setSelected(false);
     }
+
     /**
-     *retourner au scene bienvenue
+     * retourner au scene bienvenue
      */
-    public void retour(ActionEvent e) throws IOException {
+    public void retour(ActionEvent e) throws IOException
+    {
         path = "/Vue/SceneBienvenue.fxml";
         root = FXMLLoader.load(getClass().getResource(path));
         basculeScene(e);
     }
+
     /**
-     *basculer a la scene de l'ensemble de commandes par client avec un transfer de donnees
+     * basculer a la scene de l'ensemble de commandes par client avec un transfer de donnees
      */
-    public void ensembleDesCommandes(ActionEvent e) throws IOException, SQLException {
+    public void ensembleDesCommandes(ActionEvent e) throws IOException, SQLException
+    {
         if (!table.getSelectionModel().isEmpty()) {
             path = "/Vue/SceneCommandesClient.fxml";
             Client cl = new Client(
@@ -293,7 +338,8 @@ public class EcouteurListeClients implements Initializable {
 
     }
 
-    public void basculeScene(ActionEvent e) throws IOException {
+    public void basculeScene(ActionEvent e) throws IOException
+    {
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -301,7 +347,8 @@ public class EcouteurListeClients implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)
+    {
         colId.setCellValueFactory(new PropertyValueFactory<Client, Integer>("idClient"));
         colNom.setCellValueFactory(new PropertyValueFactory<Client, String>("nom"));
         colPrenom.setCellValueFactory(new PropertyValueFactory<Client, String>("prenom"));
@@ -316,7 +363,8 @@ public class EcouteurListeClients implements Initializable {
         }
     }
 
-    public void vider() {
+    public void vider()
+    {
         viderChamps();
     }
 }

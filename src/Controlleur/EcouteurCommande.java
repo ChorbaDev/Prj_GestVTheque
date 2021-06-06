@@ -7,12 +7,6 @@ import Modele.Date;
 import Modele.Facture;
 import Modele.Produit;
 import Modele.ProduitPanier;
-
-
-import be.quodlibet.boxable.*;
-import be.quodlibet.boxable.Cell;
-import be.quodlibet.boxable.line.LineStyle;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -28,7 +22,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -36,66 +29,90 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.apache.pdfbox.jbig2.segments.Table;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.controlsfx.control.Notifications;
+
 import javax.swing.text.html.ImageView;
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.*;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.ResourceBundle;
 
 public class EcouteurCommande implements Initializable {
-    @FXML private Spinner<Integer> spinnerQuantite;
-    @FXML private VBox ajoutInfoPanier;
-    @FXML private AnchorPane partiePanier;
-    @FXML private JFXComboBox<String> comboClient;
-
-    @FXML private Label montantTotale;
-    @FXML private Label reduction;
-
-    @FXML private JFXButton modifier;
-    @FXML private JFXButton retirer;
-    @FXML private JFXButton valid;
-    @FXML private JFXToggleButton toggleFacture;
-    @FXML private JFXToggleButton toggleDispo;
-    @FXML private JFXDatePicker date;
-
-    @FXML private TableView<ProduitPanier> tablePanier;
-    @FXML private TableColumn<ProduitPanier, String> colPdPn;
-    @FXML private TableColumn<ProduitPanier, Integer> colQtPn;
-    @FXML private TableColumn<ProduitPanier, Integer> colDureePn;
-    @FXML private TableColumn<ProduitPanier, Double> colPrixPn;
-
-    @FXML private TableView<Produit> tableProduits;
-    @FXML private TableColumn<Produit, Integer> colIdPD;
-    @FXML private TableColumn<Produit, String> colTypePD;
-    @FXML private TableColumn<Produit, String> colTitrePD;
-    @FXML private TableColumn<Produit, Double> colTarifPD;
-    @FXML private TableColumn<Produit, Integer> colStockPD;
-    @FXML private TableColumn<Produit, ImageView> colPhotoPD;
-
     ObservableList<String> comboClients = FXCollections.observableArrayList();
     ObservableList<Produit> listeProduits = FXCollections.observableArrayList();
     ObservableList<ProduitPanier> listePanier = FXCollections.observableArrayList();
-
+    Boolean clientFidele = false;
+    /**
+     * générer une facture d'une commande
+     *
+     * @throws IOException
+     */
+    int nbFacture = 0;
+    ClientDAOImpl clientDAO = new ClientDAOImpl();
+    @FXML
+    private Spinner<Integer> spinnerQuantite;
+    @FXML
+    private VBox ajoutInfoPanier;
+    @FXML
+    private AnchorPane partiePanier;
+    @FXML
+    private JFXComboBox<String> comboClient;
+    @FXML
+    private Label montantTotale;
+    @FXML
+    private Label reduction;
+    @FXML
+    private JFXButton modifier;
+    @FXML
+    private JFXButton retirer;
+    @FXML
+    private JFXButton valid;
+    @FXML
+    private JFXToggleButton toggleFacture;
+    @FXML
+    private JFXToggleButton toggleDispo;
+    @FXML
+    private JFXDatePicker date;
+    @FXML
+    private TableView<ProduitPanier> tablePanier;
+    @FXML
+    private TableColumn<ProduitPanier, String> colPdPn;
+    @FXML
+    private TableColumn<ProduitPanier, Integer> colQtPn;
+    @FXML
+    private TableColumn<ProduitPanier, Integer> colDureePn;
+    @FXML
+    private TableColumn<ProduitPanier, Double> colPrixPn;
+    @FXML
+    private TableView<Produit> tableProduits;
+    @FXML
+    private TableColumn<Produit, Integer> colIdPD;
+    @FXML
+    private TableColumn<Produit, String> colTypePD;
+    @FXML
+    private TableColumn<Produit, String> colTitrePD;
+    @FXML
+    private TableColumn<Produit, Double> colTarifPD;
+    @FXML
+    private TableColumn<Produit, Integer> colStockPD;
+    @FXML
+    private TableColumn<Produit, ImageView> colPhotoPD;
     //
     private int quantiteMax;
-    private CommandeDAO commandeDAO;
-    Boolean clientFidele=false;
-
-    public EcouteurCommande() throws SQLException {
-    }
     //
+    private CommandeDAO commandeDAO;
+    private Parent root;
+    private Stage stage;
+    private Scene scene;
+    private String path;
+
+    public EcouteurCommande() throws SQLException
+    {
+    }
 
     /**
      * @param event
@@ -104,9 +121,10 @@ public class EcouteurCommande implements Initializable {
      */
 
     @FXML
-    void validerPanier(ActionEvent event) throws SQLException, IOException {
-        String str=comboClient.getSelectionModel().getSelectedItem();
-        Integer idClient=Integer.valueOf(str.substring(0,str.indexOf(' ')) );
+    void validerPanier(ActionEvent event) throws SQLException, IOException
+    {
+        String str = comboClient.getSelectionModel().getSelectedItem();
+        Integer idClient = Integer.valueOf(str.substring(0, str.indexOf(' ')));
         commandeDAO.insertCommande(idClient);
         commandeDAO.insertConcerne(listePanier);
         commandeDAO.modifierStock(listePanier);
@@ -115,60 +133,57 @@ public class EcouteurCommande implements Initializable {
                 "/Images/checked.png");
         viderRemplirListeProduits();
         ajoutInfoPanier.setDisable(true);
-        if(toggleFacture.isSelected()){
+        if (toggleFacture.isSelected()) {
             facture();
         }
     }
 
-    /**
-     * générer une facture d'une commande
-     * @throws IOException
-     */
-    int nbFacture=0;
-    ClientDAOImpl clientDAO=new ClientDAOImpl();
-    private void facture() throws IOException, SQLException {
-        ArrayList<ProduitPanier> aListePanier= new ArrayList<>();
+    private void facture() throws IOException, SQLException
+    {
+        ArrayList<ProduitPanier> aListePanier = new ArrayList<>();
         aListePanier.addAll(listePanier);
-        double tot= sommePrixTotal();
-        String selectedClient=comboClient.getSelectionModel().getSelectedItem();
-        int id=Integer.valueOf(selectedClient.substring(0,selectedClient.indexOf(" ")));
-        String nom=clientDAO.InfosClient(id,"nomClient");
-        String prenom=clientDAO.InfosClient(id,"prenomClient");
+        double tot = sommePrixTotal();
+        String selectedClient = comboClient.getSelectionModel().getSelectedItem();
+        int id = Integer.valueOf(selectedClient.substring(0, selectedClient.indexOf(" ")));
+        String nom = clientDAO.InfosClient(id, "nomClient");
+        String prenom = clientDAO.InfosClient(id, "prenomClient");
         nbFacture++;
-        int cmd=commandeDAO.getMaxIdCmd()+1;
-        Facture facture = new Facture(nom,prenom,nbFacture,cmd,aListePanier,tot,clientFidele,montantTotale.getText());
+        int cmd = commandeDAO.getMaxIdCmd() + 1;
+        Facture facture = new Facture(nom, prenom, nbFacture, cmd, aListePanier, tot, clientFidele, montantTotale.getText());
     }
 
     /**
      * modification du produit selectionner dans panier
      */
-    public void modifierPanier(){
-        int i=tablePanier.getSelectionModel().getSelectedIndex();
-        ProduitPanier pp=listePanier.get(i);
-        int qt=spinnerQuantite.getValue();
+    public void modifierPanier()
+    {
+        int i = tablePanier.getSelectionModel().getSelectedIndex();
+        ProduitPanier pp = listePanier.get(i);
+        int qt = spinnerQuantite.getValue();
         pp.setQuantite(qt);
         tablePanier.getItems().get(i).setQuantite(spinnerQuantite.getValue());
-        double tot=tarifJournalier(pp.getTitreProduit())*qt;
+        double tot = tarifJournalier(pp.getTitreProduit()) * qt;
         pp.setPrixTotal(tot);
-        Date d1=new Date();
-        Date d2=new Date(date.getValue().getDayOfMonth(),date.getValue().getMonthValue(),date.getValue().getYear());
+        Date d1 = new Date();
+        Date d2 = new Date(date.getValue().getDayOfMonth(), date.getValue().getMonthValue(), date.getValue().getYear());
         pp.setDuree(Math.abs(d1.difference(d2)));
         tablePanier.getItems().get(i).setDuree(Math.abs(d1.difference(d2)));
 
-        if(clientFidele)
-            montantTotale.setText(Double.toString(sommePrixTotal()*0.9)+" €");
+        if (clientFidele)
+            montantTotale.setText(Double.toString(sommePrixTotal() * 0.9) + " €");
         else
-            montantTotale.setText(Double.toString(sommePrixTotal())+" €");
+            montantTotale.setText(Double.toString(sommePrixTotal()) + " €");
     }
 
     /**
      * @param titreProduit
      * @return tarif de produit du nom titreProduit
      */
-    private double tarifJournalier(String titreProduit) {
-        double d=0;
-        for(int i=0;i<listeProduits.size();i++){
-            if(listeProduits.get(i).getTitreProduit().equals(titreProduit)){
+    private double tarifJournalier(String titreProduit)
+    {
+        double d = 0;
+        for (int i = 0; i < listeProduits.size(); i++) {
+            if (listeProduits.get(i).getTitreProduit().equals(titreProduit)) {
                 return listeProduits.get(i).getTarifProduit();
             }
         }
@@ -178,11 +193,13 @@ public class EcouteurCommande implements Initializable {
     /**
      * actvier le bouton modifier et bouton retirer dans le cas ou un produit dans le panier est selectionné
      * et remplir les champs de spinner et date fin location
+     *
      * @param event
      */
     @FXML
-    void selectionDePanier(MouseEvent event) {
-        if(tablePanier.getSelectionModel().getSelectedIndex()!=-1){
+    void selectionDePanier(MouseEvent event)
+    {
+        if (tablePanier.getSelectionModel().getSelectedIndex() != -1) {
             remplirChampsInfos();
             modifier.setDisable(false);
             retirer.setDisable(false);
@@ -192,88 +209,91 @@ public class EcouteurCommande implements Initializable {
     /**
      * remplir les champs de spinner et date fin location
      */
-    private void remplirChampsInfos() {
-        ProduitPanier pp=tablePanier.getSelectionModel().getSelectedItem();
-        int qt=pp.getQuantite();
+    private void remplirChampsInfos()
+    {
+        ProduitPanier pp = tablePanier.getSelectionModel().getSelectedItem();
+        int qt = pp.getQuantite();
         spinnerQuantite.getValueFactory().setValue(qt);
 
-        Calendar cal=Calendar.getInstance();
-        cal.add(Calendar.DATE,pp.getDuree());
-        LocalDate d= LocalDate.of(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH)+1,cal.get(Calendar.DAY_OF_MONTH));
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, pp.getDuree());
+        LocalDate d = LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
         date.setValue(d);
     }
 
     /**
      * retirer le produit selectionner dans le panier de la liste on calculant le prix totale de nouveau
+     *
      * @param event
      */
     @FXML
-    void retirerProduit(ActionEvent event) {
-            int i=tablePanier.getSelectionModel().getSelectedIndex();
-            tablePanier.getItems().remove(i);
-            listePanier.remove(i);
-            modifier.setDisable(true);
-            retirer.setDisable(true);
-            if(clientFidele)
-                montantTotale.setText(Double.toString(sommePrixTotal()*0.9)+" €");
-            else
-                montantTotale.setText(Double.toString(sommePrixTotal())+" €");
-        }
+    void retirerProduit(ActionEvent event)
+    {
+        int i = tablePanier.getSelectionModel().getSelectedIndex();
+        tablePanier.getItems().remove(i);
+        listePanier.remove(i);
+        modifier.setDisable(true);
+        retirer.setDisable(true);
+        if (clientFidele)
+            montantTotale.setText(Double.toString(sommePrixTotal() * 0.9) + " €");
+        else
+            montantTotale.setText(Double.toString(sommePrixTotal()) + " €");
+    }
 
     /**
      * ajouter un produit selectionner sur la liste du panier
      */
-    public void ajoutAuPanier(){
-        Produit pd=tableProduits.getSelectionModel().getSelectedItem();
+    public void ajoutAuPanier()
+    {
+        Produit pd = tableProduits.getSelectionModel().getSelectedItem();
         //date du jour
-        Date d1=new Date();
+        Date d1 = new Date();
         //date de fin location
-        Date d2=new Date(date.getValue().getDayOfMonth(),date.getValue().getMonthValue(),date.getValue().getYear());
-        String titrePd=pd.getTitreProduit();
-        int qt= spinnerQuantite.getValue();
-        int duree=Math.abs(d2.difference(d1));
-        double prixTot=qt*pd.getTarifProduit();
+        Date d2 = new Date(date.getValue().getDayOfMonth(), date.getValue().getMonthValue(), date.getValue().getYear());
+        String titrePd = pd.getTitreProduit();
+        int qt = spinnerQuantite.getValue();
+        int duree = Math.abs(d2.difference(d1));
+        double prixTot = qt * pd.getTarifProduit();
 
-        ProduitPanier pp=new ProduitPanier(titrePd,qt,duree,prixTot);
-        if(existeDansLaListe(titrePd)){
-            incrementerProduitPanier(titrePd,pd.getTarifProduit());
-        }
-        else{
-            if(qt>0 && qt<=quantiteMax){
+        ProduitPanier pp = new ProduitPanier(titrePd, qt, duree, prixTot);
+        if (existeDansLaListe(titrePd)) {
+            incrementerProduitPanier(titrePd, pd.getTarifProduit());
+        } else {
+            if (qt > 0 && qt <= quantiteMax) {
                 listePanier.add(pp);
                 tablePanier.getItems().add(pp);
-            }
-            else{
+            } else {
                 notifBuilder("Attention",
                         "Il faut saisir une quantite valide.",
                         "/Images/warning.png");
             }
         }
-        if(clientFidele)
-            montantTotale.setText(Double.toString(sommePrixTotal()*0.9)+" €");
+        if (clientFidele)
+            montantTotale.setText(Double.toString(sommePrixTotal() * 0.9) + " €");
         else
-            montantTotale.setText(Double.toString(sommePrixTotal())+" €");
+            montantTotale.setText(Double.toString(sommePrixTotal()) + " €");
         valid.setDisable(false);
     }
 
-    private boolean existeDansLaListe(String titrePd) {
-        for(int i=0;i<listePanier.size();i++){
-            if(listePanier.get(i).getTitreProduit().equals(titrePd))
+    private boolean existeDansLaListe(String titrePd)
+    {
+        for (int i = 0; i < listePanier.size(); i++) {
+            if (listePanier.get(i).getTitreProduit().equals(titrePd))
                 return true;
         }
         return false;
     }
 
-    private void incrementerProduitPanier(String titrePd, double tarifProduit) {
-        for(int i=0;i<listePanier.size();i++){
-            if(listePanier.get(i).getTitreProduit().equals(titrePd)){
-                int qt=listePanier.get(i).getQuantite();
-                int sp=spinnerQuantite.getValue();
-                if(qt>0 && (qt+sp)<=quantiteMax){
-                    listePanier.get(i).setQuantite(qt+sp);
-                    listePanier.get(i).setPrixTotal((qt+sp)*tarifProduit);
-                }
-                else{
+    private void incrementerProduitPanier(String titrePd, double tarifProduit)
+    {
+        for (int i = 0; i < listePanier.size(); i++) {
+            if (listePanier.get(i).getTitreProduit().equals(titrePd)) {
+                int qt = listePanier.get(i).getQuantite();
+                int sp = spinnerQuantite.getValue();
+                if (qt > 0 && (qt + sp) <= quantiteMax) {
+                    listePanier.get(i).setQuantite(qt + sp);
+                    listePanier.get(i).setPrixTotal((qt + sp) * tarifProduit);
+                } else {
                     notifBuilder("Attention",
                             "Il faut saisir une quantite valide.",
                             "/Images/warning.png");
@@ -283,16 +303,18 @@ public class EcouteurCommande implements Initializable {
         }
     }
 
-    private double sommePrixTotal() {
-        double som=0;
-        for(int i=0;i<listePanier.size();i++){
-            som+=listePanier.get(i).getPrixTotal();
+    private double sommePrixTotal()
+    {
+        double som = 0;
+        for (int i = 0; i < listePanier.size(); i++) {
+            som += listePanier.get(i).getPrixTotal();
         }
-        som= (double) Math.round(som * 100) / 100;
+        som = (double) Math.round(som * 100) / 100;
         return som;
     }
 
-    public void notifBuilder(String titre, String texte, String pathImg) {
+    public void notifBuilder(String titre, String texte, String pathImg)
+    {
         Image img = new Image(pathImg);
         Notifications notifBuilder = Notifications.create()
                 .title(titre)
@@ -303,44 +325,34 @@ public class EcouteurCommande implements Initializable {
         notifBuilder.darkStyle();
         notifBuilder.show();
     }
+
     @FXML
-    public void disponible(ActionEvent event) throws SQLException, IOException {
+    public void disponible(ActionEvent event) throws SQLException, IOException
+    {
         ajoutInfoPanier.setDisable(true);
-        if(toggleDispo.isSelected()==true){
-            Iterator it=listeProduits.iterator();
-            while(it.hasNext()){
-                Produit p= (Produit) it.next();
-                if(p.getStockProduit()==0) {
+        if (toggleDispo.isSelected() == true) {
+            Iterator it = listeProduits.iterator();
+            while (it.hasNext()) {
+                Produit p = (Produit) it.next();
+                if (p.getStockProduit() == 0) {
                     it.remove();
                 }
             }
             tableProduits.setItems(listeProduits);
-        }
-        else{
+        } else {
             viderRemplirListeProduits();
         }
 
     }
-    public void triBD() throws SQLException, IOException {
+
+    public void triBD() throws SQLException, IOException
+    {
         ajoutInfoPanier.setDisable(true);
         viderRemplirListeProduits();
-        Iterator it=listeProduits.iterator();
-        while(it.hasNext()){
-            Produit p= (Produit) it.next();
-            if(!p.getTypeProduit().equals("BD")) {
-                it.remove();
-            }
-        }
-        tableProduits.setItems(listeProduits);
-    }
-    @FXML
-    void triCD(ActionEvent event) throws SQLException, IOException {
-        ajoutInfoPanier.setDisable(true);
-        viderRemplirListeProduits();
-        Iterator it=listeProduits.iterator();
-        while(it.hasNext()){
-            Produit p= (Produit) it.next();
-            if(!p.getTypeProduit().equals("CD")) {
+        Iterator it = listeProduits.iterator();
+        while (it.hasNext()) {
+            Produit p = (Produit) it.next();
+            if (!p.getTypeProduit().equals("BD")) {
                 it.remove();
             }
         }
@@ -348,13 +360,14 @@ public class EcouteurCommande implements Initializable {
     }
 
     @FXML
-    void triDVD(ActionEvent event) throws SQLException, IOException {
+    void triCD(ActionEvent event) throws SQLException, IOException
+    {
         ajoutInfoPanier.setDisable(true);
         viderRemplirListeProduits();
-        Iterator it=listeProduits.iterator();
-        while(it.hasNext()){
-            Produit p= (Produit) it.next();
-            if(!p.getTypeProduit().equals("DVD")) {
+        Iterator it = listeProduits.iterator();
+        while (it.hasNext()) {
+            Produit p = (Produit) it.next();
+            if (!p.getTypeProduit().equals("CD")) {
                 it.remove();
             }
         }
@@ -362,13 +375,14 @@ public class EcouteurCommande implements Initializable {
     }
 
     @FXML
-    void triDictionnaire(ActionEvent event) throws SQLException, IOException {
+    void triDVD(ActionEvent event) throws SQLException, IOException
+    {
         ajoutInfoPanier.setDisable(true);
         viderRemplirListeProduits();
-        Iterator it=listeProduits.iterator();
-        while(it.hasNext()){
-            Produit p= (Produit) it.next();
-            if(!p.getTypeProduit().equals("Dictionnaire")) {
+        Iterator it = listeProduits.iterator();
+        while (it.hasNext()) {
+            Produit p = (Produit) it.next();
+            if (!p.getTypeProduit().equals("DVD")) {
                 it.remove();
             }
         }
@@ -376,20 +390,37 @@ public class EcouteurCommande implements Initializable {
     }
 
     @FXML
-    void triManuel(ActionEvent event) throws SQLException, IOException {
+    void triDictionnaire(ActionEvent event) throws SQLException, IOException
+    {
         ajoutInfoPanier.setDisable(true);
         viderRemplirListeProduits();
-        Iterator it=listeProduits.iterator();
-        while(it.hasNext()){
-            Produit p= (Produit) it.next();
-            if(!p.getTypeProduit().equals("Manuel Scolaire")) {
+        Iterator it = listeProduits.iterator();
+        while (it.hasNext()) {
+            Produit p = (Produit) it.next();
+            if (!p.getTypeProduit().equals("Dictionnaire")) {
                 it.remove();
             }
         }
         tableProduits.setItems(listeProduits);
     }
 
-    private void viderRemplirListeProduits() throws SQLException, IOException {
+    @FXML
+    void triManuel(ActionEvent event) throws SQLException, IOException
+    {
+        ajoutInfoPanier.setDisable(true);
+        viderRemplirListeProduits();
+        Iterator it = listeProduits.iterator();
+        while (it.hasNext()) {
+            Produit p = (Produit) it.next();
+            if (!p.getTypeProduit().equals("Manuel Scolaire")) {
+                it.remove();
+            }
+        }
+        tableProduits.setItems(listeProduits);
+    }
+
+    private void viderRemplirListeProduits() throws SQLException, IOException
+    {
         tableProduits.getItems().clear();
         listeProduits.clear();
         commandeDAO.remplirListeProduits(listeProduits);
@@ -397,12 +428,13 @@ public class EcouteurCommande implements Initializable {
     }
 
     @FXML
-    void triRoman(ActionEvent event) throws SQLException, IOException {
+    void triRoman(ActionEvent event) throws SQLException, IOException
+    {
         viderRemplirListeProduits();
-        Iterator it=listeProduits.iterator();
-        while(it.hasNext()){
-            Produit p= (Produit) it.next();
-            if(!p.getTypeProduit().equals("Roman")) {
+        Iterator it = listeProduits.iterator();
+        while (it.hasNext()) {
+            Produit p = (Produit) it.next();
+            if (!p.getTypeProduit().equals("Roman")) {
                 it.remove();
             }
         }
@@ -410,7 +442,8 @@ public class EcouteurCommande implements Initializable {
     }
 
     @FXML
-    void annulerPanier(ActionEvent event) {
+    void annulerPanier(ActionEvent event)
+    {
         listePanier.clear();
         tablePanier.getItems().clear();
         modifier.setDisable(true);
@@ -418,108 +451,124 @@ public class EcouteurCommande implements Initializable {
         valid.setDisable(true);
         montantTotale.setText("0 €");
     }
-    public void clientChoisi() throws SQLException {
-        if(comboClient.getSelectionModel().getSelectedIndex()!=-1){
+
+    public void clientChoisi() throws SQLException
+    {
+        if (comboClient.getSelectionModel().getSelectedIndex() != -1) {
             partiePanier.setDisable(false);
             retirer.setDisable(true);
         }
-        valid.setDisable(listePanier.size()==0);
-        String str=comboClient.getSelectionModel().getSelectedItem();
-        Integer idClient=Integer.valueOf(str.substring(0,str.indexOf(' ')) );
-        str="0 %";
-        clientFidele=commandeDAO.trouverFidelite(idClient);
+        valid.setDisable(listePanier.size() == 0);
+        String str = comboClient.getSelectionModel().getSelectedItem();
+        Integer idClient = Integer.valueOf(str.substring(0, str.indexOf(' ')));
+        str = "0 %";
+        clientFidele = commandeDAO.trouverFidelite(idClient);
 
-        if(clientFidele){
-            Double d=sommePrixTotal()*0.9;
-            montantTotale.setText(Double.toString(d)+" €");
-            str="10 %";
-        }
-        else{
-            montantTotale.setText(Double.toString(sommePrixTotal())+" €");
+        if (clientFidele) {
+            Double d = sommePrixTotal() * 0.9;
+            montantTotale.setText(Double.toString(d) + " €");
+            str = "10 %";
+        } else {
+            montantTotale.setText(Double.toString(sommePrixTotal()) + " €");
         }
         reduction.setText(str);
 
 
     }
-    private Parent root;
-    private Stage stage;
-    private Scene scene;
-    private String path;
+
     @FXML
-    void retour(ActionEvent e) throws IOException {
-        path="/Vue/SceneBienvenue.fxml";
+    void retour(ActionEvent e) throws IOException
+    {
+        path = "/Vue/SceneBienvenue.fxml";
         root = FXMLLoader.load(getClass().getResource(path));
         basculeScene(e);
     }
-    public void basculeScene(ActionEvent e) throws IOException {
-        stage=(Stage)((Node)e.getSource()).getScene().getWindow();
+
+    public void basculeScene(ActionEvent e) throws IOException
+    {
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    private void spinner(){
+    private void spinner()
+    {
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, quantiteMax, 1);
         spinnerQuantite.setValueFactory(valueFactory);
     }
-    public void selectProduit(){
 
-        if(tableProduits.getSelectionModel().getSelectedIndex()!=-1){
+    public void selectProduit()
+    {
+
+        if (tableProduits.getSelectionModel().getSelectedIndex() != -1) {
             ajoutInfoPanier.setDisable(false);
             modifier.setDisable(true);
 
-            Produit p=tableProduits.getSelectionModel().getSelectedItem();
-            quantiteMax=p.getStockProduit();
+            Produit p = tableProduits.getSelectionModel().getSelectedItem();
+            quantiteMax = p.getStockProduit();
             spinner();
 
         }
     }
-    private void DisableChamps() {
+
+    private void DisableChamps()
+    {
         ajoutInfoPanier.setDisable(true);
         partiePanier.setDisable(true);
     }
-    public void changeDate(){
-        Date d1=new Date(date.getValue().getDayOfMonth(),date.getValue().getMonthValue(),date.getValue().getYear() );
-        Date d2=new Date();
-        if(!d1.superieurEgale(d2))
-           date.setValue(LocalDate.now());
-    }
-    private void setItemsProduits() {
-        colIdPD.setCellValueFactory(new PropertyValueFactory<Produit,Integer>("idProduit"));
-        colTitrePD.setCellValueFactory(new PropertyValueFactory<Produit,String>("titreProduit"));
-        colStockPD.setCellValueFactory(new PropertyValueFactory<Produit,Integer>("stockProduit"));
-        colTarifPD.setCellValueFactory(new PropertyValueFactory<Produit,Double>("tarifProduit"));
-        colPhotoPD.setCellValueFactory(new PropertyValueFactory<Produit,ImageView>("imageProduit"));
-        colTypePD.setCellValueFactory(new PropertyValueFactory<Produit,String>("typeProduit"));
+
+    public void changeDate()
+    {
+        Date d1 = new Date(date.getValue().getDayOfMonth(), date.getValue().getMonthValue(), date.getValue().getYear());
+        Date d2 = new Date();
+        if (!d1.superieurEgale(d2))
+            date.setValue(LocalDate.now());
     }
 
-    private void setItemsPanier() {
-        colPdPn.setCellValueFactory(new PropertyValueFactory<ProduitPanier,String>("titreProduit"));
-        colQtPn.setCellValueFactory(new PropertyValueFactory<ProduitPanier,Integer>("quantite"));
-        colDureePn.setCellValueFactory(new PropertyValueFactory<ProduitPanier,Integer>("duree"));
-        colPrixPn.setCellValueFactory(new PropertyValueFactory<ProduitPanier,Double>("prixTotal"));
+    private void setItemsProduits()
+    {
+        colIdPD.setCellValueFactory(new PropertyValueFactory<Produit, Integer>("idProduit"));
+        colTitrePD.setCellValueFactory(new PropertyValueFactory<Produit, String>("titreProduit"));
+        colStockPD.setCellValueFactory(new PropertyValueFactory<Produit, Integer>("stockProduit"));
+        colTarifPD.setCellValueFactory(new PropertyValueFactory<Produit, Double>("tarifProduit"));
+        colPhotoPD.setCellValueFactory(new PropertyValueFactory<Produit, ImageView>("imageProduit"));
+        colTypePD.setCellValueFactory(new PropertyValueFactory<Produit, String>("typeProduit"));
     }
 
-    private void remplirTableProduits() throws SQLException, IOException {
+    private void setItemsPanier()
+    {
+        colPdPn.setCellValueFactory(new PropertyValueFactory<ProduitPanier, String>("titreProduit"));
+        colQtPn.setCellValueFactory(new PropertyValueFactory<ProduitPanier, Integer>("quantite"));
+        colDureePn.setCellValueFactory(new PropertyValueFactory<ProduitPanier, Integer>("duree"));
+        colPrixPn.setCellValueFactory(new PropertyValueFactory<ProduitPanier, Double>("prixTotal"));
+    }
+
+    private void remplirTableProduits() throws SQLException, IOException
+    {
         commandeDAO.remplirListeProduits(listeProduits);
     }
+
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)
+    {
         DisableChamps();
         setItemsProduits();
         setItemsPanier();
         date.setValue(LocalDate.now());
-        try{
-            commandeDAO=new CommandeDAOImpl();
+        try {
+            commandeDAO = new CommandeDAOImpl();
             remplirTableProduits();
             remplirComboClient();
-        }catch(SQLException | IOException throwables) {
+        } catch (SQLException | IOException throwables) {
             throwables.printStackTrace();
         }
         tableProduits.setItems(listeProduits);
 
     }
-    private void remplirComboClient() throws SQLException {
+
+    private void remplirComboClient() throws SQLException
+    {
         commandeDAO.remplirComboClient(comboClients);
         comboClient.setItems(comboClients);
     }

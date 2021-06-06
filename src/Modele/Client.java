@@ -7,56 +7,68 @@ public class Client extends Personne {
     private StringProperty mailClient;
     private BooleanProperty clientFidele;
 
-    public Client(int idClient, String nomClient, String prenomClient, String mailClient, Boolean clientFidele) {
+    public Client(int idClient, String nomClient, String prenomClient, String mailClient, Boolean clientFidele)
+    {
         super(nomClient, prenomClient);
         this.idClient = new SimpleIntegerProperty(idClient);
         this.mailClient = new SimpleStringProperty(mailClient);
         this.clientFidele = new SimpleBooleanProperty(clientFidele);
     }
 
-    public Client(String nomClient, String prenomClient, String mailClient, Boolean clientFidele) {
+    public Client(String nomClient, String prenomClient, String mailClient, Boolean clientFidele)
+    {
         super(nomClient, prenomClient);
         this.mailClient = new SimpleStringProperty(mailClient);
         this.clientFidele = new SimpleBooleanProperty(clientFidele);
     }
 
-    public int getIdClient() {
+    public int getIdClient()
+    {
         return idClient.get();
     }
 
-    public void setIdClient(int idClient) {
+    public void setIdClient(int idClient)
+    {
         this.idClient.set(idClient);
     }
 
-    public IntegerProperty idClientProperty() {
+    public IntegerProperty idClientProperty()
+    {
         return idClient;
     }
 
-    public String getMailClient() {
+    public String getMailClient()
+    {
         return mailClient.get();
     }
 
-    public void setMailClient(String mailClient) {
+    public void setMailClient(String mailClient)
+    {
         this.mailClient.set(mailClient);
     }
 
-    public StringProperty mailClientProperty() {
+    public StringProperty mailClientProperty()
+    {
         return mailClient;
     }
 
-    public boolean isClientFidele() {
+    public boolean isClientFidele()
+    {
         return clientFidele.get();
     }
 
-    public void setClientFidele(boolean clientFidele) {
+    public void setClientFidele(boolean clientFidele)
+    {
         this.clientFidele.set(clientFidele);
     }
 
-    public BooleanProperty clientFideleProperty() {
+    public BooleanProperty clientFideleProperty()
+    {
         return clientFidele;
     }
 
-    public boolean equals(Client cl) {
+    public boolean equals(Client cl)
+    {
         return (cl.nom.getValue().equals(nom.getValue())) && (cl.prenom.getValue().equals(prenom.getValue())) && (cl.mailClient.getValue().equals(mailClient.getValue())) && (cl.idClient.getValue().equals(idClient.getValue())) && (cl.isClientFidele() == this.isClientFidele());
     }
 

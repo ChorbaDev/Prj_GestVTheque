@@ -1,7 +1,6 @@
 package DAO;
 
 import Controlleur.ConnectionClass;
-import DAO.RealisateurDAO;
 import Modele.Realisateur;
 import javafx.collections.ObservableList;
 
@@ -14,18 +13,20 @@ public class RealisateurDAOImpl implements RealisateurDAO {
     private static final String INSERT_REALISATEUR_SQL = "INSERT INTO realisateur (nomReal,prenomReal,resume) VALUES (?,?,?)";
     private static final String UPDATE_REALISATEUR_SQL = "update realisateur set nomReal=?, prenomReal=?, resume=? where idReal=? ";
     private static final String EXISTE_REALISATEUR_SQL = "select * from realisateur where resume=?";
-    private static final String COMPTER_DVD_SQL="select count(*) as n from produit,realisateur where produit.realisateur=realisateur.idReal and resume=? union select 0 from realisateur where idReal not in(Select distinct realisateur from produit);";
+    private static final String COMPTER_DVD_SQL = "select count(*) as n from produit,realisateur where produit.realisateur=realisateur.idReal and resume=? union select 0 from realisateur where idReal not in(Select distinct realisateur from produit);";
     private static PreparedStatement ps;
     private static ConnectionClass connectionClass;
     private static Connection connection;
 
-    public RealisateurDAOImpl() throws SQLException {
+    public RealisateurDAOImpl() throws SQLException
+    {
         connectionClass = new ConnectionClass();
         connection = connectionClass.getConnection();
     }
 
     @Override
-    public void insertRealisateur(Realisateur realisateur) throws SQLException {
+    public void insertRealisateur(Realisateur realisateur) throws SQLException
+    {
         ps = connection.prepareStatement(INSERT_REALISATEUR_SQL);
         ps.setString(1, realisateur.getNom());
         ps.setString(2, realisateur.getPrenom());
@@ -34,7 +35,8 @@ public class RealisateurDAOImpl implements RealisateurDAO {
     }
 
     @Override
-    public void updateRealisateur(Realisateur realisateur) throws SQLException {
+    public void updateRealisateur(Realisateur realisateur) throws SQLException
+    {
         ps = connection.prepareStatement(UPDATE_REALISATEUR_SQL);
         ps.setString(1, realisateur.getNom());
         ps.setString(2, realisateur.getPrenom());
@@ -44,7 +46,8 @@ public class RealisateurDAOImpl implements RealisateurDAO {
     }
 
     @Override
-    public void remplirListeRealisateur(ObservableList<Realisateur> liste) throws SQLException {
+    public void remplirListeRealisateur(ObservableList<Realisateur> liste) throws SQLException
+    {
         String sql = "SELECT idReal,nomReal,prenomReal,resume FROM realisateur";
         ResultSet res = connection.createStatement().executeQuery(sql);
         while (res.next()) {
@@ -59,17 +62,19 @@ public class RealisateurDAOImpl implements RealisateurDAO {
     }
 
     @Override
-    public boolean existenceRealisateur(Realisateur realisateur) throws SQLException {
+    public boolean existenceRealisateur(Realisateur realisateur) throws SQLException
+    {
         ps = connection.prepareStatement(EXISTE_REALISATEUR_SQL);
         ps.setString(1, realisateur.getResume());
         return ps.executeQuery().next();
     }
 
     @Override
-    public int compterDVDRealisateur(String resume) throws SQLException {
-        PreparedStatement ps1=connection.prepareStatement(COMPTER_DVD_SQL);
-        ps1.setString(1,resume);
-        ResultSet res= ps1.executeQuery();
+    public int compterDVDRealisateur(String resume) throws SQLException
+    {
+        PreparedStatement ps1 = connection.prepareStatement(COMPTER_DVD_SQL);
+        ps1.setString(1, resume);
+        ResultSet res = ps1.executeQuery();
         res.next();
         return res.getInt("n");
     }

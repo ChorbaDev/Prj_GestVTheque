@@ -1,115 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleur.EcouteurListeProduits">
-   <children>
-      <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="228.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../Images/background.png" />
-         </image>
-      </ImageView>
-      <Pane layoutX="465.0" layoutY="155.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <TableView fx:id="table" focusTraversable="false" layoutX="636.0" layoutY="44.0" onMouseClicked="#selectProduit" prefHeight="712.0" prefWidth="550.0">
-              <columns>
-                  <TableColumn fx:id="colType" prefWidth="150.0" text="Type" />
-                <TableColumn fx:id="colId" prefWidth="60.0" text="ID" />
-                  <TableColumn fx:id="colTitre" prefWidth="160.0" text="Titre" />
-                  <TableColumn fx:id="colStock" prefWidth="90.0" text="Stock" />
-                  <TableColumn fx:id="colTarif" prefWidth="90.0" text="Prix" />
-              </columns>
-            </TableView>
-            <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">
-               <children>
-                  <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="83.0" layoutY="666.0" onAction="#modifierProduit" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier le produit">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="83.0" layoutY="629.0" onAction="#ajouterProduit" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter le produit">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXComboBox fx:id="typeProduit" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="31.0" layoutY="72.0" onAction="#afficheChampsType" prefHeight="25.0" prefWidth="303.0" promptText="Type produit" unFocusColor="#6b0504" />
-                  <JFXTextField fx:id="nomProduit" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="31.0" layoutY="142.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom du produit" unFocusColor="#6b0504">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="stockProduit" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="31.0" layoutY="215.0" prefHeight="31.0" prefWidth="303.0" promptText="Stock" unFocusColor="#6b0504">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="tarifProduit" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="31.0" layoutY="298.0" prefHeight="31.0" prefWidth="303.0" promptText="Tarif Journalier" unFocusColor="#6b0504">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-                  <Label layoutX="6.0" layoutY="6.0" text="Produits :">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="32.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="image" fitHeight="205.0" fitWidth="234.0" layoutX="360.0" layoutY="97.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../Images/pasdispo.png" />
-                     </image>
-                  </ImageView>
-                  <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="402.0" layoutY="324.0" onAction="#choisirUneImage" prefHeight="32.0" prefWidth="178.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Choisissez une image">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="360.0" layoutY="324.0" onAction="#viderImage" prefHeight="32.0" prefWidth="21.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="X">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXComboBox fx:id="anneeSortie" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="32.0" layoutY="500.0" prefHeight="25.0" prefWidth="303.0" promptText="Année sortie" style="-fx-font-size: 15;" unFocusColor="#6b0504" />
-                  <JFXComboBox fx:id="langueDictionnaire" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="32.0" layoutY="371.0" prefHeight="25.0" prefWidth="303.0" promptText="Langue" style="-fx-font-size: 15;" unFocusColor="#6b0504" />
-                  <JFXTextField fx:id="dureeSupportN" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="358.0" layoutY="501.0" prefHeight="31.0" prefWidth="65.0" promptText="Durée" unFocusColor="#6b0504">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="nbPagesDocument" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="360.0" layoutY="433.0" prefHeight="31.0" prefWidth="65.0" promptText="Nb pages" unFocusColor="#6b0504">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXComboBox fx:id="realDVD" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="32.0" layoutY="570.0" prefHeight="25.0" prefWidth="303.0" promptText="Réalisateur" style="-fx-font-size: 15;" unFocusColor="#6b0504" />
-                  <JFXComboBox fx:id="auteurLivre" focusColor="#6b0504" focusTraversable="false" labelFloat="true" layoutX="31.0" layoutY="434.0" prefHeight="25.0" prefWidth="303.0" promptText="Auteur" style="-fx-font-size: 15;" unFocusColor="#6b0504" />
-                  <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="239.0" layoutY="645.0" onAction="#vider" prefHeight="32.0" prefWidth="65.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Vider">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="14.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </Pane>
-            <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="636.0" layoutY="760.0" onAction="#supprimerProduit" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Supprimer produit" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="1036.0" layoutY="760.0" onAction="#retour" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Retour" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </Pane>
-   </children>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="Controlleur.EcouteurListeProduits">
+    <children>
+        <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="228.0" layoutY="233.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../Images/background.png"/>
+            </image>
+        </ImageView>
+        <Pane layoutX="465.0" layoutY="155.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <TableView fx:id="table" focusTraversable="false" layoutX="636.0" layoutY="44.0"
+                           onMouseClicked="#selectProduit" prefHeight="712.0" prefWidth="550.0">
+                    <columns>
+                        <TableColumn fx:id="colType" prefWidth="150.0" text="Type"/>
+                        <TableColumn fx:id="colId" prefWidth="60.0" text="ID"/>
+                        <TableColumn fx:id="colTitre" prefWidth="160.0" text="Titre"/>
+                        <TableColumn fx:id="colStock" prefWidth="90.0" text="Stock"/>
+                        <TableColumn fx:id="colTarif" prefWidth="90.0" text="Prix"/>
+                    </columns>
+                </TableView>
+                <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0"
+                      style="-fx-background-color: white;">
+                    <children>
+                        <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="83.0" layoutY="666.0"
+                                   onAction="#modifierProduit" prefHeight="32.0" prefWidth="150.0"
+                                   style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                                   text="Modifier le produit">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="14.0"/>
+                            </font>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="83.0" layoutY="629.0"
+                                   onAction="#ajouterProduit" prefHeight="32.0" prefWidth="150.0"
+                                   style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                                   text="Ajouter le produit">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="14.0"/>
+                            </font>
+                        </JFXButton>
+                        <JFXComboBox fx:id="typeProduit" focusColor="#6b0504" focusTraversable="false" labelFloat="true"
+                                     layoutX="31.0" layoutY="72.0" onAction="#afficheChampsType" prefHeight="25.0"
+                                     prefWidth="303.0" promptText="Type produit" unFocusColor="#6b0504"/>
+                        <JFXTextField fx:id="nomProduit" focusColor="#6b0504" focusTraversable="false" labelFloat="true"
+                                      layoutX="31.0" layoutY="142.0" prefHeight="31.0" prefWidth="303.0"
+                                      promptText="Nom du produit" unFocusColor="#6b0504">
+                            <font>
+                                <Font name="Segoe UI" size="15.0"/>
+                            </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="stockProduit" focusColor="#6b0504" focusTraversable="false"
+                                      labelFloat="true" layoutX="31.0" layoutY="215.0" prefHeight="31.0"
+                                      prefWidth="303.0" promptText="Stock" unFocusColor="#6b0504">
+                            <font>
+                                <Font name="Segoe UI" size="15.0"/>
+                            </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="tarifProduit" focusColor="#6b0504" focusTraversable="false"
+                                      labelFloat="true" layoutX="31.0" layoutY="298.0" prefHeight="31.0"
+                                      prefWidth="303.0" promptText="Tarif Journalier" unFocusColor="#6b0504">
+                            <font>
+                                <Font name="Segoe UI" size="15.0"/>
+                            </font>
+                        </JFXTextField>
+                        <Label layoutX="6.0" layoutY="6.0" text="Produits :">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="32.0"/>
+                            </font>
+                        </Label>
+                        <ImageView fx:id="image" fitHeight="205.0" fitWidth="234.0" layoutX="360.0" layoutY="97.0"
+                                   pickOnBounds="true">
+                            <image>
+                                <Image url="@../Images/pasdispo.png"/>
+                            </image>
+                        </ImageView>
+                        <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="402.0" layoutY="324.0"
+                                   onAction="#choisirUneImage" prefHeight="32.0" prefWidth="178.0"
+                                   style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                                   text="Choisissez une image">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="14.0"/>
+                            </font>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="360.0" layoutY="324.0"
+                                   onAction="#viderImage" prefHeight="32.0" prefWidth="21.0"
+                                   style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                                   text="X">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="14.0"/>
+                            </font>
+                        </JFXButton>
+                        <JFXComboBox fx:id="anneeSortie" focusColor="#6b0504" focusTraversable="false" labelFloat="true"
+                                     layoutX="32.0" layoutY="500.0" prefHeight="25.0" prefWidth="303.0"
+                                     promptText="Année sortie" style="-fx-font-size: 15;" unFocusColor="#6b0504"/>
+                        <JFXComboBox fx:id="langueDictionnaire" focusColor="#6b0504" focusTraversable="false"
+                                     labelFloat="true" layoutX="32.0" layoutY="371.0" prefHeight="25.0"
+                                     prefWidth="303.0" promptText="Langue" style="-fx-font-size: 15;"
+                                     unFocusColor="#6b0504"/>
+                        <JFXTextField fx:id="dureeSupportN" focusColor="#6b0504" focusTraversable="false"
+                                      labelFloat="true" layoutX="358.0" layoutY="501.0" prefHeight="31.0"
+                                      prefWidth="65.0" promptText="Durée" unFocusColor="#6b0504">
+                            <font>
+                                <Font name="Segoe UI" size="15.0"/>
+                            </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="nbPagesDocument" focusColor="#6b0504" focusTraversable="false"
+                                      labelFloat="true" layoutX="360.0" layoutY="433.0" prefHeight="31.0"
+                                      prefWidth="65.0" promptText="Nb pages" unFocusColor="#6b0504">
+                            <font>
+                                <Font name="Segoe UI" size="15.0"/>
+                            </font>
+                        </JFXTextField>
+                        <JFXComboBox fx:id="realDVD" focusColor="#6b0504" focusTraversable="false" labelFloat="true"
+                                     layoutX="32.0" layoutY="570.0" prefHeight="25.0" prefWidth="303.0"
+                                     promptText="Réalisateur" style="-fx-font-size: 15;" unFocusColor="#6b0504"/>
+                        <JFXComboBox fx:id="auteurLivre" focusColor="#6b0504" focusTraversable="false" labelFloat="true"
+                                     layoutX="31.0" layoutY="434.0" prefHeight="25.0" prefWidth="303.0"
+                                     promptText="Auteur" style="-fx-font-size: 15;" unFocusColor="#6b0504"/>
+                        <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="239.0" layoutY="645.0"
+                                   onAction="#vider" prefHeight="32.0" prefWidth="65.0"
+                                   style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                                   text="Vider">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="14.0"/>
+                            </font>
+                        </JFXButton>
+                    </children>
+                </Pane>
+                <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="636.0" layoutY="760.0"
+                           onAction="#supprimerProduit" prefHeight="32.0" prefWidth="150.0"
+                           style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;"
+                           text="Supprimer produit" textFill="WHITE">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="14.0"/>
+                    </font>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="1036.0" layoutY="760.0"
+                           onAction="#retour" prefHeight="32.0" prefWidth="150.0"
+                           style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;"
+                           text="Retour" textFill="WHITE">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="14.0"/>
+                    </font>
+                </JFXButton>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>

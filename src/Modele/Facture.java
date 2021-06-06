@@ -4,17 +4,14 @@ import be.quodlibet.boxable.*;
 import be.quodlibet.boxable.datatable.DataTable;
 import be.quodlibet.boxable.image.Image;
 import be.quodlibet.boxable.line.LineStyle;
-import javafx.collections.ObservableList;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import javax.imageio.ImageIO;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -42,29 +39,24 @@ public class Facture {
     private final float margin = 50;
     private final int spaceBetweenTables = 50;
     // starting y position is whole page height subtracted by top and bottom margin
-    private final float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin)-spaceBetweenTables;
+    private final float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin) - spaceBetweenTables;
     // we want table across whole page width (subtracted by left and right margin ofcourse)
     private final float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
     private final String outputFileName = "Facture.pdf";
-
+    PDPageContentStream cos = new PDPageContentStream(document, page);
     private String nom;
     private String prenom;
     private int nofact;
     private int nocom;
-    private Date datej= new Date();
-
+    private Date datej = new Date();
     private boolean drawContent = true;
     private float yStart = yStartNewPage;
     private float bottomMargin = 70;
     // y position is your coordinate of top left corner of the table
     private float yPosition = 770;
-    public void setyPosition(float yPosition) {
-        this.yPosition = yPosition;
-    }
 
-    PDPageContentStream cos = new PDPageContentStream(document, page);
-
-    public Facture(String nom, String prenom, int nofact, int nocom, ArrayList<ProduitPanier> listePanier, double sommePrixTot,boolean clientFidele,String mTot) throws IOException {
+    public Facture(String nom, String prenom, int nofact, int nocom, ArrayList<ProduitPanier> listePanier, double sommePrixTot, boolean clientFidele, String mTot) throws IOException
+    {
         this.nom = nom;
         this.prenom = prenom;
         this.nofact = nofact;
@@ -83,17 +75,20 @@ public class Facture {
         // close the content stream
         // Save the results and ensure that the document is properly closed:
         genTableTitre(image);
-        genTableInfo(nom,prenom,nofact,nocom);
-        genTableCommande(listePanier,sommePrixTot, clientFidele, mTot);
+        genTableInfo(nom, prenom, nofact, nocom);
+        genTableCommande(listePanier, sommePrixTot, clientFidele, mTot);
         cos.close();
         document.save(outputFileName);
         document.close();
     }
 
+    public void setyPosition(float yPosition)
+    {
+        this.yPosition = yPosition;
+    }
 
-
-
-    public void genTableTitre(Image image) throws IOException {
+    public void genTableTitre(Image image) throws IOException
+    {
         BaseTable tableTitre = new BaseTable(yPosition, yStart,
                 bottomMargin, tableWidth, margin, document, page, true, drawContent);
 
@@ -120,10 +115,12 @@ public class Facture {
         cell.setAlign(HorizontalAlignment.RIGHT);
 
         tableTitre.draw();
-        setyPosition(yPosition-tableTitre.getHeaderAndDataHeight());
+        setyPosition(yPosition - tableTitre.getHeaderAndDataHeight());
 
     }
-    private void genTableInfo(String nom,String prenom,int nofact, int nocom) throws IOException {
+
+    private void genTableInfo(String nom, String prenom, int nofact, int nocom) throws IOException
+    {
         BaseTable tableInfo = new BaseTable(yPosition, yStart,
                 bottomMargin, tableWidth, margin, document, page, false, drawContent);
         Row<PDPage> headerRow = tableInfo.createRow(50);
@@ -140,7 +137,7 @@ public class Facture {
         Row<PDPage> row = tableInfo.createRow(20);
         cell = row.createCell(20, "Nom :");
         cell.setFontSize(12);
-        cell = row.createCell(40, nom+" "+prenom);
+        cell = row.createCell(40, nom + " " + prenom);
         cell.setFontSize(12);
         cell.setFont(fontBold);
         cell = row.createCell(20, "Facture n° :");
@@ -162,18 +159,20 @@ public class Facture {
         cell.setFont(fontBold);
 
         tableInfo.draw();
-        setyPosition(yPosition-tableInfo.getHeaderAndDataHeight());
+        setyPosition(yPosition - tableInfo.getHeaderAndDataHeight());
 
     }
-    private void genTableCommande(ArrayList<ProduitPanier> listePanier,double sommePrixTot,boolean clientFidele,String mTot) throws IOException {
+
+    private void genTableCommande(ArrayList<ProduitPanier> listePanier, double sommePrixTot, boolean clientFidele, String mTot) throws IOException
+    {
         List<List> commandes = new ArrayList();
-        commandes.add(new ArrayList<>(Arrays.asList("Produit","Quantité","Durée","Prix Total")));
-        for(int i = 0; i<listePanier.size();i++){
-            commandes.add(new ArrayList<>(Arrays.asList(listePanier.get(i).getTitreProduit(),listePanier.get(i).getQuantite(),listePanier.get(i).getDuree()+" jour(s)",listePanier.get(i).getPrixTotal()+"€")));
+        commandes.add(new ArrayList<>(Arrays.asList("Produit", "Quantité", "Durée", "Prix Total")));
+        for (int i = 0; i < listePanier.size(); i++) {
+            commandes.add(new ArrayList<>(Arrays.asList(listePanier.get(i).getTitreProduit(), listePanier.get(i).getQuantite(), listePanier.get(i).getDuree() + " jour(s)", listePanier.get(i).getPrixTotal() + "€")));
         }
-        String str="-0%";
-        if(clientFidele)
-            str="-10%";
+        String str = "-0%";
+        if (clientFidele)
+            str = "-10%";
         BaseTable tableCommande = new BaseTable(yPosition, yStart,
                 bottomMargin, tableWidth, margin, document, page, true, drawContent);
         DataTable t = new DataTable(tableCommande, page);
@@ -183,7 +182,7 @@ public class Facture {
         Cell cell = row.createCell(80, "Total");
         cell.setFontSize(8);
         cell.setFillColor(new Color(242, 242, 242));
-        cell = row.createCell(20, Double.toString(sommePrixTot)+"€");
+        cell = row.createCell(20, Double.toString(sommePrixTot) + "€");
         cell.setFontSize(8);
         cell.setAlign(HorizontalAlignment.RIGHT);
         cell.setFillColor(new Color(242, 242, 242));
@@ -202,7 +201,7 @@ public class Facture {
 
 
         tableCommande.draw();
-        setyPosition(yPosition-tableCommande.getHeaderAndDataHeight());
+        setyPosition(yPosition - tableCommande.getHeaderAndDataHeight());
     }
 
 }

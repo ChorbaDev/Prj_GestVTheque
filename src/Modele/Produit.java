@@ -4,7 +4,7 @@ import javafx.beans.property.*;
 import javafx.scene.image.ImageView;
 
 
-public   class Produit {
+public class Produit {
     protected IntegerProperty idProduit;
     protected StringProperty titreProduit;
     protected IntegerProperty stockProduit;
@@ -12,96 +12,116 @@ public   class Produit {
     protected StringProperty typeProduit;
     protected ImageView imageProduit;
 
-    public Produit(int idProduit, String titreProduit, int stockProduit, double tarifProduit,String type) {
-        this.idProduit =new SimpleIntegerProperty(idProduit) ;
-        this.titreProduit =new SimpleStringProperty(titreProduit);
-        this.stockProduit =new SimpleIntegerProperty (stockProduit);
-        this.tarifProduit =new SimpleDoubleProperty(tarifProduit) ;
-        this.typeProduit=new SimpleStringProperty(type);
+    public Produit(int idProduit, String titreProduit, int stockProduit, double tarifProduit, String type)
+    {
+        this.idProduit = new SimpleIntegerProperty(idProduit);
+        this.titreProduit = new SimpleStringProperty(titreProduit);
+        this.stockProduit = new SimpleIntegerProperty(stockProduit);
+        this.tarifProduit = new SimpleDoubleProperty(tarifProduit);
+        this.typeProduit = new SimpleStringProperty(type);
     }
 
-    public Produit(String titreProduit, int stockProduit,double tarifProduit,String typeProduit) {
-        this.titreProduit =new SimpleStringProperty(titreProduit);
-        this.tarifProduit =new SimpleDoubleProperty(tarifProduit) ;
-        this.stockProduit =new SimpleIntegerProperty(stockProduit);
-        this.typeProduit=new SimpleStringProperty(typeProduit);
+    public Produit(String titreProduit, int stockProduit, double tarifProduit, String typeProduit)
+    {
+        this.titreProduit = new SimpleStringProperty(titreProduit);
+        this.tarifProduit = new SimpleDoubleProperty(tarifProduit);
+        this.stockProduit = new SimpleIntegerProperty(stockProduit);
+        this.typeProduit = new SimpleStringProperty(typeProduit);
     }
 
-    public Produit(int idProduit, String titreProduit, int stockProduit, double tarifProduit,String type, ImageView imageProduit) {
-        this.idProduit =new SimpleIntegerProperty(idProduit) ;
-        this.titreProduit =new SimpleStringProperty(titreProduit);
-        this.stockProduit =new SimpleIntegerProperty (stockProduit);
-        this.tarifProduit =new SimpleDoubleProperty(tarifProduit) ;
-        this.typeProduit=new SimpleStringProperty(type);
+    public Produit(int idProduit, String titreProduit, int stockProduit, double tarifProduit, String type, ImageView imageProduit)
+    {
+        this.idProduit = new SimpleIntegerProperty(idProduit);
+        this.titreProduit = new SimpleStringProperty(titreProduit);
+        this.stockProduit = new SimpleIntegerProperty(stockProduit);
+        this.tarifProduit = new SimpleDoubleProperty(tarifProduit);
+        this.typeProduit = new SimpleStringProperty(type);
         this.imageProduit = imageProduit;
     }
 
-    public ImageView getImageProduit() {
+    public ImageView getImageProduit()
+    {
         return imageProduit;
     }
 
-    public void setImageProduit(ImageView imageProduit) {
+    public void setImageProduit(ImageView imageProduit)
+    {
         this.imageProduit = imageProduit;
     }
 
-    public String getTypeProduit() {
+    public String getTypeProduit()
+    {
         return typeProduit.get();
     }
 
-    public StringProperty typeProduitProperty() {
-        return typeProduit;
-    }
-
-    public void setTypeProduit(String typeProduit) {
+    public void setTypeProduit(String typeProduit)
+    {
         this.typeProduit.set(typeProduit);
     }
 
-    public int getIdProduit() {
+    public StringProperty typeProduitProperty()
+    {
+        return typeProduit;
+    }
+
+    public int getIdProduit()
+    {
         return idProduit.get();
     }
 
-    public IntegerProperty idProduitProperty() {
-        return idProduit;
-    }
-
-    public void setIdProduit(int idProduit) {
+    public void setIdProduit(int idProduit)
+    {
         this.idProduit.set(idProduit);
     }
 
-    public String getTitreProduit() {
+    public IntegerProperty idProduitProperty()
+    {
+        return idProduit;
+    }
+
+    public String getTitreProduit()
+    {
         return titreProduit.get();
     }
 
-    public StringProperty titreProduitProperty() {
-        return titreProduit;
-    }
-
-    public void setTitreProduit(String titreProduit) {
+    public void setTitreProduit(String titreProduit)
+    {
         this.titreProduit.set(titreProduit);
     }
 
-    public int getStockProduit() {
+    public StringProperty titreProduitProperty()
+    {
+        return titreProduit;
+    }
+
+    public int getStockProduit()
+    {
         return stockProduit.get();
     }
 
-    public IntegerProperty stockProduitProperty() {
-        return stockProduit;
-    }
-
-    public void setStockProduit(int stockProduit) {
+    public void setStockProduit(int stockProduit)
+    {
         this.stockProduit.set(stockProduit);
     }
 
-    public double getTarifProduit() {
+    public IntegerProperty stockProduitProperty()
+    {
+        return stockProduit;
+    }
+
+    public double getTarifProduit()
+    {
         return tarifProduit.get();
     }
 
-    public DoubleProperty tarifProduitProperty() {
-        return tarifProduit;
+    public void setTarifProduit(double tarifProduit)
+    {
+        this.tarifProduit.set(tarifProduit);
     }
 
-    public void setTarifProduit(double tarifProduit) {
-        this.tarifProduit.set(tarifProduit);
+    public DoubleProperty tarifProduitProperty()
+    {
+        return tarifProduit;
     }
 
 

@@ -1,79 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleur.EcouteurAuteur">
-   <children>
-      <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="228.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../Images/background.png" />
-         </image>
-      </ImageView>
-      <Pane layoutX="465.0" layoutY="155.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <TableView fx:id="tblAuteur" layoutX="636.0" layoutY="44.0" onMouseClicked="#selectionAuteur" prefHeight="712.0" prefWidth="550.0">
-              <columns>
-                <TableColumn fx:id="colIdAuteur" prefWidth="89.0" text="ID" />
-                  <TableColumn fx:id="colNomAuteur" prefWidth="173.0" text="Nom" />
-                  <TableColumn fx:id="colPrenomAuteur" prefWidth="151.0" text="Prénom" />
-                  <TableColumn fx:id="colNbLivresAuteur" prefWidth="136.0" text="Nombre de livres" />
-              </columns>
-            </TableView>
-            <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0" style="-fx-background-color: white;">
-               <children>
-                  <JFXButton buttonType="RAISED" layoutX="155.0" layoutY="578.0" onAction="#modifierAuteur" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Modifier l'auteur">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="156.0" layoutY="634.0" onAction="#ajoutAuteur" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Ajouter l'auteur">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXTextField fx:id="edtNomAuteur" focusColor="#6b0504" labelFloat="true" layoutX="79.0" layoutY="157.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom de l'auteur" unFocusColor="#6b0504">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="edtPrenomAuteur" focusColor="#6b0504" labelFloat="true" layoutX="77.0" layoutY="241.0" prefHeight="31.0" prefWidth="303.0" promptText="Prénom de l'auteur" unFocusColor="#6b0504">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </JFXTextField>
-                  <Label layoutX="14.0" layoutY="14.0" text="Auteurs :">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="32.0" />
-                     </font>
-                  </Label>
-                  <JFXTextArea fx:id="mmoResumeAuteur" focusColor="#6b0504" labelFloat="true" layoutX="74.0" layoutY="331.0" prefHeight="185.0" prefWidth="358.0" promptText="Résumé" unFocusColor="#6b0504">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </JFXTextArea>
-                  <JFXButton buttonType="RAISED" layoutX="320.0" layoutY="607.0" onAction="#vider" prefHeight="32.0" prefWidth="65.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;" text="Vider">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="14.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </Pane>
-            <JFXButton buttonType="RAISED" layoutX="1036.0" layoutY="760.0" onAction="#retour" prefHeight="32.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;" text="Retour" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </Pane>
-   </children>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="Controlleur.EcouteurAuteur">
+    <children>
+        <ImageView fitHeight="800.0" fitWidth="1200.0" layoutX="228.0" layoutY="233.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../Images/background.png"/>
+            </image>
+        </ImageView>
+        <Pane layoutX="465.0" layoutY="155.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <TableView fx:id="tblAuteur" layoutX="636.0" layoutY="44.0" onMouseClicked="#selectionAuteur"
+                           prefHeight="712.0" prefWidth="550.0">
+                    <columns>
+                        <TableColumn fx:id="colIdAuteur" prefWidth="89.0" text="ID"/>
+                        <TableColumn fx:id="colNomAuteur" prefWidth="173.0" text="Nom"/>
+                        <TableColumn fx:id="colPrenomAuteur" prefWidth="151.0" text="Prénom"/>
+                        <TableColumn fx:id="colNbLivresAuteur" prefWidth="136.0" text="Nombre de livres"/>
+                    </columns>
+                </TableView>
+                <Pane layoutX="14.0" layoutY="44.0" opacity="0.66" prefHeight="712.0" prefWidth="608.0"
+                      style="-fx-background-color: white;">
+                    <children>
+                        <JFXButton buttonType="RAISED" layoutX="155.0" layoutY="578.0" onAction="#modifierAuteur"
+                                   prefHeight="32.0" prefWidth="150.0"
+                                   style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                                   text="Modifier l'auteur">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="14.0"/>
+                            </font>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" layoutX="156.0" layoutY="634.0" onAction="#ajoutAuteur"
+                                   prefHeight="32.0" prefWidth="150.0"
+                                   style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                                   text="Ajouter l'auteur">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="14.0"/>
+                            </font>
+                        </JFXButton>
+                        <JFXTextField fx:id="edtNomAuteur" focusColor="#6b0504" labelFloat="true" layoutX="79.0"
+                                      layoutY="157.0" prefHeight="31.0" prefWidth="303.0" promptText="Nom de l'auteur"
+                                      unFocusColor="#6b0504">
+                            <font>
+                                <Font name="Segoe UI" size="15.0"/>
+                            </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="edtPrenomAuteur" focusColor="#6b0504" labelFloat="true" layoutX="77.0"
+                                      layoutY="241.0" prefHeight="31.0" prefWidth="303.0"
+                                      promptText="Prénom de l'auteur" unFocusColor="#6b0504">
+                            <font>
+                                <Font name="Segoe UI" size="15.0"/>
+                            </font>
+                        </JFXTextField>
+                        <Label layoutX="14.0" layoutY="14.0" text="Auteurs :">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="32.0"/>
+                            </font>
+                        </Label>
+                        <JFXTextArea fx:id="mmoResumeAuteur" focusColor="#6b0504" labelFloat="true" layoutX="74.0"
+                                     layoutY="331.0" prefHeight="185.0" prefWidth="358.0" promptText="Résumé"
+                                     unFocusColor="#6b0504">
+                            <font>
+                                <Font name="Segoe UI" size="15.0"/>
+                            </font>
+                        </JFXTextArea>
+                        <JFXButton buttonType="RAISED" layoutX="320.0" layoutY="607.0" onAction="#vider"
+                                   prefHeight="32.0" prefWidth="65.0"
+                                   style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #6B0504;"
+                                   text="Vider">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="14.0"/>
+                            </font>
+                        </JFXButton>
+                    </children>
+                </Pane>
+                <JFXButton buttonType="RAISED" layoutX="1036.0" layoutY="760.0" onAction="#retour" prefHeight="32.0"
+                           prefWidth="150.0"
+                           style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: white;"
+                           text="Retour" textFill="WHITE">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="14.0"/>
+                    </font>
+                </JFXButton>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>

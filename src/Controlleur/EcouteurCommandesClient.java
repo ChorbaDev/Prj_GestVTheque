@@ -12,7 +12,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -20,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -30,24 +32,38 @@ import java.util.ResourceBundle;
 
 public class EcouteurCommandesClient implements Initializable {
 
-    @FXML private TableView<Commande> table;
-    @FXML private TableColumn<Commande, Integer> idCmd;
-    @FXML private TableColumn<Commande, Double> redCmd;
-    @FXML private TableColumn<Commande, String> dateCmd;
-    ObservableList<Commande> obList= FXCollections.observableArrayList();
-
-    @FXML private Label idClient;
-    @FXML private Label nomClient;
-    @FXML private Label prenomClient;
-    @FXML private Label mailClient;
-    @FXML private Label fidele;
-    @FXML private ImageView imgClient;
+    ObservableList<Commande> obList = FXCollections.observableArrayList();
+    @FXML
+    private TableView<Commande> table;
+    @FXML
+    private TableColumn<Commande, Integer> idCmd;
+    @FXML
+    private TableColumn<Commande, Double> redCmd;
+    @FXML
+    private TableColumn<Commande, String> dateCmd;
+    @FXML
+    private Label idClient;
+    @FXML
+    private Label nomClient;
+    @FXML
+    private Label prenomClient;
+    @FXML
+    private Label mailClient;
+    @FXML
+    private Label fidele;
+    @FXML
+    private ImageView imgClient;
+    private Parent root;
+    private Stage stage;
+    private Scene scene;
+    private String path;
 
     @FXML
-    void ensembleProduits(ActionEvent e) throws IOException, SQLException {
-        if(!table.getSelectionModel().isEmpty()) {
-            path="/Vue/SceneProduitsCommande.fxml";
-            Commande cm=new Commande(
+    void ensembleProduits(ActionEvent e) throws IOException, SQLException
+    {
+        if (!table.getSelectionModel().isEmpty()) {
+            path = "/Vue/SceneProduitsCommande.fxml";
+            Commande cm = new Commande(
                     table.getSelectionModel().getSelectedItem().getIdCommande(),
                     table.getSelectionModel().getSelectedItem().getReduction(),
                     table.getSelectionModel().getSelectedItem().getDateCreation()
@@ -55,21 +71,22 @@ public class EcouteurCommandesClient implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(path));
             loader.load();
-            EcouteurProduitsCommande scene2=loader.getController();
+            EcouteurProduitsCommande scene2 = loader.getController();
             scene2.getInfos(cm);
 
-            root=loader.getRoot();
+            root = loader.getRoot();
             basculeScene(e);
-        }
-        else{
+        } else {
             notifBuilder("Attention",
                     "Il faut sélectionner une commande pour pouvoir afficher ses produits.",
                     "/Images/warning.png");
         }
     }
-    public void notifBuilder(String titre,String texte,String pathImg){
-        Image img=new Image(pathImg);
-        Notifications notifBuilder=Notifications.create()
+
+    public void notifBuilder(String titre, String texte, String pathImg)
+    {
+        Image img = new Image(pathImg);
+        Notifications notifBuilder = Notifications.create()
                 .title(titre)
                 .text(texte)
                 .graphic(new ImageView(img))
@@ -78,20 +95,21 @@ public class EcouteurCommandesClient implements Initializable {
         notifBuilder.darkStyle();
         notifBuilder.show();
     }
+
     @FXML
-    void supprimerCommande(ActionEvent event) throws SQLException {
-        if(!table.getSelectionModel().isEmpty()) {
+    void supprimerCommande(ActionEvent event) throws SQLException
+    {
+        if (!table.getSelectionModel().isEmpty()) {
             Commande cmdSupprimer = table.getSelectionModel().getSelectedItem();
             ConnectionClass connectionClass = new ConnectionClass();
             Connection connection = connectionClass.getConnection();
-            String sql = "DELETE FROM commande where idCmd="+ cmdSupprimer.getIdCommande();
+            String sql = "DELETE FROM commande where idCmd=" + cmdSupprimer.getIdCommande();
             Statement statement = connection.createStatement();
             statement.execute(sql);
             notifBuilder("Opération réussie",
                     "Votre opération de suppression de la commande numero " + idCmd.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
-        }
-        else{
+        } else {
             notifBuilder("Attention",
                     "Il faut sélectionner une commande pour pouvoir le supprimer.",
                     "/Images/warning.png");
@@ -100,43 +118,46 @@ public class EcouteurCommandesClient implements Initializable {
         remplirLaListe();
     }
 
-    private void viderListe() {
+    private void viderListe()
+    {
         table.getItems().clear();
     }
 
-    public void getInfos(Client cl, Image img) throws SQLException {
+    public void getInfos(Client cl, Image img) throws SQLException
+    {
         idClient.setText(Integer.toString(cl.getIdClient()));
         nomClient.setText(cl.getNom());
         prenomClient.setText(cl.getPrenom());
         mailClient.setText(cl.getMailClient());
-        String txt=cl.isClientFidele()?"Oui":"Non";
+        String txt = cl.isClientFidele() ? "Oui" : "Non";
         fidele.setText(txt);
         imgClient.setImage(img);
         remplirLaListe();
     }
-    private Parent root;
-    private Stage stage;
-    private Scene scene;
-    private String path;
+
     @FXML
-    void retour(ActionEvent e) throws IOException {
-        path="/Vue/SceneListeClients.fxml";
+    void retour(ActionEvent e) throws IOException
+    {
+        path = "/Vue/SceneListeClients.fxml";
         root = FXMLLoader.load(getClass().getResource(path));
         basculeScene(e);
     }
-    public void basculeScene(ActionEvent e) throws IOException {
-        stage=(Stage)((Node)e.getSource()).getScene().getWindow();
+
+    public void basculeScene(ActionEvent e) throws IOException
+    {
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-    private void remplirLaListe() throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql= "select idCmd,reduction,dateCreation from commande where idClient="+idClient.getText();
-        ResultSet res=connection.createStatement().executeQuery(sql);
-        while( res.next() )
-        {
+
+    private void remplirLaListe() throws SQLException
+    {
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection connection = connectionClass.getConnection();
+        String sql = "select idCmd,reduction,dateCreation from commande where idClient=" + idClient.getText();
+        ResultSet res = connection.createStatement().executeQuery(sql);
+        while (res.next()) {
             obList.add(new Commande(
                     res.getInt("idCmd"),
                     res.getDouble("reduction"),
@@ -144,11 +165,13 @@ public class EcouteurCommandesClient implements Initializable {
             ));
         }
     }
+
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        idCmd.setCellValueFactory(new PropertyValueFactory<Commande,Integer>("idCommande"));
-        redCmd.setCellValueFactory(new PropertyValueFactory<Commande,Double>("reduction"));
-        dateCmd.setCellValueFactory(new PropertyValueFactory<Commande,String>("dateCreation"));
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        idCmd.setCellValueFactory(new PropertyValueFactory<Commande, Integer>("idCommande"));
+        redCmd.setCellValueFactory(new PropertyValueFactory<Commande, Double>("reduction"));
+        dateCmd.setCellValueFactory(new PropertyValueFactory<Commande, String>("dateCreation"));
         table.setItems(obList);
     }
 }

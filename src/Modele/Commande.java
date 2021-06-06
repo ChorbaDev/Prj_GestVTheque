@@ -7,46 +7,56 @@ public class Commande {
     private DoubleProperty reduction;
     private StringProperty dateCreation;
 
-    public Commande(int idCommande, Double reduction, String dateCreation) {
+    public Commande(int idCommande, Double reduction, String dateCreation)
+    {
         this.idCommande = new SimpleIntegerProperty(idCommande);
         this.reduction = new SimpleDoubleProperty(reduction);
         this.dateCreation = new SimpleStringProperty(dateCreation);
     }
 
-    public int getIdCommande() {
+    public int getIdCommande()
+    {
         return idCommande.get();
     }
 
-    public IntegerProperty idCommandeProperty() {
-        return idCommande;
-    }
-
-    public void setIdCommande(int idCommande) {
+    public void setIdCommande(int idCommande)
+    {
         this.idCommande.set(idCommande);
     }
 
-    public double getReduction() {
+    public IntegerProperty idCommandeProperty()
+    {
+        return idCommande;
+    }
+
+    public double getReduction()
+    {
         return reduction.get();
     }
 
-    public DoubleProperty reductionProperty() {
-        return reduction;
-    }
-
-    public void setReduction(double reduction) {
+    public void setReduction(double reduction)
+    {
         this.reduction.set(reduction);
     }
 
-    public String getDateCreation() {
+    public DoubleProperty reductionProperty()
+    {
+        return reduction;
+    }
+
+    public String getDateCreation()
+    {
         return dateCreation.get();
     }
 
-    public StringProperty dateCreationProperty() {
-        return dateCreation;
+    public void setDateCreation(String dateCreation)
+    {
+        this.dateCreation.set(dateCreation);
     }
 
-    public void setDateCreation(String dateCreation) {
-        this.dateCreation.set(dateCreation);
+    public StringProperty dateCreationProperty()
+    {
+        return dateCreation;
     }
 
 }

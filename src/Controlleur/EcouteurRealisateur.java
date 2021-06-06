@@ -1,7 +1,7 @@
 package Controlleur;
 
-import Modele.Realisateur;
 import DAO.RealisateurDAOImpl;
+import Modele.Realisateur;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
@@ -47,7 +47,8 @@ public class EcouteurRealisateur implements Initializable {
 
     @FXML
     private TableColumn<Realisateur, String> colPrenomRealisateur;
-    @FXML private TableColumn<Realisateur, Integer> colNbDVD;
+    @FXML
+    private TableColumn<Realisateur, Integer> colNbDVD;
 
 
     /*concerne la scene réalisateur*/
@@ -62,11 +63,12 @@ public class EcouteurRealisateur implements Initializable {
     private ObservableList<Realisateur> obList = FXCollections.observableArrayList();
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)
+    {
         colIdRealisateur.setCellValueFactory(new PropertyValueFactory<Realisateur, Integer>("idRealisateur"));
         colNomRealisateur.setCellValueFactory(new PropertyValueFactory<Realisateur, String>("nom"));
         colPrenomRealisateur.setCellValueFactory(new PropertyValueFactory<Realisateur, String>("prenom"));
-        colNbDVD.setCellValueFactory(new PropertyValueFactory<Realisateur,Integer>("nbDVD"));
+        colNbDVD.setCellValueFactory(new PropertyValueFactory<Realisateur, Integer>("nbDVD"));
         tblRealisateur.setItems(obList);
         try {
             realisateurDAO = new RealisateurDAOImpl();
@@ -76,12 +78,14 @@ public class EcouteurRealisateur implements Initializable {
         }
     }
 
-    public void retour(ActionEvent e) throws IOException {
+    public void retour(ActionEvent e) throws IOException
+    {
         path = "/Vue/SceneBienvenue.fxml";
         basculeScene(e, path);
     }
 
-    public void basculeScene(ActionEvent e, String pathURL) throws IOException {
+    public void basculeScene(ActionEvent e, String pathURL) throws IOException
+    {
         root = FXMLLoader.load(getClass().getResource(pathURL));
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -89,27 +93,32 @@ public class EcouteurRealisateur implements Initializable {
         stage.show();
     }
 
-    private void nettoyageScene() throws SQLException {
+    private void nettoyageScene() throws SQLException
+    {
         viderChamps();
         viderListe();
         remplirLaListe();
     }
 
-    private void remplirLaListe() throws SQLException {
+    private void remplirLaListe() throws SQLException
+    {
         realisateurDAO.remplirListeRealisateur(obList);
     }
 
-    private void viderChamps() {
+    private void viderChamps()
+    {
         edtNomRealisateur.setText("");
         edtPrenomRealisateur.setText("");
         mmoResumeRealisateur.setText("");
     }
 
-    private void viderListe() {
+    private void viderListe()
+    {
         tblRealisateur.getItems().clear();
     }
 
-    public void ajoutRealisateur() throws SQLException {
+    public void ajoutRealisateur() throws SQLException
+    {
         Realisateur realisateur = new Realisateur(edtNomRealisateur.getText().trim(), edtPrenomRealisateur.getText().trim(), mmoResumeRealisateur.getText().trim());
         if (realisateurDAO.existenceRealisateur(realisateur)) {
             notifBuilder("Attention",
@@ -129,11 +138,13 @@ public class EcouteurRealisateur implements Initializable {
 
     }
 
-    private boolean validationDesChamps() {
+    private boolean validationDesChamps()
+    {
         return !edtNomRealisateur.getText().isEmpty() && !edtPrenomRealisateur.getText().isEmpty() && !mmoResumeRealisateur.getText().isEmpty();
     }
 
-    public void selectionRealisateur() throws SQLException, IOException {
+    public void selectionRealisateur() throws SQLException, IOException
+    {
         viderChamps();
         if (!tblRealisateur.getSelectionModel().isEmpty()) {
             Realisateur realisateurSelectionner = tblRealisateur.getSelectionModel().getSelectedItem();
@@ -143,7 +154,8 @@ public class EcouteurRealisateur implements Initializable {
         }
     }
 
-    public void modifierRealisateur() throws SQLException, IOException {
+    public void modifierRealisateur() throws SQLException, IOException
+    {
         if (!tblRealisateur.getSelectionModel().isEmpty()) {
             Realisateur realisateur = tblRealisateur.getSelectionModel().getSelectedItem();
             Realisateur realisateurSelectionner = new Realisateur(realisateur.getIdRealisateur(), edtNomRealisateur.getText(), edtPrenomRealisateur.getText(), mmoResumeRealisateur.getText());
@@ -163,7 +175,8 @@ public class EcouteurRealisateur implements Initializable {
     }
 
 
-    public void notifBuilder(String titre, String texte, String pathImg) {
+    public void notifBuilder(String titre, String texte, String pathImg)
+    {
         Image img = new Image(pathImg);
         Notifications notifBuilder = Notifications.create()
                 .title(titre)
@@ -175,7 +188,8 @@ public class EcouteurRealisateur implements Initializable {
         notifBuilder.show();
     }
 
-    public void vider() {
+    public void vider()
+    {
         viderChamps();
     }
 }

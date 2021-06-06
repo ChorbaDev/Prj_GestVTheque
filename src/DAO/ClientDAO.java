@@ -29,5 +29,5 @@ public interface ClientDAO {
 
     boolean trouverFedClient(int id) throws SQLException;
 
-    String InfosClient(int idClient,String info) throws SQLException;
+    String InfosClient(int idClient, String info) throws SQLException;
 }

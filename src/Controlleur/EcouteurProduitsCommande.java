@@ -2,7 +2,6 @@ package Controlleur;
 
 import Modele.Commande;
 import Modele.ModelProduitsCommande;
-import Modele.Produit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,75 +25,90 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class EcouteurProduitsCommande implements Initializable {
-    @FXML private TableView<ModelProduitsCommande> table;
-    @FXML private TableColumn<ModelProduitsCommande,String> colType;
-    @FXML private TableColumn<ModelProduitsCommande, String> colTitre;
-    @FXML private TableColumn<ModelProduitsCommande, Float> colTarif;
-    @FXML private TableColumn<ModelProduitsCommande, String> colDateFin;
-
-    ObservableList<ModelProduitsCommande> obList= FXCollections.observableArrayList();
-    @FXML private Label idCmd;
-    @FXML private Label prixTotale;
-    @FXML private Label redCmd;
-    @FXML private Label dateCreationCmd;
+    ObservableList<ModelProduitsCommande> obList = FXCollections.observableArrayList();
+    @FXML
+    private TableView<ModelProduitsCommande> table;
+    @FXML
+    private TableColumn<ModelProduitsCommande, String> colType;
+    @FXML
+    private TableColumn<ModelProduitsCommande, String> colTitre;
+    @FXML
+    private TableColumn<ModelProduitsCommande, Float> colTarif;
+    @FXML
+    private TableColumn<ModelProduitsCommande, String> colDateFin;
+    @FXML
+    private Label idCmd;
+    @FXML
+    private Label prixTotale;
+    @FXML
+    private Label redCmd;
+    @FXML
+    private Label dateCreationCmd;
     private Parent root;
     private Stage stage;
     private Scene scene;
+    private double reduction = 0;
+    private double sommeDesPrix = 0;
+
     @FXML
-    public void retour(ActionEvent e) throws IOException {
-        String pathURL="/Vue/SceneListeClients.fxml";
+    public void retour(ActionEvent e) throws IOException
+    {
+        String pathURL = "/Vue/SceneListeClients.fxml";
         root = FXMLLoader.load(getClass().getResource(pathURL));
-        stage=(Stage)((Node)e.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-    private double reduction=0;
-    private double sommeDesPrix=0;
-    public void getInfos(Commande cm) throws SQLException {
+
+    public void getInfos(Commande cm) throws SQLException
+    {
         idCmd.setText(Integer.toString(cm.getIdCommande()));
         redCmd.setText(Double.toString(cm.getReduction()));
         dateCreationCmd.setText(cm.getDateCreation());
-        reduction=cm.getReduction();
+        reduction = cm.getReduction();
         remplirLaListe();
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        colType.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,String>("typeProduit"));
-        colTitre.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,String>("titreProduit"));
-        colTarif.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,Float>("tarifProduit"));
-        colDateFin.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande,String>("dateFinLocation"));
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        colType.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande, String>("typeProduit"));
+        colTitre.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande, String>("titreProduit"));
+        colTarif.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande, Float>("tarifProduit"));
+        colDateFin.setCellValueFactory(new PropertyValueFactory<ModelProduitsCommande, String>("dateFinLocation"));
         table.setItems(obList);
     }
 
     /**
      * calculer le prix totale du commande actuelle et l'indiquer dans la label du prixTotale
      */
-    private void remplirPrixTotale() {
-        if(!redCmd.getText().isEmpty())
-         sommeDesPrix*=(100-Double.valueOf(redCmd.getText()))/100.;
+    private void remplirPrixTotale()
+    {
+        if (!redCmd.getText().isEmpty())
+            sommeDesPrix *= (100 - Double.valueOf(redCmd.getText())) / 100.;
         prixTotale.setText(Double.toString(sommeDesPrix));
     }
 
     /**
      * remplir la liste des produits
+     *
      * @throws SQLException
      */
-    private void remplirLaListe() throws SQLException {
-        ConnectionClass connectionClass=new ConnectionClass();
-        Connection connection=connectionClass.getConnection();
-        String sql= "select produit.type ,titreProduit,tarifJounalier,dateFin from produit,concerne where produit.idProduit=concerne.idProduit and idCommande="+idCmd.getText();
-        ResultSet res=connection.createStatement().executeQuery(sql);
-        while(res.next())
-        {
+    private void remplirLaListe() throws SQLException
+    {
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection connection = connectionClass.getConnection();
+        String sql = "select produit.type ,titreProduit,tarifJounalier,dateFin from produit,concerne where produit.idProduit=concerne.idProduit and idCommande=" + idCmd.getText();
+        ResultSet res = connection.createStatement().executeQuery(sql);
+        while (res.next()) {
             obList.add(new ModelProduitsCommande(
                     res.getString("titreProduit"),
                     res.getFloat("tarifJounalier"),
                     res.getString("type"),
                     res.getString("dateFin")
-                      ));
-            sommeDesPrix+=res.getFloat("tarifJounalier");
+            ));
+            sommeDesPrix += res.getFloat("tarifJounalier");
         }
         remplirPrixTotale();
     }
