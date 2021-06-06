@@ -68,11 +68,19 @@ public class EcouteurProduitsCommande implements Initializable {
         table.setItems(obList);
     }
 
+    /**
+     * calculer le prix totale du commande actuelle et l'indiquer dans la label du prixTotale
+     */
     private void remplirPrixTotale() {
         if(!redCmd.getText().isEmpty())
          sommeDesPrix*=(100-Double.valueOf(redCmd.getText()))/100.;
         prixTotale.setText(Double.toString(sommeDesPrix));
     }
+
+    /**
+     * remplir la liste des produits
+     * @throws SQLException
+     */
     private void remplirLaListe() throws SQLException {
         ConnectionClass connectionClass=new ConnectionClass();
         Connection connection=connectionClass.getConnection();

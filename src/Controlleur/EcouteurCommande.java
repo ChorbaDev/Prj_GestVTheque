@@ -115,6 +115,10 @@ public class EcouteurCommande implements Initializable {
         }
     }
 
+    /**
+     * générer une facture d'une commande
+     * @throws IOException
+     */
     private void facture() throws IOException
     {
         String outputFileName = "Facture.pdf";

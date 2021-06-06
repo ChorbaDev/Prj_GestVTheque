@@ -62,7 +62,9 @@ public class EcouteurListeProduits implements Initializable {
     public EcouteurListeProduits() throws FileNotFoundException {
     }
 
-
+    /**
+     * @return verifier si les champs a remplir sont vident ou pas
+     */
     private boolean champsNonVide() {
         Boolean b1= (typeProduit.getSelectionModel().getSelectedIndex()!=-1) && (!stockProduit.getText().isEmpty()) && (!nomProduit.getText().isEmpty()) && (!tarifProduit.getText().isEmpty());
         try{
@@ -103,6 +105,13 @@ public class EcouteurListeProduits implements Initializable {
         }
        return b1;
     }
+
+    /**
+     * ajouter le produit creer a la bdd
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
     void ajouterProduit(ActionEvent event) throws SQLException, IOException {
         if(champsNonVide()){
@@ -163,8 +172,6 @@ public class EcouteurListeProduits implements Initializable {
         }
 
     }
-
-
 
 
     @FXML
@@ -451,6 +458,11 @@ public class EcouteurListeProduits implements Initializable {
         stage.show();
     }
 
+    /**
+     * Initialiser l'imageView avec l'image pasdispo.png
+     * @param event
+     * @throws FileNotFoundException
+     */
     @FXML
     void viderImage(ActionEvent event) throws FileNotFoundException {
         File file=new File("src/Images/pasdispo.png");
