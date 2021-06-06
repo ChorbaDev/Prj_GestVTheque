@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="src" path="/Prj_GestVTheque/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/corretto-1.8"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mysql-connector-java-5.1.38-bin"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jfoenix-8.0.10"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/lib"/>
-	<classpathentry kind="output" path="/bin"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/controlsfx-8.40.11"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fontbox-2.0.23"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/pdfbox-2.0.23"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/pdfbox-app-2.0.23"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/pdfbox-tools-2.0.23"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/preflight-2.0.23"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/preflight-app-2.0.23"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/xmpbox-2.0.23"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/com.github.dhorions:boxable:1.6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/github.dhorions.boxable"/>
+	<classpathentry kind="output" path="out/production/JavaFxApplication"/>
 </classpath>
