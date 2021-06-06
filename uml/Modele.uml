@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Modele</OriginalElement>
+  <nodes>
+    <node x="1149.5" y="1291.0">DAO.ProduitDAOImpl</node>
+    <node x="367.75" y="929.5">DAO.ClientDAO</node>
+    <node x="1378.875" y="261.0">Modele.Produit</node>
+    <node x="847.0" y="0.0">Modele.Personne</node>
+    <node x="1998.5" y="1390.0">Modele.Facture</node>
+    <node x="830.7757416081193" y="371.0">Modele.Auteur</node>
+    <node x="274.0" y="1445.0">DAO.ClientDAOImpl</node>
+    <node x="0.0" y="2698.0">Modele.Commande</node>
+    <node x="1148.7757416081195" y="2156.0">DAO.CommandeDAOImpl</node>
+    <node x="2201.166666666667" y="885.0">Modele.Date</node>
+    <node x="307.27574160811946" y="2266.0">DAO.TableauDAOImpl</node>
+    <node x="0.0" y="1643.5">DAO.TableauDAO</node>
+    <node x="1518.5" y="1588.5">DAO.CommandeDAO</node>
+    <node x="308.02574160811946" y="360.0">Modele.Client</node>
+    <node x="2519.5257416081195" y="371.0">Modele.Realisateur</node>
+    <node x="803.5" y="1522.0">DAO.AuteurDAOImpl</node>
+    <node x="720.75" y="973.5">DAO.AuteurDAO</node>
+    <node x="2425.166666666667" y="973.5">DAO.RealisateurDAO</node>
+    <node x="1051.75" y="852.5">DAO.ProduitDAO</node>
+    <node x="1867.5" y="852.0">Modele.ProduitPanier</node>
+    <node x="2518.416666666667" y="1533.0">DAO.RealisateurDAOImpl</node>
+    <node x="2915.416666666667" y="0.0">Modele.ModelProduitsCommande</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Modele.Facture" target="Modele.Date" relationship="TO_ONE">
+      <point x="152.33333333333348" y="-292.5" />
+      <point x="2379.3333333333335" y="1265.0" />
+      <point x="2354.166666666667" y="1265.0" />
+      <point x="51.0" y="160.5" />
+    </edge>
+    <edge source="DAO.CommandeDAOImpl" target="DAO.ProduitDAO" relationship="TO_ONE">
+      <point x="-46.85714285714289" y="-248.5" />
+      <point x="1265.9185987509763" y="2095.0" />
+      <point x="1139.0" y="2095.0" />
+      <point x="-87.25" y="193.0" />
+    </edge>
+    <edge source="Modele.Facture" target="Modele.ProduitPanier" relationship="DEPENDENCY">
+      <point x="-152.33333333333348" y="-292.5" />
+      <point x="2074.6666666666665" y="1265.0" />
+      <point x="1988.0" y="1265.0" />
+      <point x="0.0" y="193.5" />
+    </edge>
+    <edge source="DAO.TableauDAOImpl" target="DAO.ClientDAOImpl" relationship="TO_ONE">
+      <point x="-50.80000000000001" y="-138.5" />
+      <point x="383.4757416081195" y="2135.0" />
+      <point x="357.25" y="2135.0" />
+      <point x="-83.25" y="237.5" />
+    </edge>
+    <edge source="Modele.Auteur" target="Modele.Personne" relationship="GENERALIZATION">
+      <point x="0.0" y="-160.5" />
+      <point x="947.2757416081193" y="236.0" />
+      <point x="958.5" y="236.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="Modele.Realisateur" target="Modele.Personne" relationship="GENERALIZATION">
+      <point x="0.0" y="-160.5" />
+      <point x="2646.5257416081195" y="236.0" />
+      <point x="958.5" y="236.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="DAO.CommandeDAOImpl" target="DAO.ProduitDAOImpl" relationship="CREATE">
+      <point x="0.0" y="-248.5" />
+      <point x="1312.7757416081195" y="2125.0" />
+      <point x="1324.0" y="2125.0" />
+      <point x="0.0" y="391.5" />
+    </edge>
+    <edge source="DAO.CommandeDAOImpl" target="DAO.CommandeDAO" relationship="REALIZATION">
+      <point x="46.85714285714289" y="-248.5" />
+      <point x="1359.6328844652621" y="2115.0" />
+      <point x="1682.5" y="2115.0" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="DAO.TableauDAOImpl" target="DAO.TableauDAO" relationship="REALIZATION">
+      <point x="-101.60000000000002" y="-138.5" />
+      <point x="332.67574160811955" y="2135.0" />
+      <point x="127.0" y="2135.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="DAO.CommandeDAOImpl" target="DAO.ClientDAO" relationship="DEPENDENCY">
+      <point x="-93.71428571428578" y="-248.5" />
+      <point x="1219.0614558938337" y="2105.0" />
+      <point x="617.5" y="2105.0" />
+      <point x="83.25" y="116.0" />
+    </edge>
+    <edge source="DAO.ClientDAO" target="Modele.Client" relationship="DEPENDENCY">
+      <point x="0.0" y="-116.0" />
+      <point x="534.25" y="827.0" />
+      <point x="434.52574160811946" y="827.0" />
+      <point x="0.0" y="171.5" />
+    </edge>
+    <edge source="DAO.ProduitDAO" target="Modele.Produit" relationship="DEPENDENCY">
+      <point x="0.0" y="-193.0" />
+      <point x="1226.25" y="827.0" />
+      <point x="1505.875" y="827.0" />
+      <point x="0.0" y="270.5" />
+    </edge>
+    <edge source="DAO.RealisateurDAOImpl" target="DAO.RealisateurDAO" relationship="REALIZATION">
+      <point x="-88.0" y="-149.5" />
+      <point x="2606.416666666667" y="1265.0" />
+      <point x="2601.166666666667" y="1265.0" />
+      <point x="0.0" y="72.0" />
+    </edge>
+    <edge source="DAO.TableauDAOImpl" target="DAO.ProduitDAO" relationship="TO_ONE">
+      <point x="50.799999999999955" y="-138.5" />
+      <point x="485.0757416081194" y="2115.0" />
+      <point x="1139.0" y="2115.0" />
+      <point x="-87.25" y="193.0" />
+    </edge>
+    <edge source="DAO.AuteurDAOImpl" target="DAO.AuteurDAO" relationship="REALIZATION">
+      <point x="-77.5" y="-160.5" />
+      <point x="881.0" y="1265.0" />
+      <point x="875.75" y="1265.0" />
+      <point x="0.0" y="72.0" />
+    </edge>
+    <edge source="DAO.ClientDAOImpl" target="DAO.ClientDAO" relationship="REALIZATION">
+      <point x="83.25" y="-237.5" />
+      <point x="523.75" y="1265.0" />
+      <point x="451.0" y="1265.0" />
+      <point x="-83.25" y="116.0" />
+    </edge>
+    <edge source="DAO.AuteurDAOImpl" target="Modele.Auteur" relationship="CREATE">
+      <point x="77.5" y="-160.5" />
+      <point x="1036.0" y="1265.0" />
+      <point x="1041.25" y="1265.0" />
+      <point x="1041.25" y="827.0" />
+      <point x="947.2757416081193" y="827.0" />
+      <point x="0.0" y="160.5" />
+    </edge>
+    <edge source="DAO.CommandeDAO" target="Modele.ProduitPanier" relationship="DEPENDENCY">
+      <point x="82.0" y="-94.0" />
+      <point x="1764.5" y="1265.0" />
+      <point x="1988.0" y="1265.0" />
+      <point x="0.0" y="193.5" />
+    </edge>
+    <edge source="DAO.CommandeDAOImpl" target="Modele.ProduitPanier" relationship="DEPENDENCY">
+      <point x="140.57142857142844" y="-248.5" />
+      <point x="1453.347170179548" y="2135.0" />
+      <point x="1988.0" y="2135.0" />
+      <point x="0.0" y="193.5" />
+    </edge>
+    <edge source="DAO.RealisateurDAOImpl" target="Modele.Realisateur" relationship="CREATE">
+      <point x="88.0" y="-149.5" />
+      <point x="2782.416666666667" y="1265.0" />
+      <point x="2787.666666666667" y="1265.0" />
+      <point x="2787.666666666667" y="827.0" />
+      <point x="2646.5257416081195" y="827.0" />
+      <point x="0.0" y="160.5" />
+    </edge>
+    <edge source="Modele.Facture" target="Modele.Date" relationship="CREATE">
+      <point x="0.0" y="-292.5" />
+      <point x="2227.0" y="1265.0" />
+      <point x="2252.166666666667" y="1265.0" />
+      <point x="-51.0" y="160.5" />
+    </edge>
+    <edge source="DAO.TableauDAOImpl" target="DAO.ProduitDAOImpl" relationship="CREATE">
+      <point x="101.60000000000002" y="-138.5" />
+      <point x="535.8757416081195" y="2125.0" />
+      <point x="1324.0" y="2125.0" />
+      <point x="0.0" y="391.5" />
+    </edge>
+    <edge source="DAO.CommandeDAOImpl" target="Modele.Produit" relationship="CREATE">
+      <point x="93.71428571428578" y="-248.5" />
+      <point x="1406.4900273224052" y="2125.0" />
+      <point x="1857.0" y="2125.0" />
+      <point x="1857.0" y="827.0" />
+      <point x="1505.875" y="827.0" />
+      <point x="0.0" y="270.5" />
+    </edge>
+    <edge source="DAO.RealisateurDAO" target="Modele.Realisateur" relationship="DEPENDENCY">
+      <point x="0.0" y="-72.0" />
+      <point x="2601.166666666667" y="827.0" />
+      <point x="2646.5257416081195" y="827.0" />
+      <point x="0.0" y="160.5" />
+    </edge>
+    <edge source="DAO.AuteurDAO" target="Modele.Auteur" relationship="DEPENDENCY">
+      <point x="0.0" y="-72.0" />
+      <point x="875.75" y="827.0" />
+      <point x="947.2757416081193" y="827.0" />
+      <point x="0.0" y="160.5" />
+    </edge>
+    <edge source="DAO.ProduitDAOImpl" target="DAO.ProduitDAO" relationship="REALIZATION">
+      <point x="-87.25" y="-391.5" />
+      <point x="1236.75" y="1265.0" />
+      <point x="1313.5" y="1265.0" />
+      <point x="87.25" y="193.0" />
+    </edge>
+    <edge source="Modele.Client" target="Modele.Personne" relationship="GENERALIZATION">
+      <point x="0.0" y="-171.5" />
+      <point x="434.52574160811946" y="236.0" />
+      <point x="958.5" y="236.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="DAO.ClientDAOImpl" target="Modele.Client" relationship="CREATE">
+      <point x="-83.25" y="-237.5" />
+      <point x="357.25" y="827.0" />
+      <point x="434.52574160811946" y="827.0" />
+      <point x="0.0" y="171.5" />
+    </edge>
+    <edge source="DAO.ProduitDAOImpl" target="Modele.Produit" relationship="CREATE">
+      <point x="87.25" y="-391.5" />
+      <point x="1411.25" y="827.0" />
+      <point x="1505.875" y="827.0" />
+      <point x="0.0" y="270.5" />
+    </edge>
+    <edge source="DAO.CommandeDAO" target="Modele.Produit" relationship="DEPENDENCY">
+      <point x="-82.0" y="-94.0" />
+      <point x="1600.5" y="827.0" />
+      <point x="1505.875" y="827.0" />
+      <point x="0.0" y="270.5" />
+    </edge>
+    <edge source="DAO.TableauDAOImpl" target="DAO.ClientDAOImpl" relationship="CREATE">
+      <point x="0.0" y="-138.5" />
+      <point x="434.27574160811946" y="2135.0" />
+      <point x="445.93774395003936" y="2135.0" />
+      <point x="445.93774395003936" y="2105.0" />
+      <point x="523.75" y="2105.0" />
+      <point x="83.25" y="237.5" />
+    </edge>
+    <edge source="DAO.CommandeDAOImpl" target="DAO.ClientDAOImpl" relationship="CREATE">
+      <point x="-140.57142857142844" y="-248.5" />
+      <point x="1172.204313036691" y="2135.0" />
+      <point x="445.93774395003936" y="2135.0" />
+      <point x="445.93774395003936" y="2105.0" />
+      <point x="523.75" y="2105.0" />
+      <point x="83.25" y="237.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.23811107416029265" showDependencies="true" x="1495.0" y="1483.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
