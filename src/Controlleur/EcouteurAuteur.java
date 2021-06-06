@@ -102,7 +102,7 @@ public class EcouteurAuteur implements Initializable {
     }
 
     /**
-     * nettoyage du scene
+     * nettoyage de la scene
      *
      * @throws SQLException
      */
@@ -124,7 +124,7 @@ public class EcouteurAuteur implements Initializable {
     }
 
     /**
-     * vider les champs du text
+     * vider les champs du texte
      */
     private void viderChamps()
     {
@@ -142,7 +142,7 @@ public class EcouteurAuteur implements Initializable {
     }
 
     /**
-     * ajouter l'auteur a la bdd et dans la lisView aussi
+     * ajouter l'auteur à la bdd et dans la listView aussi
      *
      * @throws SQLException
      */
@@ -156,18 +156,18 @@ public class EcouteurAuteur implements Initializable {
         } else if (validationDesChamps()) {
             auteurDao.insertAuteur(auteur);
             notifBuilder("Opération réussie",
-                    "Votre opération d'ajouter l'auteur " + edtNomAuteur.getText() + " est éffectué avec succès.",
+                    "Votre opération pour ajouter l'auteur " + edtNomAuteur.getText() + " a été éffectué avec succès.",
                     "/Images/checked.png");
             nettoyageScene();
         } else {
             notifBuilder("Attention",
-                    "il faut remplir tout les champs.",
+                    "il faut remplir tous les champs.",
                     "/Images/warning.png");
         }
     }
 
     /**
-     * @return vrai si tout les champs sont remplis sinon faux
+     * @return vrai si tous les champs sont remplis sinon faux
      */
     private boolean validationDesChamps()
     {
@@ -175,7 +175,7 @@ public class EcouteurAuteur implements Initializable {
     }
 
     /**
-     * remplir les champs avec les infos d'auteur selectionner sinon rien faire
+     * remplir les champs avec les infos de l'auteur selectionné sinon rien faire
      *
      * @throws SQLException
      * @throws IOException
@@ -192,7 +192,7 @@ public class EcouteurAuteur implements Initializable {
     }
 
     /**
-     * modifier l'auteur selectionner en utilisant les champs du textes remplis
+     * modifier l'auteur selectionné en utilisant les champs du texte remplis
      *
      * @throws SQLException
      */
@@ -204,7 +204,7 @@ public class EcouteurAuteur implements Initializable {
             if (!auteur.equals(auteurSelectionner) && validationDesChamps()) {
                 auteurDao.updateAuteur(auteurSelectionner);
                 notifBuilder("Opération réussie",
-                        "Votre opération de modifier l'auteur' " + auteur.getNom() + " a réussie.",
+                        "Votre opération pour modifier l'auteur' " + auteur.getNom() + " a réussie.",
                         "/Images/checked.png");
                 nettoyageScene();
             }
@@ -217,7 +217,7 @@ public class EcouteurAuteur implements Initializable {
     }
 
     /**
-     * constructions de la notification a affichier
+     * constructions de la notification à afficher
      *
      * @param titre
      * @param texte

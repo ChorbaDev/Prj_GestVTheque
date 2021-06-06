@@ -106,12 +106,12 @@ public class EcouteurCommandesClient implements Initializable {
             String sql = "DELETE FROM commande where idCmd=" + cmdSupprimer.getIdCommande();
             Statement statement = connection.createStatement();
             statement.execute(sql);
-            notifBuilder("Opération réussie",
-                    "Votre opération de suppression de la commande numero " + idCmd.getText() + " est éffectué avec succès.",
+            notifBuilder("Opération réussie !",
+                    "Votre opération pour supprimer la commande numero " + idCmd.getText() + " a été éffectué avec succès.",
                     "/Images/checked.png");
         } else {
             notifBuilder("Attention",
-                    "Il faut sélectionner une commande pour pouvoir le supprimer.",
+                    "Il faut sélectionner une commande pour pouvoir la supprimer.",
                     "/Images/warning.png");
         }
         viderListe();

@@ -121,18 +121,18 @@ public class EcouteurRealisateur implements Initializable {
     {
         Realisateur realisateur = new Realisateur(edtNomRealisateur.getText().trim(), edtPrenomRealisateur.getText().trim(), mmoResumeRealisateur.getText().trim());
         if (realisateurDAO.existenceRealisateur(realisateur)) {
-            notifBuilder("Attention",
-                    "le réalisateur " + edtNomRealisateur.getText() + " existe déjà dans la base de données.",
+            notifBuilder("Attention !",
+                    "Le réalisateur " + edtNomRealisateur.getText() + " existe déjà dans la base de données.",
                     "/Images/warning.png");
         } else if (validationDesChamps()) {
             realisateurDAO.insertRealisateur(realisateur);
-            notifBuilder("Opération réussie",
+            notifBuilder("Opération réussie !",
                     "Votre opération d'ajouter le réalisateur " + edtNomRealisateur.getText() + " est éffectué avec succès.",
                     "/Images/checked.png");
             nettoyageScene();
         } else {
-            notifBuilder("Attention",
-                    "il faut remplir tout les champs.",
+            notifBuilder("Attention !",
+                    "il faut remplir tous les champs.",
                     "/Images/warning.png");
         }
 
@@ -161,13 +161,13 @@ public class EcouteurRealisateur implements Initializable {
             Realisateur realisateurSelectionner = new Realisateur(realisateur.getIdRealisateur(), edtNomRealisateur.getText(), edtPrenomRealisateur.getText(), mmoResumeRealisateur.getText());
             if (!realisateur.equals(realisateurSelectionner) && validationDesChamps()) {
                 realisateurDAO.updateRealisateur(realisateurSelectionner);
-                notifBuilder("Opération réussie",
-                        "Votre opération de modifier le réalisateur' " + realisateur.getNom() + " a réussie.",
+                notifBuilder("Opération réussie !",
+                        "Votre opération de modification du réalisateur' " + realisateur.getNom() + " a réussie.",
                         "/Images/checked.png");
                 nettoyageScene();
             }
         } else {
-            notifBuilder("Attention",
+            notifBuilder("Attention !",
                     "Il faut sélectionner un client pour pouvoir le modifier.",
                     "/Images/warning.png");
         }

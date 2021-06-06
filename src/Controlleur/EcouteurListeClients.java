@@ -34,14 +34,14 @@ import java.util.ResourceBundle;
 public class EcouteurListeClients implements Initializable {
     ObservableList<Client> obList = FXCollections.observableArrayList();
     /**
-     * Les Attributs necessaire pour pouvoir basculer a des autres scenes
+     * Les Attributs necessaires pour pouvoir basculer vers des autres scenes
      */
     private Parent root;
     private Stage stage;
     private Scene scene;
     private String path;
     /**
-     * Des Attributs concerne la liste (Table view)
+     * Des Attributs concernant la liste (Table view)
      */
     @FXML
     private TableView<Client> table;
@@ -56,7 +56,7 @@ public class EcouteurListeClients implements Initializable {
     @FXML
     private TableColumn<Client, Boolean> colFidele;
     /**
-     * Des Attributs concerne la scene
+     * Des Attributs concernant la scene
      */
     @FXML
     private JFXTextField nom;
@@ -69,7 +69,7 @@ public class EcouteurListeClients implements Initializable {
     @FXML
     private ImageView image;
     /**
-     * Des Attributs utiliser au cours de traitement des donnees
+     * Des Attributs utilisés au cours de traitement des donnees
      */
     private FileInputStream fis = new FileInputStream(new File("src/Images/Photo-non-disponible.jpg"));
     private Boolean uneImageEstSelectionner = false;
@@ -88,9 +88,9 @@ public class EcouteurListeClients implements Initializable {
     }
 
     /**
-     * Nettoyage du scene :
+     * Nettoyage de la scene :
      * vider les champs
-     * vides la liste
+     * vider la liste
      * remplir la liste de nouveau
      */
     private void nettoyageScene() throws SQLException
@@ -106,36 +106,36 @@ public class EcouteurListeClients implements Initializable {
     }
 
     /**
-     * Permet d'acceder a la base de donnees et supprimer le client concerner
-     * afficher l'ensemble des clients sur la liste apres la suppression du client
+     * Permet d'accéder à la base de donnees et supprimer le client concerné
+     * afficher l'ensemble des clients sur la liste après la suppression du client
      */
     public void supprimerClient() throws SQLException
     {
         if (!table.getSelectionModel().isEmpty()) {
             Client clientSupprmier = table.getSelectionModel().getSelectedItem();
             clientDAO.supprimerClient(clientSupprmier);
-            notifBuilder("Opération réussie",
-                    "Votre opération de suppression du " + nom.getText() + " est éffectué avec succès.",
+            notifBuilder("Opération réussie !",
+                    "Votre opération de suppression du client " + nom.getText() + " a été éffectué avec succès.",
                     "/Images/checked.png");
             nettoyageScene();
         } else {
-            notifBuilder("Attention",
+            notifBuilder("Attention !",
                     "Il faut sélectionner un client pour pouvoir le supprimer.",
                     "/Images/warning.png");
         }
     }
 
     /**
-     * Permet d'acceder a la base de donnees et ajouter le client concerner
-     * afficher l'ensemble des clients sur la liste apres l'addition' du client
+     * Permet d'accéder a la base de données et ajouter le client concerné
+     * afficher l'ensemble des clients sur la liste après l'ajout du client
      */
     public void ajoutClient() throws SQLException, IOException
     {
         Client client = new Client(nom.getText().trim(), prenom.getText().trim(), mail.getText().trim(), fidele.isSelected());
         PreparedStatement statement = clientDAO.insertClient(client);
         if (clientDAO.existenceClient(client)) {
-            notifBuilder("Attention",
-                    "le mail " + mail.getText() + " déja existe dans la base de données.",
+            notifBuilder("Attention !",
+                    "le mail " + mail.getText() + " existe  déja dans la base de données.",
                     "/Images/warning.png");
         } else if (validationDesChamps()) {
             if (fis.available() <= 32)
@@ -144,19 +144,19 @@ public class EcouteurListeClients implements Initializable {
             uneImageEstSelectionner = false;
             statement.executeUpdate();
             statement.close();
-            notifBuilder("Opération réussie",
-                    "Votre opération d'ajouter le client " + nom.getText() + " est éffectué avec succès.",
+            notifBuilder("Opération réussie !",
+                    "Votre opération d'ajout du client " + nom.getText() + " a été éffectué avec succès.",
                     "/Images/checked.png");
             nettoyageScene();
         } else {
-            notifBuilder("Attention",
-                    "il faut remplir tout les champs.",
+            notifBuilder("Attention !",
+                    "Il faut remplir tous les champs.",
                     "/Images/warning.png");
         }
     }
 
     /**
-     * Verifier si les champs a remplir sont remplis ou non
+     * Verifier si les champs à remplir sont remplis ou non
      */
     private boolean validationDesChamps()
     {
@@ -190,7 +190,7 @@ public class EcouteurListeClients implements Initializable {
     }
 
     /**
-     * Modifier les informations du client selectionner dans la liste avec les champs remplis
+     * Modifier les informations du client selectionné dans la liste avec les champs remplis
      */
     public void modifierClient() throws SQLException, IOException
     {
@@ -238,7 +238,7 @@ public class EcouteurListeClients implements Initializable {
     }
 
     /**
-     * s'il y a un client selectionner, cette methode permet de transfere les donnees aux champs
+     * s'il y a un client selectionné, cette methode permet de transferer les données aux champs
      */
     public void selectionClient() throws SQLException, IOException
     {
@@ -256,7 +256,7 @@ public class EcouteurListeClients implements Initializable {
     }
 
     /**
-     * @param cl client selectionner
+     * @param cl client selectionné
      * @return l'image du client en parametre
      */
     private Image imageClient(Client cl) throws SQLException, IOException
@@ -298,7 +298,7 @@ public class EcouteurListeClients implements Initializable {
     }
 
     /**
-     * retourner au scene bienvenue
+     * retourner à la scene bienvenue
      */
     public void retour(ActionEvent e) throws IOException
     {
@@ -308,7 +308,7 @@ public class EcouteurListeClients implements Initializable {
     }
 
     /**
-     * basculer a la scene de l'ensemble de commandes par client avec un transfer de donnees
+     * basculer vers la scene de l'ensemble des commandes par client avec un transfer de données
      */
     public void ensembleDesCommandes(ActionEvent e) throws IOException, SQLException
     {
@@ -331,7 +331,7 @@ public class EcouteurListeClients implements Initializable {
             root = loader.getRoot();
             basculeScene(e);
         } else {
-            notifBuilder("Attention",
+            notifBuilder("Attention !",
                     "Il faut sélectionner un client pour pouvoir afficher ses commandes.",
                     "/Images/warning.png");
         }

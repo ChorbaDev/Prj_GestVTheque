@@ -81,7 +81,7 @@ public class EcouteurProduitsCommande implements Initializable {
     }
 
     /**
-     * calculer le prix totale du commande actuelle et l'indiquer dans la label du prixTotale
+     * calculer le prix total de la commande actuelle et l'indiquer dans la label du prixTotale
      */
     private void remplirPrixTotale()
     {

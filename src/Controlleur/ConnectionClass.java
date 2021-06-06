@@ -8,7 +8,7 @@ public class ConnectionClass {
     public Connection connection;
 
     /**
-     * @return Fait la conncetion a la bdd
+     * @return Fait la connection à la bdd
      * @throws SQLException
      */
     public Connection getConnection() throws SQLException

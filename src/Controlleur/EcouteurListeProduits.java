@@ -90,7 +90,7 @@ public class EcouteurListeProduits implements Initializable {
     }
 
     /**
-     * @return verifier si les champs a remplir sont vident ou pas
+     * @return verifier si les champs à remplir sont videss ou pas
      */
     private boolean champsNonVide()
     {
@@ -99,7 +99,7 @@ public class EcouteurListeProduits implements Initializable {
             int i = Integer.parseInt(stockProduit.getText());
             Double j = Double.parseDouble(tarifProduit.getText());
         } catch (Exception e) {
-            notifBuilder("Attention",
+            notifBuilder("Attention !",
                     "Vérifier les champs de tarif et stock.",
                     "/Images/warning.png");
             return false;
@@ -114,7 +114,7 @@ public class EcouteurListeProduits implements Initializable {
             try {
                 int i = Integer.valueOf(nbPagesDocument.getText());
             } catch (Exception e) {
-                notifBuilder("Attention",
+                notifBuilder("Attention !",
                         "Vérifier le champ de nombre de pages.",
                         "/Images/warning.png");
                 return false;
@@ -125,7 +125,7 @@ public class EcouteurListeProduits implements Initializable {
             try {
                 int j = Integer.valueOf(dureeSupportN.getText());
             } catch (Exception e) {
-                notifBuilder("Attention",
+                notifBuilder("Attention !",
                         "Vérifier le champs de la duree.",
                         "/Images/warning.png");
                 return false;
@@ -135,7 +135,7 @@ public class EcouteurListeProduits implements Initializable {
     }
 
     /**
-     * ajouter le produit creer a la bdd
+     * ajouter le produit crée à la bdd
      *
      * @param event
      * @throws SQLException
@@ -189,14 +189,14 @@ public class EcouteurListeProduits implements Initializable {
             uneImageEstSelectionner = false;
             statement.executeUpdate();
             statement.close();
-            notifBuilder("Opération réussie",
-                    "Votre opération d'ajouter le produit " + nomProduit.getText() + " a réussie.",
+            notifBuilder("Opération réussie !",
+                    "Votre opération d'ajout du produit " + nomProduit.getText() + " a réussie.",
                     "/Images/checked.png");
             nettoyageScene();
             partieInvisible();
         } else {
-            notifBuilder("Attention",
-                    "Pour pouvoir ajouter un produit, il faut remplir tout les champs.",
+            notifBuilder("Attention !",
+                    "Pour pouvoir ajouter un produit, il faut remplir tous les champs.",
                     "/Images/warning.png");
         }
 
@@ -302,12 +302,12 @@ public class EcouteurListeProduits implements Initializable {
         if (!table.getSelectionModel().isEmpty()) {
             Produit produitSupprimer = table.getSelectionModel().getSelectedItem();
             produitDao.supprimerProduit(produitSupprimer);
-            notifBuilder("Opération réussie",
-                    "Votre opération de suppression du " + nomProduit.getText() + " est éffectué avec succès.",
+            notifBuilder("Opération réussie !",
+                    "Votre opération de suppression du produit " + nomProduit.getText() + " a été éffectué avec succès.",
                     "/Images/checked.png");
             nettoyageScene();
         } else {
-            notifBuilder("Attention",
+            notifBuilder("Attention !",
                     "Il faut sélectionner un produit pour pouvoir le supprimer.",
                     "/Images/warning.png");
         }
@@ -476,18 +476,18 @@ public class EcouteurListeProduits implements Initializable {
                 Produit prod = table.getSelectionModel().getSelectedItem();
                 Produit produitSelectionner = new Produit(prod.getIdProduit(), nomProduit.getText(), Integer.valueOf(stockProduit.getText()), Double.valueOf(tarifProduit.getText()), typeProduit.getSelectionModel().getSelectedItem());
                 modifierProduitSelectionner(produitSelectionner);
-                notifBuilder("Opération réussie",
-                        "Votre opération de modifier le produit " + prod.getTitreProduit() + " a réussie.",
+                notifBuilder("Opération réussie !",
+                        "Votre opération de modification du produit " + prod.getTitreProduit() + " a réussie.",
                         "/Images/checked.png");
                 partieInvisible();
             } else {
-                notifBuilder("Attention",
+                notifBuilder("Attention !",
                         "Vérifier vos champs.",
                         "/Images/warning.png");
             }
 
         } else {
-            notifBuilder("Attention",
+            notifBuilder("Attention !",
                     "Il faut sélectionner un produit pour pouvoir le modifier.",
                     "/Images/warning.png");
         }

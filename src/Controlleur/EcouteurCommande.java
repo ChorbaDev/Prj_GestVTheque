@@ -128,8 +128,8 @@ public class EcouteurCommande implements Initializable {
         commandeDAO.insertCommande(idClient);
         commandeDAO.insertConcerne(listePanier);
         commandeDAO.modifierStock(listePanier);
-        notifBuilder("Opération réussie",
-                "cette commande est éffectué avec succès.",
+        notifBuilder("Opération réussie !",
+                "Cette commande a été éffectué avec succès.",
                 "/Images/checked.png");
         viderRemplirListeProduits();
         ajoutInfoPanier.setDisable(true);
@@ -153,7 +153,7 @@ public class EcouteurCommande implements Initializable {
     }
 
     /**
-     * modification du produit selectionner dans panier
+     * modification du produit selectionné dans le panier
      */
     public void modifierPanier()
     {
@@ -222,7 +222,7 @@ public class EcouteurCommande implements Initializable {
     }
 
     /**
-     * retirer le produit selectionner dans le panier de la liste on calculant le prix totale de nouveau
+     * retirer le produit selectionné dans le panier de la liste en calculant le prix total de nouveau
      *
      * @param event
      */
@@ -241,7 +241,7 @@ public class EcouteurCommande implements Initializable {
     }
 
     /**
-     * ajouter un produit selectionner sur la liste du panier
+     * ajouter un produit selectionné sur la liste au panier
      */
     public void ajoutAuPanier()
     {
@@ -263,8 +263,8 @@ public class EcouteurCommande implements Initializable {
                 listePanier.add(pp);
                 tablePanier.getItems().add(pp);
             } else {
-                notifBuilder("Attention",
-                        "Il faut saisir une quantite valide.",
+                notifBuilder("Attention !",
+                        "Il faut saisir une quantité valide.",
                         "/Images/warning.png");
             }
         }
@@ -294,8 +294,8 @@ public class EcouteurCommande implements Initializable {
                     listePanier.get(i).setQuantite(qt + sp);
                     listePanier.get(i).setPrixTotal((qt + sp) * tarifProduit);
                 } else {
-                    notifBuilder("Attention",
-                            "Il faut saisir une quantite valide.",
+                    notifBuilder("Attention !",
+                            "Il faut saisir une quantité valide.",
                             "/Images/warning.png");
                 }
             }
